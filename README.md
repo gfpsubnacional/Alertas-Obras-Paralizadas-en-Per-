@@ -7,6 +7,7 @@ Dashboard web para identificar y monitorear obras publicas paralizadas en el Per
 - `index.html`: dashboard principal.
 - `assets/`: logos institucionales y archivo de datos para el mapa.
 - `ALERTAS-OP-MAY26.xlsx`: base de datos descargable.
+- `op_metodologia.pdf`: documento metodologico descargable.
 - `Informe OP Mayo 2026.pdf`: documento de trabajo descargable.
 
 ## Funcionalidades
@@ -16,7 +17,7 @@ Dashboard web para identificar y monitorear obras publicas paralizadas en el Per
 - Indicadores clave que se actualizan segun filtros activos.
 - Popups con datos generales, enlaces INFOBRAS, Invierte.pe y SSI.
 - Priorizacion de las 50 obras con mayor costo actualizado de inversion.
-- Seccion Descargables con base de datos y documento de trabajo.
+- Seccion Descargables con base de datos, metodologia y documento de trabajo.
 
 ## Uso
 
