@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alertas de Obras Públicas Paralizadas</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <style>
     :root {
       --gfp-red: #d21e25;
@@ -217,10 +215,6 @@
     select,
     input[type="search"] {
       width: 100%;
-    }
-
-    select,
-    input[type="search"] {
       min-height: 38px;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
@@ -375,8 +369,6 @@
 
     .map-wrap {
       min-height: 610px;
-      display: block;
-      align-items: stretch;
     }
 
     .peru-map {
@@ -472,27 +464,21 @@
 
     .cost-marker {
       display: block;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      box-shadow: 0 0 0 1px rgba(21, 44, 83, 0.16), 0 3px 8px rgba(0,0,0,0.20);
+    }
+
+    .peru-map.zoomed-in .cost-marker {
       width: 18px;
       height: 18px;
+      box-shadow: 0 0 0 3px rgba(21, 44, 83, 0.16), 0 6px 14px rgba(0,0,0,0.24);
+    }
+
+    .peru-map.zoomed-border .cost-marker {
       border: 3px solid #fff;
-      border-radius: 999px;
-      box-shadow: 0 0 0 5px rgba(21, 44, 83, 0.18), 0 8px 18px rgba(0,0,0,0.28);
-    }
-
-    .marker-cluster-small,
-    .marker-cluster-medium,
-    .marker-cluster-large {
-      background: rgba(21, 44, 83, 0.18);
-    }
-
-    .marker-cluster-small div,
-    .marker-cluster-medium div,
-    .marker-cluster-large div {
-      color: #fff;
-      background: var(--gfp-accent);
-      border: 2px solid #fff;
-      box-shadow: 0 8px 22px rgba(21, 44, 83, 0.28);
-      font-weight: 900;
+      box-shadow: 0 0 0 4px rgba(21, 44, 83, 0.16), 0 7px 16px rgba(0,0,0,0.26);
     }
 
     .cost-marker.rango-50-plus { background: #b91c1c; }
@@ -755,12 +741,6 @@
       font-size: 1.08rem;
     }
 
-    .month-folder-head span {
-      color: var(--muted);
-      font-size: 0.84rem;
-      font-weight: 800;
-    }
-
     .downloads {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -785,19 +765,6 @@
       min-height: 45px;
     }
 
-    .report-period {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      margin-bottom: 10px;
-      padding: 4px 9px;
-      border-radius: 6px;
-      color: var(--gfp-blue);
-      background: #eef4ff;
-      font-size: 0.82rem;
-      font-weight: 900;
-    }
-
     .footer-simple {
       margin-top: 22px;
       padding: 20px;
@@ -809,8 +776,7 @@
     }
 
     @media (max-width: 1180px) {
-      .dashboard-grid,
-      .map-wrap {
+      .dashboard-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1226,7 +1192,6 @@
   </section>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="assets/obras-data.js?v=20260612-alertas-op-may26"></script>
   <script>
     const tabs = document.querySelectorAll(".nav-tabs button");
@@ -1254,11 +1219,8 @@
       obras: document.getElementById("kpi-obras"),
       obrasSub: document.getElementById("kpi-obras-sub"),
       inversion: document.getElementById("kpi-inversion"),
-      inversionSub: document.getElementById("kpi-inversion-sub"),
       saldo: document.getElementById("kpi-saldo"),
-      saldoSub: document.getElementById("kpi-saldo-sub"),
       personas: document.getElementById("kpi-personas"),
-      personasSub: document.getElementById("kpi-personas-sub"),
       regionales: document.getElementById("kpi-regionales"),
       regionalesSub: document.getElementById("kpi-regionales-sub")
     };
@@ -1346,20 +1308,12 @@
       return L.divIcon({
         className: "",
         html: `<span class="cost-marker ${getCostClass(cost)}"></span>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12]
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
       });
     }
 
-    const clusteredMarkerLayer = L.markerClusterGroup
-      ? L.markerClusterGroup({
-          showCoverageOnHover: false,
-          spiderfyOnMaxZoom: true,
-          maxClusterRadius: 52,
-          chunkedLoading: true
-        })
-      : L.layerGroup();
-    clusteredMarkerLayer.addTo(leafletMap);
+    const markerLayer = L.layerGroup().addTo(leafletMap);
 
     const markersByWork = Object.entries(workData).reduce((acc, [key, work]) => {
       const marker = L.marker(work.latlng, { icon: makeMarkerIcon(work.cost), title: work.title });
@@ -1369,17 +1323,26 @@
     }, {});
 
     function syncMarkerLayer(visibleWorkKeys) {
-      clusteredMarkerLayer.clearLayers();
+      markerLayer.clearLayers();
       visibleWorkKeys.forEach((key) => {
-        clusteredMarkerLayer.addLayer(markersByWork[key]);
+        markerLayer.addLayer(markersByWork[key]);
       });
-      if (!leafletMap.hasLayer(clusteredMarkerLayer)) clusteredMarkerLayer.addTo(leafletMap);
+      if (!leafletMap.hasLayer(markerLayer)) markerLayer.addTo(leafletMap);
     }
 
     const initialMapBounds = L.latLngBounds(Object.values(workData).map((work) => work.latlng));
     leafletMap.fitBounds(initialMapBounds, { padding: [36, 36] });
     const initialMapZoom = leafletMap.getZoom();
     leafletMap.setMinZoom(initialMapZoom);
+
+    function updateMarkerZoomSize() {
+      const zoomDelta = leafletMap.getZoom() - initialMapZoom;
+      peruMap.classList.toggle("zoomed-in", zoomDelta > 0);
+      peruMap.classList.toggle("zoomed-border", zoomDelta >= 3);
+    }
+
+    updateMarkerZoomSize();
+    leafletMap.on("zoomend", updateMarkerZoomSize);
 
     tabs.forEach((tab) => {
       tab.addEventListener("click", () => {
@@ -1458,14 +1421,17 @@
 
     function adjustedPopulation(visibleWorks) {
       const districts = new Map();
+      let validValues = 0;
       visibleWorks.forEach((work) => {
         const value = Number(work.people);
         if (!Number.isFinite(value) || value <= 0) return;
         if (value > 1000000) return;
+        validValues += 1;
         const key = districtKey(work);
         const current = districts.get(key);
         if (!current || value > current) districts.set(key, value);
       });
+      if (validValues === 0) return null;
       return Array.from(districts.values()).reduce((sum, value) => sum + value, 0);
     }
 
@@ -1523,9 +1489,6 @@
     function updateKpis(visibleWorks) {
       const investment = visibleWorks.reduce((sum, work) => sum + work.cost, 0);
       const saldo = visibleWorks.reduce((sum, work) => sum + work.saldo, 0);
-      const peopleValues = visibleWorks
-        .map((work) => Number(work.people))
-        .filter((value) => Number.isFinite(value) && value > 0 && value <= 1000000);
       const people = adjustedPopulation(visibleWorks);
       const regionalGov = visibleWorks.filter((work) => work.nivel === "Gobierno regional").length;
       const localGov = visibleWorks.filter((work) => work.nivel === "Gobierno local").length;
@@ -1535,11 +1498,8 @@
       kpiEls.obras.textContent = visibleWorks.length.toLocaleString("es-PE");
       kpiEls.obrasSub.textContent = scoped;
       kpiEls.inversion.textContent = formatMoneyMillions(investment);
-      kpiEls.inversionSub.textContent = "costo actualizado de inversión";
       kpiEls.saldo.textContent = formatMoneyMillions(saldo);
-      kpiEls.saldoSub.textContent = "saldo por ejecutar";
-      kpiEls.personas.textContent = peopleValues.length > 0 ? formatPeople(people) : "N/D";
-      kpiEls.personasSub.textContent = "(Aproximación por distrito) | Fuente: SSI";
+      kpiEls.personas.textContent = people === null ? "N/D" : formatPeople(people);
       kpiEls.regionales.textContent = regional.toLocaleString("es-PE");
       kpiEls.regionalesSub.textContent = `${scoped} | GR: ${regionalGov.toLocaleString("es-PE")} | GL: ${localGov.toLocaleString("es-PE")}`;
     }
