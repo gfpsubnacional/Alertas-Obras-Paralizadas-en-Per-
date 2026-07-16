@@ -35,12 +35,12 @@
     }
 
     .navbar {
-      min-height: 88px;
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      padding: 12px 20px 10px;
+      gap: 20px;
+      padding: 12px 24px 10px;
       background: var(--white);
       border-bottom: 1px solid var(--line);
       position: sticky;
@@ -52,8 +52,7 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      flex: 1;
-      min-width: 0;
+      min-width: 420px;
       color: var(--gfp-blue);
       font-weight: 800;
       font-size: 1.05rem;
@@ -62,7 +61,7 @@
     .brand-logos {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 14px;
       flex-wrap: nowrap;
       white-space: nowrap;
     }
@@ -74,15 +73,13 @@
 
     .brand-logo {
       display: block;
-      width: auto;
-      height: auto;
-      max-width: none;
+      max-width: 100%;
       object-fit: contain;
     }
 
-    .brand-logo.gfp { width: 83px; }
-    .brand-logo.seco { width: 156px; }
-    .brand-logo.basel { width: 180px; }
+    .brand-logo.gfp { width: 94px; height: 52px; }
+    .brand-logo.seco { width: 112px; height: 50px; }
+    .brand-logo.basel { width: 154px; height: 40px; }
 
     .brand-title {
       position: absolute;
@@ -101,7 +98,6 @@
       padding: 0;
       list-style: none;
       flex-wrap: wrap;
-      flex-shrink: 0;
     }
 
     .nav-tabs button {
@@ -779,16 +775,14 @@
 
       .brand-logos {
         flex-wrap: nowrap;
-        gap: 12px;
+        gap: 8px;
         width: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding-bottom: 4px;
+        overflow: hidden;
       }
 
-      .brand-logo.gfp { width: 60px; }
-      .brand-logo.seco { width: 114px; }
-      .brand-logo.basel { width: 132px; }
+      .brand-logo.gfp { width: 72px; height: 38px; }
+      .brand-logo.seco { width: 82px; height: 36px; }
+      .brand-logo.basel { width: 116px; height: 30px; }
 
       .nav-tabs {
         width: 100%;
@@ -855,12 +849,12 @@
       }
 
       .brand-logos {
-        gap: 7px;
+        gap: 6px;
       }
 
-      .brand-logo.gfp { width: 44px; }
-      .brand-logo.seco { width: 78px; }
-      .brand-logo.basel { width: 90px; }
+      .brand-logo.gfp { width: 60px; height: 32px; }
+      .brand-logo.seco { width: 68px; height: 30px; }
+      .brand-logo.basel { width: 92px; height: 24px; }
 
       .nav-tabs {
         gap: 5px;
@@ -967,25 +961,9 @@
         </div>
 
         <div class="filter-field">
-          <label for="causa">Causa principal</label>
+          <label for="causa">Causal de paralización</label>
           <select id="causa">
             <option>Todas</option>
-            <option>Incumplimiento de contrato</option>
-            <option>Desabastecimiento sostenido de materiales</option>
-            <option>Otros</option>
-            <option>Incumplimiento del pago de valorizaciones u otros</option>
-            <option>Falta de recursos financieros y liquidez</option>
-            <option>Deficiencia en el expediente técnico</option>
-            <option>Discrepancias, controversias y arbitraje</option>
-            <option>Conflictos sociales</option>
-            <option>Abandono de obra</option>
-            <option>Disponibilidad de terreno</option>
-            <option>Falta de permisos, licencias y autorizaciones</option>
-            <option>Eventos climáticos</option>
-            <option>Interferencias</option>
-            <option>Falta de personal clave</option>
-            <option>Falta de supervisor o inspector</option>
-            <option>Nulidad de oficio del contrato</option>
           </select>
         </div>
 
@@ -1093,7 +1071,7 @@
           </section>
 
           <section class="panelbox">
-            <h3 class="section-title">Causas de paralización</h3>
+            <h3 class="section-title">Causal de paralización</h3>
             <div class="chart-bars" id="causes-chart"></div>
           </section>
         </div>
@@ -1123,7 +1101,7 @@
               <th>Sector</th>
               <th>Costo actualizado de inversión</th>
               <th>Saldo por ejecutar</th>
-              <th>Causa</th>
+              <th>Causal de paralización</th>
             </tr>
           </thead>
           <tbody id="priority-table-body">
@@ -1151,7 +1129,7 @@
         <div class="downloads">
           <article class="download-card">
             <h3>Base de datos</h3>
-            <p>Listado de obras, ubicación, montos, causa y otros datos asociados.</p>
+            <p>Listado de obras, ubicación, montos, causal de paralización y otros datos asociados.</p>
             <a class="btn secondary" href="ALERTAS-OP-MAY26.xlsx" download>Descargar base</a>
           </article>
           <article class="download-card">
@@ -1458,13 +1436,32 @@
       ].join(" "))];
     }));
 
+    function populateCausalFilter() {
+      const counts = Object.values(workData).reduce((acc, work) => {
+        acc[work.causa] = (acc[work.causa] || 0) + 1;
+        return acc;
+      }, {});
+      const options = Object.entries(counts)
+        .sort(sortCausals)
+        .map(([causal]) => `<option>${causal}</option>`)
+        .join("");
+      filterControls.causa.innerHTML = `<option>Todas</option>${options}`;
+    }
+
+    function sortCausals(a, b) {
+      const deferred = "Causa raíz no determinable con fuentes disponibles";
+      if (a[0] === deferred && b[0] !== deferred) return 1;
+      if (b[0] === deferred && a[0] !== deferred) return -1;
+      return b[1] - a[1] || a[0].localeCompare(b[0], "es");
+    }
+
     function getActiveFilters() {
       const filters = [
         ["Palabra clave", filterControls.keyword.value.trim(), ""],
         ["Departamento", filterControls.departamento.value, "Todos"],
         ["Nivel", filterControls.nivel.value, "Todos"],
         ["Sector", filterControls.sector.value, "Todos"],
-        ["Causa", filterControls.causa.value, "Todas"],
+        ["Causal de paralización", filterControls.causa.value, "Todas"],
         ["Costo", filterControls.costo.options[filterControls.costo.selectedIndex].text, "Todos"],
         ["Tiempo paralizado", filterControls.tiempo.options[filterControls.tiempo.selectedIndex].text, "Todos"]
       ];
@@ -1515,7 +1512,7 @@
       }, {});
 
       causesChart.innerHTML = Object.entries(counts)
-        .sort((a, b) => b[1] - a[1])
+        .sort(sortCausals)
         .map(([cause, count]) => {
           const pctValue = (count / visibleWorks.length) * 100;
           const pctLabel = pctValue < 1 ? pctValue.toFixed(1) : Math.round(pctValue).toString();
@@ -1644,6 +1641,7 @@
       setTimeout(() => leafletMap.invalidateSize(), 180);
     });
 
+    populateCausalFilter();
     applyFilters();
     renderPriorityTable();
   </script>
