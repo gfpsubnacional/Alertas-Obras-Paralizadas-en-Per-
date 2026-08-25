@@ -1,14 +1,16 @@
 # Alertas de Obras Publicas Paralizadas
 
-Dashboard web para identificar y monitorear obras publicas paralizadas en el Peru con informacion a mayo de 2026.
+Dashboard web para identificar y monitorear obras publicas paralizadas en el Peru, con una seccion de descargables organizada por documentos de referencia e historial mensual.
 
 ## Contenido
 
 - `index.html`: dashboard principal.
 - `assets/`: logos institucionales y archivo de datos para el mapa.
 - `ALERTAS-OP-MAY26.xlsx`: base de datos descargable.
-- `op_metodologia.pdf`: documento metodologico descargable.
-- `Informe OP Mayo 2026.pdf`: documento de trabajo descargable.
+- `metodologia_op.pdf`: metodologia de trabajo descargable.
+- `wp_op_mayo.pdf`: documento de trabajo descargable.
+- `Informe OP Mayo 2026.pdf`: reporte de alertas de mayo 2026.
+- `Informe OP Julio 2026.pdf`: reporte de alertas de julio 2026.
 
 ## Funcionalidades
 
@@ -17,7 +19,7 @@ Dashboard web para identificar y monitorear obras publicas paralizadas en el Per
 - Indicadores clave que se actualizan segun filtros activos.
 - Popups con datos generales, enlaces INFOBRAS, Invierte.pe y SSI.
 - Priorizacion de las 50 obras con mayor costo actualizado de inversion.
-- Seccion Descargables con base de datos, metodologia y documento de trabajo.
+- Seccion Descargables con documentos de referencia e historial mensual de bases y reportes.
 
 ## Uso
 

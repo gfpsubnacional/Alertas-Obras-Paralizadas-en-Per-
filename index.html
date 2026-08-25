@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -79,7 +79,7 @@
 
     .brand-logo.gfp { width: 94px; height: 52px; }
     .brand-logo.seco { width: 112px; height: 50px; }
-    .brand-logo.basel { width: 154px; height: 40px; }
+    .brand-logo.basel { width: 182px; height: 46px; }
 
     .brand-title {
       position: absolute;
@@ -680,15 +680,15 @@
       font-weight: 900;
     }
 
-    .report-months {
+    .reports-area {
       display: grid;
-      gap: 18px;
-      max-width: 1180px;
+      gap: 24px;
+      max-width: 1440px;
       margin: 24px auto;
-      padding: 0 24px;
+      padding: 0 12px;
     }
 
-    .month-folder {
+    .report-section {
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fff;
@@ -696,21 +696,78 @@
       overflow: hidden;
     }
 
-    .month-folder-head {
+    .report-section.reference {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.9fr) minmax(420px, 1.1fr);
+      align-items: stretch;
+      border-color: #c8d6ea;
+      background: linear-gradient(90deg, #f7fbff 0%, #fff 42%);
+    }
+
+    .report-section-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       padding: 16px 18px;
-      color: var(--gfp-blue);
       background: #eef4ff;
       border-bottom: 1px solid var(--line);
-      font-weight: 900;
     }
 
-    .month-folder-head h3 {
+    .reference .report-section-head {
+      align-items: flex-start;
+      padding: 24px;
+      background: transparent;
+      border-bottom: 0;
+      border-right: 1px solid #d8e3f2;
+    }
+
+    .report-section-head div {
+      display: grid;
+      gap: 8px;
+    }
+
+    .reference .report-section-head div,
+    .monthly-archive .report-section-head div {
+      gap: 10px;
+    }
+
+    .report-section-head span {
+      color: var(--gfp-red);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .reference .report-section-head span,
+    .monthly-archive .report-section-head span {
+      margin-bottom: 4px;
+    }
+
+    .report-section-head h3 {
       margin: 0;
-      font-size: 1.08rem;
+      color: var(--gfp-blue);
+      font-size: 1.12rem;
+    }
+
+    .reference .report-section-head h3 {
+      max-width: 460px;
+      font-size: 1.42rem;
+      line-height: 1.14;
+    }
+
+    .report-section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .reference .report-section-head p {
+      max-width: 520px;
+      margin-top: 6px;
+      font-size: 0.98rem;
+      line-height: 1.5;
     }
 
     .downloads {
@@ -718,6 +775,12 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
       padding: 18px;
+    }
+
+    .downloads.key-documents {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-content: center;
+      padding: 24px;
     }
 
     .download-card {
@@ -735,6 +798,65 @@
     .download-card p {
       color: var(--muted);
       min-height: 45px;
+    }
+
+    .reference .download-card {
+      display: grid;
+      align-content: space-between;
+      min-height: 158px;
+      border-color: #d5dfec;
+      background: #fff;
+    }
+
+    .month-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .month-card {
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcff;
+    }
+
+    .month-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .month-card h3 {
+      margin: 0;
+      color: var(--gfp-blue);
+    }
+
+    .month-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .month-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .monthly-archive .report-section-head {
+      background: #fff7ed;
+    }
+
+    .btn.unavailable,
+    .btn[aria-disabled="true"] {
+      pointer-events: none;
+      color: #64748b;
+      background: #e2e8f0;
+      border-color: #cbd5e1;
     }
 
     .footer-simple {
@@ -759,6 +881,15 @@
       .kpi-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .report-section.reference {
+        grid-template-columns: 1fr;
+      }
+
+      .reference .report-section-head {
+        border-right: 0;
+        border-bottom: 1px solid #d8e3f2;
+      }
     }
 
     @media (max-width: 760px) {
@@ -782,7 +913,7 @@
 
       .brand-logo.gfp { width: 72px; height: 38px; }
       .brand-logo.seco { width: 82px; height: 36px; }
-      .brand-logo.basel { width: 116px; height: 30px; }
+      .brand-logo.basel { width: 132px; height: 34px; }
 
       .nav-tabs {
         width: 100%;
@@ -806,7 +937,9 @@
       }
 
       .kpi-grid,
-      .downloads {
+      .downloads,
+      .downloads.key-documents,
+      .month-grid {
         grid-template-columns: 1fr;
       }
 
@@ -854,7 +987,7 @@
 
       .brand-logo.gfp { width: 60px; height: 32px; }
       .brand-logo.seco { width: 68px; height: 30px; }
-      .brand-logo.basel { width: 92px; height: 24px; }
+      .brand-logo.basel { width: 106px; height: 28px; }
 
       .nav-tabs {
         gap: 5px;
@@ -961,9 +1094,25 @@
         </div>
 
         <div class="filter-field">
-          <label for="causa">Causal de paralización</label>
+          <label for="causa">Causa principal</label>
           <select id="causa">
             <option>Todas</option>
+            <option>Incumplimiento de contrato</option>
+            <option>Desabastecimiento sostenido de materiales</option>
+            <option>Otros</option>
+            <option>Incumplimiento del pago de valorizaciones u otros</option>
+            <option>Falta de recursos financieros y liquidez</option>
+            <option>Deficiencia en el expediente técnico</option>
+            <option>Discrepancias, controversias y arbitraje</option>
+            <option>Conflictos sociales</option>
+            <option>Abandono de obra</option>
+            <option>Disponibilidad de terreno</option>
+            <option>Falta de permisos, licencias y autorizaciones</option>
+            <option>Eventos climáticos</option>
+            <option>Interferencias</option>
+            <option>Falta de personal clave</option>
+            <option>Falta de supervisor o inspector</option>
+            <option>Nulidad de oficio del contrato</option>
           </select>
         </div>
 
@@ -1071,7 +1220,7 @@
           </section>
 
           <section class="panelbox">
-            <h3 class="section-title">Causal de paralización</h3>
+            <h3 class="section-title">Causas de paralización</h3>
             <div class="chart-bars" id="causes-chart"></div>
           </section>
         </div>
@@ -1101,7 +1250,7 @@
               <th>Sector</th>
               <th>Costo actualizado de inversión</th>
               <th>Saldo por ejecutar</th>
-              <th>Causal de paralización</th>
+              <th>Causa</th>
             </tr>
           </thead>
           <tbody id="priority-table-body">
@@ -1119,28 +1268,59 @@
     <div class="hero-red">Productos para seguimiento y descarga</div>
     <div class="hero-blue">
       <h2>Reportes y bases de datos</h2>
-      <p>Módulo para descargar bases depuradas, metodología y documentos de trabajo.</p>
+      <p>Repositorio de consulta para acceder a la metodología, documentos de trabajo, bases de datos y reportes de resultados por cortes de evaluación.</p>
     </div>
-    <div class="report-months">
-      <section class="month-folder">
-        <div class="month-folder-head">
-          <h3>Mayo 2026</h3>
+    <div class="reports-area">
+      <section class="report-section reference">
+        <div class="report-section-head">
+          <div>
+            <span>Orientación técnica</span>
+            <h3>Cómo se identifican y analizan las obras paralizadas</h3>
+            <p>Consulta los documentos que explican la metodología de trabajo, las fuentes utilizadas y el enfoque general del análisis.</p>
+          </div>
         </div>
-        <div class="downloads">
-          <article class="download-card">
-            <h3>Base de datos</h3>
-            <p>Listado de obras, ubicación, montos, causal de paralización y otros datos asociados.</p>
-            <a class="btn secondary" href="ALERTAS-OP-MAY26.xlsx" download>Descargar base</a>
-          </article>
+        <div class="downloads key-documents">
           <article class="download-card">
             <h3>Metodología</h3>
-            <p>Documento técnico con criterios, fuentes y reglas aplicadas para identificar las alertas.</p>
-            <a class="btn secondary" href="op_metodologia.pdf" download>Descargar</a>
+            <p>Guía metodológica con fuentes de información, criterios de identificación y reglas de depuración para construir las alertas.</p>
+            <a class="btn secondary" href="metodologia_op.pdf" download>Descargar</a>
           </article>
           <article class="download-card">
             <h3>Documento de trabajo</h3>
-            <p>Resumen ejecutivo con riesgos, avances, responsable y datos generales de la obra.</p>
-            <a class="btn secondary" href="Informe OP Mayo 2026.pdf" download>Descargar</a>
+            <p>Análisis nacional de obras públicas paralizadas, con principales hallazgos, alcances metodológicos y recomendaciones.</p>
+            <a class="btn secondary" href="wp_op_mayo.pdf" download>Descargar</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="report-section monthly-archive">
+        <div class="report-section-head">
+          <div>
+            <span>Historial</span>
+            <h3>Obras paralizadas en el Perú por cortes de evaluación</h3>
+            <p>Consulta los documentos históricos de las obras públicas paralizadas identificadas en el Perú para cada corte de evaluación.</p>
+          </div>
+        </div>
+        <div class="month-grid">
+          <article class="month-card">
+            <div class="month-card-head">
+              <h3>Mayo 2026</h3>
+            </div>
+            <p>Resultados del corte de evaluación a mayo de 2026.</p>
+            <div class="month-actions">
+              <a class="btn secondary" href="ALERTAS-OP-MAY26.xlsx" download>Descargar base de datos</a>
+              <a class="btn secondary" href="Informe OP Mayo 2026.pdf" download>Reporte de alertas de obras paralizadas</a>
+            </div>
+          </article>
+          <article class="month-card">
+            <div class="month-card-head">
+              <h3>Julio 2026</h3>
+            </div>
+            <p>Resultados del corte de evaluación a julio de 2026. Base de datos pendiente de carga.</p>
+            <div class="month-actions">
+              <a class="btn secondary unavailable" aria-disabled="true">Base pendiente</a>
+              <a class="btn secondary" href="Informe OP Julio 2026.pdf" download>Reporte de alertas de obras paralizadas</a>
+            </div>
           </article>
         </div>
       </section>
@@ -1436,32 +1616,13 @@
       ].join(" "))];
     }));
 
-    function populateCausalFilter() {
-      const counts = Object.values(workData).reduce((acc, work) => {
-        acc[work.causa] = (acc[work.causa] || 0) + 1;
-        return acc;
-      }, {});
-      const options = Object.entries(counts)
-        .sort(sortCausals)
-        .map(([causal]) => `<option>${causal}</option>`)
-        .join("");
-      filterControls.causa.innerHTML = `<option>Todas</option>${options}`;
-    }
-
-    function sortCausals(a, b) {
-      const deferred = "Causa raíz no determinable con fuentes disponibles";
-      if (a[0] === deferred && b[0] !== deferred) return 1;
-      if (b[0] === deferred && a[0] !== deferred) return -1;
-      return b[1] - a[1] || a[0].localeCompare(b[0], "es");
-    }
-
     function getActiveFilters() {
       const filters = [
         ["Palabra clave", filterControls.keyword.value.trim(), ""],
         ["Departamento", filterControls.departamento.value, "Todos"],
         ["Nivel", filterControls.nivel.value, "Todos"],
         ["Sector", filterControls.sector.value, "Todos"],
-        ["Causal de paralización", filterControls.causa.value, "Todas"],
+        ["Causa", filterControls.causa.value, "Todas"],
         ["Costo", filterControls.costo.options[filterControls.costo.selectedIndex].text, "Todos"],
         ["Tiempo paralizado", filterControls.tiempo.options[filterControls.tiempo.selectedIndex].text, "Todos"]
       ];
@@ -1512,7 +1673,7 @@
       }, {});
 
       causesChart.innerHTML = Object.entries(counts)
-        .sort(sortCausals)
+        .sort((a, b) => b[1] - a[1])
         .map(([cause, count]) => {
           const pctValue = (count / visibleWorks.length) * 100;
           const pctLabel = pctValue < 1 ? pctValue.toFixed(1) : Math.round(pctValue).toString();
@@ -1641,10 +1802,10 @@
       setTimeout(() => leafletMap.invalidateSize(), 180);
     });
 
-    populateCausalFilter();
     applyFilters();
     renderPriorityTable();
   </script>
 </body>
 </html>
+
 
