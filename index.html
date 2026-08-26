@@ -1097,22 +1097,6 @@
           <label for="causa">Causa principal</label>
           <select id="causa">
             <option>Todas</option>
-            <option>Incumplimiento de contrato</option>
-            <option>Desabastecimiento sostenido de materiales</option>
-            <option>Otros</option>
-            <option>Incumplimiento del pago de valorizaciones u otros</option>
-            <option>Falta de recursos financieros y liquidez</option>
-            <option>Deficiencia en el expediente técnico</option>
-            <option>Discrepancias, controversias y arbitraje</option>
-            <option>Conflictos sociales</option>
-            <option>Abandono de obra</option>
-            <option>Disponibilidad de terreno</option>
-            <option>Falta de permisos, licencias y autorizaciones</option>
-            <option>Eventos climáticos</option>
-            <option>Interferencias</option>
-            <option>Falta de personal clave</option>
-            <option>Falta de supervisor o inspector</option>
-            <option>Nulidad de oficio del contrato</option>
           </select>
         </div>
 
@@ -1363,6 +1347,7 @@
     };
     let activePopupWork = null;
     const workData = window.OBRAS_PARALIZADAS_DATA || {};
+    const undeterminedCause = "causal no determinada con detalle suficiente";
 
     const leafletMap = L.map("leaflet-map", {
       zoomControl: false,
@@ -1605,6 +1590,27 @@
         .trim();
     }
 
+    function sortCauseEntries(entries) {
+      return entries.sort((a, b) => {
+        const aIsUndetermined = normalizeSearch(a[0]) === undeterminedCause;
+        const bIsUndetermined = normalizeSearch(b[0]) === undeterminedCause;
+        if (aIsUndetermined && !bIsUndetermined) return 1;
+        if (!aIsUndetermined && bIsUndetermined) return -1;
+        return b[1] - a[1];
+      });
+    }
+
+    function populateCauseFilter() {
+      const counts = Object.values(workData).reduce((acc, work) => {
+        acc[work.causa] = (acc[work.causa] || 0) + 1;
+        return acc;
+      }, {});
+
+      filterControls.causa.innerHTML = '<option>Todas</option>' + sortCauseEntries(Object.entries(counts))
+        .map(([cause]) => `<option>${cause}</option>`)
+        .join("");
+    }
+
     const workSearchIndex = new Map(Object.values(workData).map((work) => {
       const facts = work.facts || {};
       return [work, normalizeSearch([
@@ -1679,15 +1685,7 @@
         return acc;
       }, {});
 
-      causesChart.innerHTML = Object.entries(counts)
-        .sort((a, b) => {
-          const undeterminedCause = "causal no determinada con detalle suficiente";
-          const aIsUndetermined = normalizeSearch(a[0]) === undeterminedCause;
-          const bIsUndetermined = normalizeSearch(b[0]) === undeterminedCause;
-          if (aIsUndetermined && !bIsUndetermined) return 1;
-          if (!aIsUndetermined && bIsUndetermined) return -1;
-          return b[1] - a[1];
-        })
+      causesChart.innerHTML = sortCauseEntries(Object.entries(counts))
         .map(([cause, count]) => {
           const pctValue = (count / visibleWorks.length) * 100;
           const pctLabel = pctValue < 1 ? pctValue.toFixed(1) : Math.round(pctValue).toString();
@@ -1816,6 +1814,7 @@
       setTimeout(() => leafletMap.invalidateSize(), 180);
     });
 
+    populateCauseFilter();
     applyFilters();
     renderPriorityTable();
   </script>
