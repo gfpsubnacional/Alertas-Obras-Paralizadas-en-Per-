@@ -1680,7 +1680,14 @@
       }, {});
 
       causesChart.innerHTML = Object.entries(counts)
-        .sort((a, b) => b[1] - a[1])
+        .sort((a, b) => {
+          const undeterminedCause = "causal no determinada con detalle suficiente";
+          const aIsUndetermined = normalizeSearch(a[0]) === undeterminedCause;
+          const bIsUndetermined = normalizeSearch(b[0]) === undeterminedCause;
+          if (aIsUndetermined && !bIsUndetermined) return 1;
+          if (!aIsUndetermined && bIsUndetermined) return -1;
+          return b[1] - a[1];
+        })
         .map(([cause, count]) => {
           const pctValue = (count / visibleWorks.length) * 100;
           const pctLabel = pctValue < 1 ? pctValue.toFixed(1) : Math.round(pctValue).toString();
