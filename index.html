@@ -1650,8 +1650,8 @@
       const investment = visibleWorks.reduce((sum, work) => sum + work.cost, 0);
       const saldo = visibleWorks.reduce((sum, work) => sum + work.saldo, 0);
       const people = adjustedPopulation(visibleWorks);
-      const regionalGov = visibleWorks.filter((work) => work.nivel === "Gobierno regional").length;
-      const localGov = visibleWorks.filter((work) => work.nivel === "Gobierno local").length;
+      const regionalGov = visibleWorks.filter((work) => normalizeSearch(work.nivel) === "gobierno regional").length;
+      const localGov = visibleWorks.filter((work) => normalizeSearch(work.nivel) === "gobierno local").length;
       const regional = regionalGov + localGov;
       const scoped = getActiveFilters().length > 0 ? "según filtros activos" : "total de obras visibles";
 
