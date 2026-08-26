@@ -1316,9 +1316,9 @@
             <div class="month-card-head">
               <h3>Julio 2026</h3>
             </div>
-            <p>Resultados del corte de evaluación a julio de 2026. Base de datos pendiente de carga.</p>
+            <p>Resultados del corte de evaluación a julio de 2026.</p>
             <div class="month-actions">
-              <a class="btn secondary unavailable" aria-disabled="true">Base pendiente</a>
+              <a class="btn secondary" href="base_op_julio_final.xlsx" download>Descargar base de datos</a>
               <a class="btn secondary" href="Informe OP Julio 2026.pdf" download>Reporte de alertas de obras paralizadas</a>
             </div>
           </article>
@@ -1328,7 +1328,7 @@
   </section>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="assets/obras-data.js?v=20260612-alertas-op-may26"></script>
+  <script src="assets/obras-data.js?v=202607-alertas-op"></script>
   <script src="assets/peru-shapes.js?v=20260628"></script>
   <script>
     const tabs = document.querySelectorAll(".nav-tabs button");
@@ -1573,6 +1573,13 @@
     }
 
     function adjustedPopulation(visibleWorks) {
+      const adjustedValues = visibleWorks
+        .map((work) => Number(work.peopleAdjusted))
+        .filter((value) => Number.isFinite(value) && value > 0);
+      if (adjustedValues.length > 0) {
+        return adjustedValues.reduce((sum, value) => sum + value, 0);
+      }
+
       const districts = new Map();
       let validValues = 0;
       visibleWorks.forEach((work) => {
