@@ -30,7 +30,7 @@
       background: var(--surface);
     }
 
-    button, select, input {
+    button, select, input, textarea, .leaflet-container {
       font: inherit;
     }
 
@@ -185,7 +185,7 @@
       padding: 16px;
       display: grid;
       grid-template-columns: minmax(175px, 1.25fr) repeat(6, minmax(118px, 1fr)) minmax(132px, 0.8fr);
-      gap: 10px;
+      gap: 8px;
       align-items: end;
     }
 
@@ -368,12 +368,12 @@
     }
 
     .map-wrap {
-      min-height: 610px;
+      min-height: 660px;
     }
 
     .peru-map {
       position: relative;
-      min-height: 610px;
+      min-height: 660px;
       border-radius: 8px;
       overflow: hidden;
       clip-path: inset(0 round 8px);
@@ -420,37 +420,28 @@
       background: var(--gfp-accent);
     }
 
-    .map-fullscreen-btn {
+    .map-control-group {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      min-height: 36px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 7px 10px;
-      color: var(--gfp-blue);
-      background: rgba(255,255,255,0.96);
-      box-shadow: 0 8px 20px rgba(21, 44, 83, 0.14);
-      cursor: pointer;
-      font-weight: 900;
+      left: 16px;
+      bottom: 82px;
+      display: grid;
+      gap: 8px;
       z-index: 500;
     }
 
+    .map-fullscreen-btn,
     .map-reset-btn {
-      position: absolute;
-      right: 16px;
-      top: 60px;
-      min-height: 34px;
+      width: 38px;
+      height: 38px;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
-      padding: 7px 10px;
+      padding: 0;
       color: var(--gfp-blue);
       background: rgba(255,255,255,0.96);
       box-shadow: 0 8px 20px rgba(21, 44, 83, 0.14);
       cursor: pointer;
-      font-size: 0.82rem;
+      font-size: 1.08rem;
       font-weight: 900;
-      z-index: 500;
     }
 
     .peru-map.fullscreen-map {
@@ -470,7 +461,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 10px 12px;
-      font-size: 0.84rem;
+      font-size: 0.78rem;
       z-index: 500;
     }
 
@@ -484,37 +475,60 @@
 
     .map-popup {
       position: absolute;
-      right: 16px;
-      top: 104px;
-      width: min(320px, calc(100% - 32px));
-      max-height: 360px;
-      overflow: auto;
+      inset: 0 0 0 auto;
+      width: min(390px, 39%);
+      height: 100%;
+      overflow: hidden;
       display: none;
-      padding: 14px;
-      border: 1px solid #b8c4d6;
+      padding: 10px 11px 12px;
+      border: 0;
+      border-left: 1px solid #b8c4d6;
       border-top: 5px solid var(--gfp-red);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.97);
-      box-shadow: 0 18px 34px rgba(21, 44, 83, 0.22);
+      border-radius: 0;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: -16px 0 28px rgba(21, 44, 83, 0.18);
       z-index: 500;
     }
 
     .map-popup.active {
-      display: block;
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
     }
 
     .map-popup h4 {
-      margin: 0 28px 6px 0;
+      display: block;
+      margin: 0 30px 6px 0;
+      padding: 10px 11px;
+      box-sizing: border-box;
+      height: 92px;
+      border: 1px solid #dce8f5;
+      border-left: 4px solid #6ea8df;
+      border-radius: 6px;
       color: var(--gfp-blue);
-      font-size: 1rem;
-      line-height: 1.2;
+      background: #edf5fd;
+      font-size: 0.91rem;
+      line-height: 1.16;
+      text-align: justify;
+      text-align-last: left;
+      text-wrap: pretty;
+      hyphens: none;
+      overflow-wrap: break-word;
+      word-break: normal;
+      overflow: hidden;
+    }
+
+    .map-popup h4.title-truncated {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
     }
 
     .map-popup p {
-      margin: 0 0 10px;
+      margin: 0 0 5px;
+      min-height: 0;
       color: var(--muted);
-      font-size: 0.84rem;
-      line-height: 1.35;
+      font-size: 0.68rem;
+      line-height: 1.22;
     }
 
     .map-popup-close {
@@ -534,20 +548,74 @@
 
     .popup-facts {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 7px;
+      grid-template-columns: 1fr 1fr;
+      align-content: start;
+      gap: 3px 6px;
+      min-height: 0;
+      overflow: visible;
+    }
+
+    .popup-section-title {
+      grid-column: 1 / -1;
+      margin: 7px 0 2px;
+      padding: 0 0 4px;
+      border-bottom: 1px solid #dce5f0;
+      color: var(--gfp-blue);
+      font-size: 0.7rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .popup-facts .popup-section-title:first-child {
+      margin-top: 1px;
     }
 
     .popup-fact {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 8px;
-      border-radius: 6px;
-      background: #f6f8fb;
+      display: block;
+      grid-column: 1 / -1;
+      min-height: 25px;
+      box-sizing: border-box;
+      padding: 5px 7px;
+      border-radius: 5px;
+      background: #f2f6fb;
       color: #334155;
-      font-size: 0.82rem;
-      line-height: 1.2;
+      font-size: 0.68rem;
+      line-height: 1.16;
+    }
+
+    .popup-fact.identity {
+      background: #eaf4ff;
+      border-left: 3px solid #6ea8df;
+    }
+
+    .popup-fact.status {
+      background: #f1f4f7;
+      border-left: 3px solid #9aa9bb;
+    }
+
+    .popup-fact.compact,
+    .popup-fact.half {
+      grid-column: auto;
+    }
+
+    .popup-fact.half {
+      padding-left: 6px;
+      padding-right: 5px;
+      font-size: 0.64rem;
+      min-width: 0;
+      overflow: visible;
+    }
+
+    .popup-fact.compact {
+      white-space: nowrap;
+    }
+
+    .popup-fact.half span {
+      white-space: normal;
+    }
+
+    .popup-fact.half strong {
+      white-space: normal;
     }
 
     .popup-fact span {
@@ -555,33 +623,561 @@
       font-weight: 800;
     }
 
+    .popup-fact span::after {
+      content: ": ";
+    }
+
     .popup-fact strong {
-      text-align: right;
       color: #24324a;
+      font-weight: 800;
     }
 
     .popup-link-fact {
-      align-items: center;
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 5px;
+      margin-top: 0;
+      padding: 6px;
       border: 1px solid #c8d6ea;
-      background: #eef4ff;
+      background: #e8f0fb;
+    }
+
+    .popup-links-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-column: 1 / -1;
+      gap: 0;
+      min-width: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid #c8d6ea;
+      border-radius: 5px;
+      background: #eaf2fc;
+    }
+
+    .popup-links-row .popup-link-fact {
+      display: grid;
+      grid-column: auto;
+      grid-template-rows: minmax(2.4em, auto) 29px;
+      gap: 4px;
+      min-width: 0;
+      min-height: 64px;
+      margin: 0;
+      padding: 5px 4px 5px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      text-align: left;
+    }
+
+    .popup-links-row .popup-link-fact + .popup-link-fact {
+      margin-top: 0;
+      border-left: 1px solid #c8d6ea;
+    }
+
+    .popup-links-row .popup-link-fact span {
+      display: -webkit-box;
+      align-self: center;
+      overflow: hidden;
+      padding: 0 1px;
+      overflow-wrap: break-word;
+      word-break: normal;
+      color: #64748b;
+      font-size: 0.59rem;
+      font-weight: 800;
+      line-height: 1.08;
+      text-align: left;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .popup-links-row .popup-link-fact span::after { content: ""; }
+
+    .popup-link-fact + .popup-link-fact {
+      margin-top: 2px;
     }
 
     .popup-link-fact strong {
-      text-align: left;
+      display: inline-flex;
+      margin-top: 0;
     }
 
     .popup-link-fact a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 28px;
-      padding: 5px 9px;
+      min-height: 24px;
+      padding: 4px 9px;
       border-radius: 6px;
       color: #fff;
       background: var(--gfp-accent);
       text-decoration: none;
       font-weight: 900;
       white-space: nowrap;
+    }
+
+    .popup-links-row .popup-link-fact a {
+      align-self: end;
+      width: 100%;
+      min-height: 29px;
+      box-sizing: border-box;
+      padding: 4px 3px;
+      border-radius: 5px;
+      font-size: 0.68rem;
+    }
+
+    .satellite-action {
+      width: 100%;
+      margin: 0;
+      min-height: 40px;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .popup-action-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 42px;
+      gap: 6px;
+      align-items: stretch;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #dce5f0;
+    }
+
+    .share-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0;
+      border: 1px solid #c8d6ea;
+      border-radius: 7px;
+      color: var(--gfp-blue);
+      background: #f8fafc;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .popup-action-row .share-action {
+      width: 100%;
+      min-height: 40px;
+      color: var(--gfp-blue);
+    }
+
+    .share-action svg {
+      width: 17px;
+      height: 17px;
+      stroke-width: 2.4;
+    }
+
+    .share-action.copied {
+      border-color: #27ae60;
+      color: #0f5132;
+      background: #edfdf4;
+    }
+
+    .share-action .share-icon {
+      display: block;
+    }
+
+    /* Panel de obra: diseño institucional compacto y estable. */
+    .map-popup {
+      width: min(420px, 41%);
+      padding: 9px 10px 11px;
+      border-left-color: #c8d7e8;
+      background: rgba(255, 255, 255, 0.985);
+    }
+
+    .map-popup.active {
+      grid-template-rows: auto minmax(0, 1fr) auto;
+    }
+
+    .popup-header {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 9px;
+      align-items: center;
+      min-height: 88px;
+      margin-bottom: 2px;
+      padding: 3px 2px 4px;
+    }
+
+    .popup-project-icon {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      color: #0e568d;
+      background: #dceefd;
+    }
+
+    .popup-project-icon svg {
+      width: 27px;
+      height: 27px;
+      stroke-width: 2.25;
+    }
+
+    .popup-heading {
+      min-width: 0;
+    }
+
+    .map-popup .popup-heading h4 {
+      height: 68px;
+      margin: 0 28px 2px 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      font-size: 0.91rem;
+      line-height: 1.14;
+    }
+
+    .map-popup .popup-heading p {
+      margin: 0;
+      color: #58708f;
+      font-size: 0.66rem;
+      line-height: 1.16;
+    }
+
+    .map-popup-close {
+      top: 9px;
+      right: 9px;
+      width: 28px;
+      height: 28px;
+      border-color: #c5d7eb;
+      background: #f7fbff;
+      font-size: 0.88rem;
+    }
+
+    .popup-facts {
+      gap: 3px 6px;
+    }
+
+    .popup-section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 29px;
+      margin: 5px 0 2px;
+      padding: 4px 8px;
+      box-sizing: border-box;
+      border: 0;
+      border-radius: 5px;
+      color: #fff;
+      background: #0e568d;
+      font-size: 0.75rem;
+      line-height: 1;
+    }
+
+    .popup-facts .popup-section-title:first-child {
+      margin-top: 0;
+    }
+
+    .popup-section-title svg {
+      width: 17px;
+      height: 17px;
+      flex: 0 0 auto;
+      stroke-width: 2.3;
+    }
+
+    .popup-fact {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      align-items: stretch;
+      min-height: 29px;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid transparent;
+      border-left: 0;
+      border-radius: 6px;
+      font-size: 0.65rem;
+      line-height: 1.08;
+    }
+
+    .popup-fact.half {
+      padding: 0;
+      font-size: 0.63rem;
+    }
+
+    .popup-fact-icon {
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      color: #0e568d;
+      background: rgba(94, 164, 222, 0.12);
+    }
+
+    .popup-fact-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.25;
+    }
+
+    .popup-fact-content {
+      display: grid;
+      grid-template-columns: minmax(82px, 0.42fr) minmax(0, 1fr);
+      gap: 5px;
+      align-items: center;
+      min-width: 0;
+      padding: 4px 7px;
+    }
+
+    .popup-fact.half .popup-fact-content,
+    .popup-fact.full-detail .popup-fact-content {
+      grid-template-columns: 1fr;
+      gap: 1px;
+      align-content: center;
+    }
+
+    .popup-fact.full-detail {
+      min-height: 36px;
+    }
+
+    .popup-fact-label {
+      color: #52647e;
+      font-weight: 700;
+    }
+
+    .popup-fact-label::after {
+      content: "";
+    }
+
+    .popup-fact > .popup-fact-icon::after,
+    .popup-fact > .popup-fact-content::after {
+      content: "";
+    }
+
+    .popup-fact strong {
+      min-width: 0;
+      color: #18345f;
+      font-size: 0.69rem;
+      font-weight: 900;
+      overflow-wrap: break-word;
+    }
+
+    .popup-fact.identity {
+      border-color: #d8e9f8;
+      border-left: 0;
+      background: #edf6ff;
+    }
+
+    .popup-fact.status-money,
+    .popup-fact.status-progress {
+      border-color: #c8eadc;
+      background: #effaf6;
+    }
+
+    .popup-fact.status-money .popup-fact-icon,
+    .popup-fact.status-progress .popup-fact-icon {
+      color: #07966a;
+      background: #dcf5eb;
+    }
+
+    .popup-fact.status-balance {
+      border-color: #f4dfaa;
+      background: #fff8e8;
+    }
+
+    .popup-fact.status-balance .popup-fact-icon {
+      color: #ad6800;
+      background: #fff0c7;
+    }
+
+    .popup-fact.status-time,
+    .popup-fact.status-cause {
+      border-color: #f1d2d2;
+      background: #fff2f2;
+    }
+
+    .popup-fact.status-time .popup-fact-icon,
+    .popup-fact.status-cause .popup-fact-icon {
+      color: #b4232d;
+      background: #fde2e2;
+    }
+
+    .popup-fact.status-population {
+      border-color: #d8e9f8;
+      background: #edf6ff;
+    }
+
+    .popup-links-row {
+      gap: 6px;
+      overflow: visible;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .popup-links-row .popup-link-fact {
+      grid-template-rows: minmax(2.5em, auto) 29px;
+      gap: 4px;
+      min-height: 64px;
+      padding: 5px;
+      border: 1px solid #c8dced;
+      border-radius: 6px;
+      background: #edf6ff;
+    }
+
+    .popup-links-row .popup-link-fact + .popup-link-fact {
+      border-left: 1px solid #c8dced;
+    }
+
+    .popup-links-row .popup-link-fact span {
+      align-self: start;
+      color: #425b7b;
+      font-size: 0.58rem;
+      line-height: 1.08;
+    }
+
+    .popup-links-row .popup-link-fact > .popup-link-label {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 13px;
+      gap: 3px;
+      align-items: start;
+      overflow: visible;
+      -webkit-line-clamp: unset;
+    }
+
+    .popup-link-label > span {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .popup-link-label svg {
+      width: 12px;
+      height: 12px;
+      stroke-width: 2.4;
+    }
+
+    .popup-links-row .popup-link-fact a {
+      min-height: 29px;
+      background: #0e568d;
+      font-size: 0.68rem;
+    }
+
+    .popup-action-row {
+      grid-template-columns: minmax(0, 1fr) 44px;
+      gap: 7px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top-color: #d8e4f1;
+    }
+
+    .satellite-action {
+      display: grid;
+      grid-template-columns: 19px minmax(0, 1fr) 16px;
+      gap: 7px;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 6px;
+      background: #0e568d;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .satellite-action svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2.35;
+    }
+
+    .popup-action-row .share-action {
+      min-height: 44px;
+      border-color: #bcd3e9;
+      background: #f3f8fd;
+    }
+
+    @media (max-width: 760px) {
+      .peru-map:has(.map-popup.active) {
+        min-height: 720px;
+      }
+
+      .peru-map .map-popup {
+        width: min(390px, 100%);
+      }
+    }
+
+    .share-dialog {
+      position: fixed;
+      inset: 0;
+      z-index: 1800;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(15, 23, 42, 0.38);
+    }
+
+    .share-dialog.active { display: grid; }
+
+    .share-dialog-card {
+      position: relative;
+      width: min(430px, calc(100vw - 32px));
+      padding: 20px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.24);
+    }
+
+    .share-dialog-card h3 { margin: 0 34px 5px 0; color: var(--gfp-blue); font-size: 1.05rem; }
+    .share-dialog-card > p { margin: 0 0 16px; color: #64748b; font-size: 0.8rem; line-height: 1.35; }
+
+    .share-dialog-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background: #fff;
+      color: var(--gfp-blue);
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .share-options { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+
+    .share-option {
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #334155;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.66rem;
+      text-decoration: none;
+    }
+
+    .share-option-icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid #c8d6ea;
+      border-radius: 50%;
+      color: var(--gfp-blue);
+      background: #eef5fd;
+      font-size: 0.92rem;
+      font-weight: 900;
+      transition: transform 120ms ease, background 120ms ease;
+    }
+
+    .share-option:hover .share-option-icon,
+    .share-option:focus .share-option-icon { transform: translateY(-2px); background: #dceafa; }
+    .share-option svg { width: 20px; height: 20px; }
+    .share-dialog-status { min-height: 18px; margin-top: 12px; color: #0f6b3d; font-size: 0.74rem; font-weight: 800; text-align: center; }
+
+    @media (max-width: 520px) {
+      .share-options { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
     .dot {
@@ -593,19 +1189,18 @@
 
     .map-note {
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 14px;
-      width: min(940px, calc(100% - 190px));
-      margin: 0 auto;
-      padding: 7px 11px;
+      left: 28px;
+      right: calc(min(390px, 39%) + 42px);
+      bottom: 10px;
+      margin: 0;
+      padding: 4px 8px;
       border: 1px solid rgba(148, 163, 184, 0.72);
       border-radius: 8px;
       color: #24324a;
       background: rgba(255,255,255,0.94);
       box-shadow: 0 10px 22px rgba(21, 44, 83, 0.12);
-      font-size: 0.78rem;
-      line-height: 1.2;
+      font-size: 0.6rem;
+      line-height: 1;
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
@@ -630,6 +1225,14 @@
       gap: 8px;
       color: #344054;
       font-size: 0.88rem;
+      font-weight: 400;
+    }
+
+    .bar-head span:first-child {
+      font-weight: 400;
+    }
+
+    .bar-head span:last-child {
       font-weight: 800;
     }
 
@@ -964,13 +1567,17 @@
       }
 
       .map-note {
-        width: calc(100% - 32px);
+        left: 16px;
+        right: 16px;
+        width: auto;
       }
 
       .map-popup {
-        right: 16px;
-        top: 168px;
-        max-height: 300px;
+        inset: 0 0 0 auto;
+        width: min(300px, 86%);
+        height: 100%;
+        border-left: 1px solid #b8c4d6;
+        border-top: 5px solid var(--gfp-red);
       }
 
     }
@@ -998,6 +1605,1028 @@
         font-size: 0.86rem;
       }
     }
+    .satellite-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.42);
+      z-index: 1200;
+    }
+
+    .satellite-modal.active {
+      display: flex;
+    }
+
+    .satellite-card {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      width: min(1640px, calc(100vw - 14px));
+      height: min(800px, calc(100vh - 10px));
+      overflow: hidden;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.35);
+    }
+
+    .satellite-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .satellite-head span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--gfp-red);
+      font-size: 0.86rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .satellite-head h3 {
+      margin: 0;
+      color: var(--gfp-blue);
+      font-size: 1.18rem;
+      line-height: 1.22;
+    }
+
+    .satellite-head h3::before {
+      content: "Obra: ";
+    }
+
+    .satellite-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      background: #fff;
+      color: var(--gfp-blue);
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .satellite-head-actions {
+      position: relative;
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .satellite-share {
+      min-width: 30px;
+      min-height: 30px;
+      border-color: #cbd5e1;
+      background: #fff;
+    }
+
+    .satellite-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(480px, 520px);
+      gap: 12px;
+      flex: 1;
+      height: auto;
+      min-height: 0;
+      padding: 12px 14px 12px;
+    }
+
+    .satellite-main {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr);
+      gap: 8px;
+      min-height: 0;
+    }
+
+    .satellite-image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e5e7eb;
+      min-height: 0;
+    }
+
+    .satellite-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    #satellite-map {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .satellite-google-pro-image {
+      position: absolute;
+      inset: 0;
+      z-index: 704;
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #111827;
+    }
+
+    .satellite-google-pro-image.active {
+      display: block;
+    }
+
+    .satellite-google-pro-panel {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      z-index: 705;
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.62), rgba(15, 23, 42, 0.76));
+      color: #fff;
+    }
+
+    .satellite-google-pro-panel.active {
+      display: grid;
+    }
+
+    .satellite-google-pro-card {
+      max-width: 620px;
+      padding: 18px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.78);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.32);
+    }
+
+    .satellite-google-pro-card h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .satellite-google-pro-card p {
+      margin: 0;
+      color: #e2e8f0;
+      font-size: 0.86rem;
+      font-weight: 800;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .satellite-google-pro-card p + p {
+      margin-top: 8px;
+    }
+
+    .satellite-provider-note {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 720;
+      display: none;
+      padding: 8px 10px;
+      border: 1px solid rgba(203, 213, 225, 0.96);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1.25;
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14);
+    }
+
+    .satellite-provider-note.with-timeline {
+      bottom: 82px;
+    }
+
+    .satellite-provider-note.active {
+      display: block;
+    }
+
+    .satellite-pin {
+      position: absolute;
+      left: 58%;
+      top: 58%;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #27ae60;
+      border: 3px solid #fff;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.32);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .satellite-side {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-content: start;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    .satellite-meta {
+      margin: 0;
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .satellite-timebar {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr) 30px;
+      align-items: center;
+      gap: 6px;
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 710;
+      min-height: 62px;
+      box-sizing: border-box;
+      padding: 7px;
+      border: 1px solid rgba(30, 64, 104, 0.32);
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.78);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.16);
+    }
+
+    .satellite-reset {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 700;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--gfp-blue);
+      cursor: pointer;
+      font-size: 0.74rem;
+      font-weight: 900;
+      padding: 8px 10px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+    }
+
+    .satellite-reset:hover,
+    .satellite-reset:focus {
+      outline: none;
+      background: #eef4ff;
+      border-color: var(--gfp-blue);
+    }
+
+    .satellite-source-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      position: absolute;
+      top: 12px;
+      left: 58px;
+      z-index: 710;
+      padding: 6px;
+      border: 1px solid rgba(203, 213, 225, 0.92);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+    }
+
+    .satellite-source-btn {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #fff;
+      color: #334155;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 900;
+      padding: 7px 10px;
+    }
+
+    .satellite-source-btn.active {
+      border-color: #27ae60;
+      background: #edfdf4;
+      color: #0f5132;
+    }
+
+    .satellite-source-btn:disabled {
+      border-color: #cbd5e1;
+      background: #f1f5f9;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    .satellite-timeline {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      align-items: center;
+      height: 100%;
+      padding: 2px 1px 4px;
+      scrollbar-width: thin;
+    }
+
+    .satellite-nav {
+      width: 30px;
+      height: 100%;
+      min-height: 44px;
+      border: 1px solid rgba(226, 232, 240, 0.72);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--gfp-blue);
+      cursor: pointer;
+      font-size: 1.25rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .satellite-nav:hover,
+    .satellite-nav:focus {
+      border-color: var(--gfp-blue);
+      outline: none;
+      background: #eef4ff;
+    }
+
+    .satellite-year {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1 0 82px;
+      min-height: 48px;
+      height: 100%;
+      padding: 6px 8px 7px;
+      border: 1px solid rgba(226, 232, 240, 0.72);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #334155;
+      font-size: 0.74rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .satellite-year::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 7px;
+      height: 3px;
+      border-radius: 999px;
+      background: #cbd5e1;
+    }
+
+    .satellite-year span {
+      color: var(--gfp-blue);
+      font-size: 0.9rem;
+      line-height: 1;
+      margin-top: 5px;
+    }
+
+    .satellite-year strong {
+      color: #64748b;
+      font-size: 0.68rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .satellite-year:hover,
+    .satellite-year:focus {
+      outline: none;
+      background: rgba(238, 244, 255, 0.82);
+    }
+
+    .satellite-year.active {
+      color: #0f5132;
+      border-color: #1f4f82;
+      background: #eaf2fb;
+      box-shadow: inset 0 -4px 0 #27ae60;
+    }
+
+    .satellite-year.active::before {
+      background: #27ae60;
+    }
+
+    .satellite-method-source {
+      margin: 0;
+      padding: 7px 8px;
+      border: 1px solid #dbe4ef;
+      border-radius: 8px;
+      color: #475569;
+      background: #f8fafc;
+      font-size: 0.74rem;
+      line-height: 1.26;
+      text-align: justify;
+    }
+
+    .satellite-method-source h4 {
+      margin: 0 0 3px;
+      color: var(--gfp-blue);
+      font-size: 0.86rem;
+      text-align: left;
+    }
+
+    .satellite-method-source p {
+      margin: 0;
+    }
+
+    .satellite-method-source p + p {
+      margin-top: 4px;
+    }
+
+    .satellite-insight {
+      display: grid;
+      gap: 6px;
+      padding: 8px;
+      border: 1px solid #dbe4ef;
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+
+    .satellite-insight h4 {
+      margin: 0;
+      color: var(--gfp-blue);
+      font-size: 0.94rem;
+    }
+
+    .satellite-insight p {
+      margin: 0;
+      color: #475569;
+      font-size: 0.86rem;
+      line-height: 1.36;
+      text-align: justify;
+    }
+
+    .satellite-location-title {
+      display: block;
+      margin-top: 3px;
+      color: #64748b;
+      font-size: 0.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .satellite-subtitle {
+      margin: 6px 0 0;
+      color: #475569;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    @media (max-width: 760px) {
+      .satellite-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 900px) {
+      .satellite-card {
+        width: calc(100vw - 12px);
+        height: calc(100vh - 12px);
+      }
+
+      .satellite-head {
+        padding: 10px 14px 8px;
+      }
+
+      .satellite-head span {
+        margin-bottom: 2px;
+        font-size: 0.78rem;
+      }
+
+      .satellite-head h3 {
+        font-size: 1.1rem;
+        line-height: 1.15;
+      }
+
+      .satellite-subtitle {
+        margin-top: 2px;
+        font-size: 0.9rem;
+      }
+
+      .satellite-body {
+        grid-template-columns: minmax(0, 1fr) minmax(430px, 470px);
+        gap: 10px;
+        height: auto;
+        padding: 8px 10px;
+      }
+
+      .satellite-main {
+        grid-template-rows: minmax(0, 1fr);
+        gap: 6px;
+      }
+
+      .satellite-side {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+
+      .satellite-insight {
+        gap: 4px;
+        padding: 6px;
+        border-radius: 7px;
+      }
+
+      .satellite-insight h4 {
+        font-size: 0.82rem;
+      }
+
+      .satellite-insight p {
+        font-size: 0.76rem;
+        line-height: 1.26;
+      }
+
+      .satellite-meta,
+      .satellite-method-source {
+        font-size: 0.7rem;
+        line-height: 1.22;
+      }
+
+      .satellite-method-source h4 {
+        margin-bottom: 3px;
+        font-size: 0.78rem;
+      }
+
+      .satellite-year {
+        min-height: 42px;
+        padding: 4px 6px;
+      }
+
+      .satellite-year span {
+        font-size: 0.84rem;
+      }
+
+      .satellite-year strong {
+        font-size: 0.58rem;
+      }
+    }
+
+    /* Seguimiento satelital: composición visual institucional. */
+    .satellite-modal {
+      padding: 6px;
+    }
+
+    .satellite-card {
+      width: min(1780px, calc(100vw - 12px));
+      height: min(890px, calc(100vh - 12px));
+      border-color: #cddceb;
+      border-radius: 12px;
+      box-shadow: 0 24px 70px rgba(15, 42, 78, 0.28);
+    }
+
+    .satellite-head {
+      align-items: center;
+      min-height: 126px;
+      box-sizing: border-box;
+      padding: 14px 24px 12px;
+      border-bottom-color: #dce6f0;
+    }
+
+    .satellite-head-main {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .satellite-head .satellite-title-icon {
+      display: grid;
+      place-items: center;
+      width: 68px;
+      height: 68px;
+      margin: 0;
+      border-radius: 50%;
+      color: #174f8a;
+      background: #edf5ff;
+    }
+
+    .satellite-head .satellite-title-icon svg {
+      width: 34px;
+      height: 34px;
+      stroke-width: 2.15;
+    }
+
+    .satellite-heading {
+      min-width: 0;
+    }
+
+    .satellite-head .satellite-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: max-content;
+      margin: 0 0 5px;
+      padding: 5px 9px;
+      border-radius: 6px;
+      color: #c92533;
+      background: #fff0f2;
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .satellite-kicker svg {
+      width: 11px;
+      height: 11px;
+      fill: none;
+      stroke-width: 2.5;
+    }
+
+    .satellite-head h3 {
+      display: -webkit-box;
+      max-width: 1250px;
+      margin: 0;
+      overflow: hidden;
+      color: #17355f;
+      font-size: 1.22rem;
+      line-height: 1.18;
+      text-wrap: pretty;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .satellite-subtitle {
+      margin: 5px 0 0;
+      color: #60728d;
+      font-size: 0.88rem;
+      line-height: 1.1;
+    }
+
+    .satellite-head-actions {
+      align-self: flex-start;
+      gap: 10px;
+      padding-top: 8px;
+    }
+
+    .satellite-share,
+    .satellite-close {
+      width: 42px;
+      min-width: 42px;
+      height: 42px;
+      min-height: 42px;
+      border-color: #c7d8ea;
+      border-radius: 8px;
+      color: #173f70;
+      background: #f8fbff;
+    }
+
+    .satellite-share svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .satellite-body {
+      grid-template-columns: minmax(0, 1.72fr) minmax(430px, 0.98fr);
+      gap: 18px;
+      padding: 16px 24px 20px;
+    }
+
+    .satellite-image-wrap {
+      border: 1px solid #d3dfeb;
+      border-radius: 9px;
+      box-shadow: 0 8px 22px rgba(22, 52, 91, 0.1);
+    }
+
+    .satellite-source-tabs {
+      left: 68px;
+      gap: 7px;
+      padding: 6px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .satellite-source-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 7px 12px;
+      border-radius: 7px;
+      font-size: 0.76rem;
+    }
+
+    .satellite-source-btn svg {
+      width: 17px;
+      height: 17px;
+      stroke-width: 2.2;
+    }
+
+    .satellite-reset {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 7px 12px;
+      border-radius: 7px;
+      font-size: 0.76rem;
+    }
+
+    .satellite-reset svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.2;
+    }
+
+    .satellite-provider-note {
+      display: none;
+      align-items: center;
+      min-height: 38px;
+      box-sizing: border-box;
+      border-radius: 7px;
+      color: #405675;
+      font-size: 0.72rem;
+      line-height: 1.2;
+    }
+
+    .satellite-provider-note.active {
+      display: flex;
+      justify-content: center;
+    }
+
+    .satellite-side {
+      align-content: stretch;
+      grid-template-rows: auto auto auto minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .satellite-insight,
+    .satellite-method-source {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      margin: 0;
+      padding: 14px;
+      border: 1px solid #d5e2ef;
+      border-radius: 9px;
+      color: #475d7b;
+      background: #f7fbff;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      text-align: left;
+    }
+
+    .satellite-panel-icon {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: #2864a4;
+      background: #e8f2ff;
+    }
+
+    .satellite-panel-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.25;
+    }
+
+    .satellite-cause-card .satellite-panel-icon {
+      color: #c72635;
+      background: #ffe5e8;
+    }
+
+    .satellite-panel-content {
+      min-width: 0;
+    }
+
+    .satellite-insight h4,
+    .satellite-method-source h4 {
+      margin: 0 0 8px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid #dce6f0;
+      color: #17355f;
+      font-size: 0.94rem;
+      line-height: 1.1;
+      text-align: left;
+    }
+
+    .satellite-insight p,
+    .satellite-method-source p {
+      margin: 0;
+      color: #526680;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      text-align: justify;
+    }
+
+    .satellite-location-title {
+      display: block;
+      margin: 0;
+      color: #203e69;
+      font-size: 0.82rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .satellite-data-grid {
+      display: grid;
+      gap: 5px;
+      color: #475d7b;
+      font-size: 0.76rem;
+    }
+
+    .satellite-data-row {
+      display: grid;
+      grid-template-columns: minmax(158px, 0.9fr) minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+    }
+
+    .satellite-data-row strong {
+      color: #526680;
+      font-weight: 800;
+    }
+
+    .satellite-data-row span {
+      min-width: 0;
+      color: #203e69;
+      overflow-wrap: break-word;
+    }
+
+    .satellite-data-row small {
+      color: #64748b;
+      font-size: 0.68rem;
+    }
+
+    @media (max-width: 980px) {
+      .satellite-card {
+        height: calc(100vh - 12px);
+        overflow-y: auto;
+      }
+
+      .satellite-head {
+        min-height: auto;
+        padding: 12px 14px;
+      }
+
+      .satellite-head-main {
+        grid-template-columns: 54px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .satellite-title-icon {
+        width: 50px;
+        height: 50px;
+      }
+
+      .satellite-head h3 {
+        font-size: 1rem;
+      }
+
+      .satellite-body {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+        padding: 12px 14px 16px;
+      }
+
+      .satellite-main {
+        min-height: 520px;
+      }
+
+      .satellite-side {
+        grid-template-rows: auto;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .satellite-title-icon {
+        display: none;
+      }
+
+      .satellite-head-main {
+        grid-template-columns: 1fr;
+      }
+
+      .satellite-head {
+        align-items: flex-start;
+        padding-right: 106px;
+      }
+
+      .satellite-source-tabs {
+        right: 10px;
+        left: 54px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      .satellite-source-btn {
+        flex: 0 0 auto;
+      }
+
+      .satellite-reset span {
+        display: none;
+      }
+
+      .satellite-reset {
+        top: 68px;
+        right: 10px;
+      }
+
+      .satellite-insight,
+      .satellite-method-source {
+        grid-template-columns: 34px minmax(0, 1fr);
+        padding: 10px;
+      }
+
+      .satellite-panel-icon {
+        width: 30px;
+        height: 30px;
+      }
+
+      .satellite-data-row {
+        grid-template-columns: 1fr;
+        gap: 1px;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 981px) {
+      .satellite-head {
+        min-height: 92px;
+        padding: 8px 16px;
+      }
+
+      .satellite-head-main {
+        grid-template-columns: 52px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .satellite-title-icon {
+        width: 48px;
+        height: 48px;
+      }
+
+      .satellite-head h3 {
+        font-size: 1rem;
+      }
+
+      .satellite-head .satellite-kicker {
+        margin-bottom: 3px;
+        padding: 4px 7px;
+        font-size: 0.68rem;
+      }
+
+      .satellite-subtitle {
+        margin-top: 3px;
+        font-size: 0.76rem;
+      }
+
+      .satellite-body {
+        grid-template-columns: minmax(0, 1fr) minmax(390px, 450px);
+        gap: 10px;
+        padding: 8px 10px 10px;
+      }
+
+      .satellite-side {
+        gap: 6px;
+      }
+
+      .satellite-insight,
+      .satellite-method-source {
+        grid-template-columns: 32px minmax(0, 1fr);
+        gap: 7px;
+        padding: 8px;
+      }
+
+      .satellite-panel-icon {
+        width: 28px;
+        height: 28px;
+      }
+
+      .satellite-insight h4,
+      .satellite-method-source h4 {
+        margin-bottom: 4px;
+        padding-bottom: 4px;
+        font-size: 0.8rem;
+      }
+
+      .satellite-insight p,
+      .satellite-method-source p,
+      .satellite-data-grid {
+        font-size: 0.68rem;
+        line-height: 1.25;
+      }
+
+      .satellite-data-row {
+        grid-template-columns: minmax(138px, 0.85fr) minmax(0, 1fr);
+        gap: 6px;
+      }
+    }
+
   </style>
 </head>
 <body class="loading-kpis">
@@ -1106,12 +2735,9 @@
             <option value="todos">Todos</option>
             <option value="rango-50-plus">&gt; 50 millones</option>
             <option value="rango-20-50">&gt; 20 - 50 millones</option>
-            <option value="rango-10-20">&gt; 10 - 20 millones</option>
-            <option value="rango-5-10">&gt; 5 - 10 millones</option>
-            <option value="rango-3-5">&gt; 3 - 5 millones</option>
-            <option value="rango-1-3">&gt; 1 - 3 millones</option>
-            <option value="rango-05-1">&gt; 0.5 - 1 millón</option>
-            <option value="rango-05">&lt;= 0.5 millones</option>
+            <option value="rango-5-20">&gt; 5 - 20 millones</option>
+            <option value="rango-1-5">&gt; 1 - 5 millones</option>
+            <option value="rango-1">&lt;= 1 millón</option>
           </select>
         </div>
 
@@ -1179,26 +2805,42 @@
                   <button class="map-layer-btn" data-base="topografico" type="button">Topográfico</button>
                   <button class="map-layer-btn" data-base="calles" type="button">Calles</button>
                 </div>
-                <button class="map-fullscreen-btn" id="map-fullscreen" type="button">Pantalla completa</button>
-                <button class="map-reset-btn" id="map-reset" type="button">Restablecer vista</button>
+                <div class="map-control-group" aria-label="Controles del mapa">
+                  <button class="map-fullscreen-btn" id="map-fullscreen" type="button" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
+                  <button class="map-reset-btn" id="map-reset" type="button" title="Restablecer vista" aria-label="Restablecer vista">↺</button>
+                </div>
                 <div class="map-legend">
                   <strong>Obras por costo actualizado</strong>
                   <div class="legend-row"><span class="dot" style="background:#b91c1c"></span> &gt; 50 millones</div>
                   <div class="legend-row"><span class="dot" style="background:#dc2626"></span> &gt; 20 - 50 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#ef4444"></span> &gt; 10 - 20 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#f97316"></span> &gt; 5 - 10 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#facc15"></span> &gt; 3 - 5 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#a3e635"></span> &gt; 1 - 3 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#4ade80"></span> &gt; 0.5 - 1 millón</div>
-                  <div class="legend-row"><span class="dot" style="background:#16a34a"></span> &lt;= 0.5 millones</div>
+                  <div class="legend-row"><span class="dot" style="background:#f97316"></span> &gt; 5 - 20 millones</div>
+                  <div class="legend-row"><span class="dot" style="background:#a3e635"></span> &gt; 1 - 5 millones</div>
+                  <div class="legend-row"><span class="dot" style="background:#16a34a"></span> &lt;= 1 millón</div>
                 </div>
                 <aside class="map-popup" id="map-popup" aria-live="polite">
                   <button class="map-popup-close" id="map-popup-close" type="button" aria-label="Cerrar información">x</button>
-                  <h4 id="popup-title">Selecciona una obra</h4>
-                  <p id="popup-subtitle">Haz clic en un punto del mapa.</p>
+                  <div class="popup-header">
+                    <span class="popup-project-icon" aria-hidden="true"><i data-lucide="construction"></i></span>
+                    <div class="popup-heading">
+                      <h4 id="popup-title">Selecciona una obra</h4>
+                      <p id="popup-subtitle">Haz clic en un punto del mapa.</p>
+                    </div>
+                  </div>
                   <div class="popup-facts" id="popup-facts"></div>
+                  <div class="popup-action-row">
+                    <button class="btn secondary satellite-action" id="satellite-open" type="button"><i data-lucide="map"></i><span>Ver seguimiento satelital</span><i data-lucide="chevron-right"></i></button>
+                    <button class="share-action" id="share-work" type="button" title="Compartir obra" aria-label="Compartir obra">
+                      <svg class="share-icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" aria-hidden="true">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <path d="M8.6 10.7 15.4 6.3"></path>
+                        <path d="M8.6 13.3 15.4 17.7"></path>
+                      </svg>
+                    </button>
+                  </div>
                 </aside>
-                <p class="map-note" title="Ubicación de la obra es declarada por la entidad ejecutora (referencial). Fuente: INFOBRAS y GeoInvierte.">Ubicación de la obra es declarada por la entidad ejecutora (referencial). Fuente: INFOBRAS y GeoInvierte.</p>
+                <p class="map-note" title="Ubicación de la obra es declarada por la entidad ejecutora (referencial). Fuente: INFOBRAS y GeoInvierte.">Ubicación referencial declarada por la entidad ejecutora. Fuente: INFOBRAS y GeoInvierte.</p>
               </div>
             </div>
           </section>
@@ -1311,15 +2953,144 @@
     </div>
   </section>
 
+  <div class="satellite-modal" id="satellite-modal" aria-hidden="true">
+    <article class="satellite-card" role="dialog" aria-modal="true" aria-labelledby="satellite-title">
+      <div class="satellite-head">
+        <div class="satellite-head-main">
+          <span class="satellite-title-icon" aria-hidden="true"><i data-lucide="building-2"></i></span>
+          <div class="satellite-heading">
+            <span class="satellite-kicker"><i data-lucide="circle" aria-hidden="true"></i>Seguimiento satelital</span>
+            <h3 id="satellite-title">Creación del servicio deportivo en San Martín de Porres de Yanico</h3>
+            <p class="satellite-subtitle" id="satellite-subtitle">Código INFOBRAS | CUI</p>
+          </div>
+        </div>
+        <div class="satellite-head-actions">
+          <button class="share-action satellite-share" id="satellite-share" type="button" title="Compartir seguimiento satelital" aria-label="Compartir seguimiento satelital">
+            <svg class="share-icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" aria-hidden="true">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <path d="M8.6 10.7 15.4 6.3"></path>
+              <path d="M8.6 13.3 15.4 17.7"></path>
+            </svg>
+          </button>
+          <button class="satellite-close" id="satellite-close" type="button" aria-label="Cerrar seguimiento">x</button>
+        </div>
+      </div>
+      <div class="satellite-body">
+        <div class="satellite-main">
+          <div class="satellite-image-wrap">
+            <div id="satellite-map" aria-label="Vista satelital de alta resolución de la obra seleccionada"></div>
+            <img class="satellite-google-pro-image" id="satellite-google-pro-image" alt="Captura histórica de Google Earth" />
+            <div class="satellite-google-pro-panel" id="satellite-google-pro-panel" aria-live="polite">
+              <div class="satellite-google-pro-card">
+                <p id="satellite-google-pro-message">No hay capturas históricas de Google Earth disponibles para esta obra.</p>
+              </div>
+            </div>
+            <div class="satellite-provider-note" id="satellite-provider-note"></div>
+            <span class="satellite-pin" aria-hidden="true"></span>
+            <button class="satellite-reset" id="satellite-reset" type="button"><i data-lucide="house" aria-hidden="true"></i><span>Vista inicial</span></button>
+            <div class="satellite-source-tabs" aria-label="Fuentes de imagen satelital">
+              <button class="satellite-source-btn active" type="button" data-source="google"><i data-lucide="map" aria-hidden="true"></i><span>Google satelital</span></button>
+              <button class="satellite-source-btn" type="button" data-source="google-pro"><i data-lucide="clock-3" aria-hidden="true"></i><span>Google Earth histórico</span></button>
+              <button class="satellite-source-btn" type="button" data-source="esri"><i data-lucide="images" aria-hidden="true"></i><span>Imágenes Esri históricas</span></button>
+            </div>
+            <div class="satellite-timebar">
+              <button class="satellite-nav" id="satellite-prev" type="button" aria-label="Imagen anterior">‹</button>
+              <div class="satellite-timeline" id="satellite-timeline" aria-label="Historial satelital de referencia"></div>
+              <button class="satellite-nav" id="satellite-next" type="button" aria-label="Imagen siguiente">›</button>
+            </div>
+          </div>
+        </div>
+        <div class="satellite-side">
+          <div class="satellite-insight satellite-location-card">
+            <span class="satellite-panel-icon" aria-hidden="true"><i data-lucide="map-pin"></i></span>
+            <div class="satellite-panel-content">
+              <h4>Ubicación declarada</h4>
+              <p class="satellite-meta"><span class="satellite-location-title" id="satellite-location">Departamento - Provincia - Distrito</span></p>
+            </div>
+          </div>
+          <div class="satellite-insight satellite-data-card">
+            <span class="satellite-panel-icon" aria-hidden="true"><i data-lucide="chart-no-axes-column-increasing"></i></span>
+            <div class="satellite-panel-content">
+              <h4>Datos de la obra</h4>
+              <div class="satellite-data-grid" id="satellite-work-summary">Costo, avance y causal se completan con la información del dashboard.</div>
+            </div>
+          </div>
+          <div class="satellite-insight satellite-cause-card">
+            <span class="satellite-panel-icon" aria-hidden="true"><i data-lucide="circle-alert"></i></span>
+            <div class="satellite-panel-content">
+              <h4>Causal de paralización</h4>
+              <p id="satellite-insight">Usa las flechas o selecciona un periodo para revisar cambios visibles en el área de intervención.</p>
+            </div>
+          </div>
+          <div class="satellite-method-source">
+            <span class="satellite-panel-icon" aria-hidden="true"><i data-lucide="file-text"></i></span>
+            <div class="satellite-panel-content">
+              <h4>Nota metodológica y fuente</h4>
+              <p>Ubicación referencial ajustada con GeoInvierte, INFOBRAS y la ficha técnica de la inversión. Google satelital se presenta como referencia visual; Google Earth histórico muestra únicamente las capturas disponibles para cada obra. En Esri solo se muestran versiones cuyo mosaico es visualmente distinto en la ubicación evaluada. La lectura puede ser limitada por la escala, naturaleza o visibilidad de la infraestructura.</p>
+              <p id="satellite-source">Fuente: Google satelital.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="share-dialog" id="share-dialog" aria-hidden="true">
+    <section class="share-dialog-card" role="dialog" aria-modal="true" aria-labelledby="share-dialog-title">
+      <button class="share-dialog-close" id="share-dialog-close" type="button" aria-label="Cerrar">x</button>
+      <h3 id="share-dialog-title">Compartir obra</h3>
+      <p id="share-dialog-description">Comparte el enlace directo de la obra seleccionada.</p>
+      <div class="share-options">
+        <button class="share-option" id="share-copy" type="button"><span class="share-option-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></span><span>Copiar enlace</span></button>
+        <a class="share-option" id="share-whatsapp" href="#" target="_blank" rel="noopener noreferrer"><span class="share-option-icon" aria-hidden="true">W</span><span>WhatsApp</span></a>
+        <a class="share-option" id="share-facebook" href="#" target="_blank" rel="noopener noreferrer"><span class="share-option-icon" aria-hidden="true">f</span><span>Facebook</span></a>
+        <a class="share-option" id="share-linkedin" href="#" target="_blank" rel="noopener noreferrer"><span class="share-option-icon" aria-hidden="true">in</span><span>LinkedIn</span></a>
+        <button class="share-option" id="share-instagram" type="button"><span class="share-option-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></span><span>Instagram</span></button>
+      </div>
+      <div class="share-dialog-status" id="share-dialog-status" aria-live="polite"></div>
+    </section>
+  </div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="assets/obras-data.js?v=202607-alertas-op"></script>
-  <script src="assets/peru-shapes.js?v=20260628"></script>
+  <script src="assets/google-earth-pro-captures.js?v=20260910"></script>
+  <script src="assets/infobras-dates.js?v=20260910"></script>
+  <script src="assets/obras-data.js?v=20260910"></script>
+  <script src="assets/peru-shapes.js?v=20260910"></script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script>
     const tabs = document.querySelectorAll(".nav-tabs button");
     const panels = document.querySelectorAll(".tab-panel");
     const peruMap = document.querySelector(".peru-map");
     const mapPopup = document.getElementById("map-popup");
     const mapPopupClose = document.getElementById("map-popup-close");
+    const satelliteModal = document.getElementById("satellite-modal");
+    const satelliteClose = document.getElementById("satellite-close");
+    const satelliteTimeline = document.getElementById("satellite-timeline");
+    const satelliteSource = document.getElementById("satellite-source");
+    const satelliteInsight = document.getElementById("satellite-insight");
+    const satelliteWorkSummary = document.getElementById("satellite-work-summary");
+    const satelliteLocation = document.getElementById("satellite-location");
+    const satelliteGoogleProImage = document.getElementById("satellite-google-pro-image");
+    const satelliteGoogleProPanel = document.getElementById("satellite-google-pro-panel");
+    const satelliteGoogleProMessage = document.getElementById("satellite-google-pro-message");
+    const satelliteProviderNote = document.getElementById("satellite-provider-note");
+    const satellitePrev = document.getElementById("satellite-prev");
+    const satelliteNext = document.getElementById("satellite-next");
+    const satelliteReset = document.getElementById("satellite-reset");
+    const satelliteSourceButtons = document.querySelectorAll(".satellite-source-btn");
+    const satelliteShare = document.getElementById("satellite-share");
+    const shareDialog = document.getElementById("share-dialog");
+    const shareDialogClose = document.getElementById("share-dialog-close");
+    const shareDialogTitle = document.getElementById("share-dialog-title");
+    const shareDialogDescription = document.getElementById("share-dialog-description");
+    const shareDialogStatus = document.getElementById("share-dialog-status");
+    const shareCopy = document.getElementById("share-copy");
+    const shareWhatsapp = document.getElementById("share-whatsapp");
+    const shareFacebook = document.getElementById("share-facebook");
+    const shareLinkedin = document.getElementById("share-linkedin");
+    const shareInstagram = document.getElementById("share-instagram");
     const fullscreenButton = document.getElementById("map-fullscreen");
     const resetMapButton = document.getElementById("map-reset");
     const filterControls = {
@@ -1346,12 +3117,109 @@
       regionalesSub: document.getElementById("kpi-regionales-sub")
     };
     let activePopupWork = null;
+    let satelliteMap = null;
+    let satelliteMarker = null;
+    let satelliteLayer = null;
+    let waybackItems = null;
+    let satellitePeriods = [];
+    let satelliteItems = [];
+    let satelliteWork = null;
+    let satelliteCurrentIndex = 0;
+    let satelliteProvider = "google";
+    let activeShareUrl = "";
+    let activeShareText = "";
     const workData = window.OBRAS_PARALIZADAS_DATA || {};
+    const shareButton = document.getElementById("share-work");
     const undeterminedCause = "causal no determinada con detalle suficiente";
+    const waybackConfigUrl = "https://s3-us-west-2.amazonaws.com/config.maptiles.arcgis.com/waybackconfig.json";
+
+    function workShareId(work) {
+      return work?.facts?.["CUI"] || work?.facts?.["Código Infobras"] || "";
+    }
+
+    function findWorkKeyByShareId(shareId) {
+      const normalized = String(shareId || "").trim();
+      if (!normalized) return null;
+      return Object.entries(workData).find(([, work]) =>
+        String(work.facts?.["CUI"] || "") === normalized ||
+        String(work.facts?.["Código Infobras"] || "") === normalized
+      )?.[0] || null;
+    }
+
+    function shareUrlForWork(work, satellite = false) {
+      const publicDashboardUrl = "https://gfpsubnacional.github.io/Alertas-Obras-Paralizadas-en-Per-/";
+      const url = new URL(window.location.protocol === "file:" ? publicDashboardUrl : window.location.href);
+      url.searchParams.set("obra", workShareId(work));
+      if (satellite) url.searchParams.set("seguimiento", "1");
+      else url.searchParams.delete("seguimiento");
+      return url.toString();
+    }
+
+    async function copyShareUrl(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const input = document.createElement("textarea");
+      input.value = text;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.left = "-9999px";
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      input.remove();
+    }
+
+    function openShareDialog(work, satellite = false) {
+      if (!work) return;
+      activeShareUrl = shareUrlForWork(work, satellite);
+      activeShareText = `${satellite ? "Seguimiento satelital: " : "Obra: "}${work.title}`;
+      shareDialogTitle.textContent = satellite ? "Compartir seguimiento satelital" : "Compartir obra";
+      shareDialogDescription.textContent = satellite ? "Comparte el enlace directo del seguimiento de esta obra." : "Comparte el enlace directo de la obra seleccionada.";
+      shareWhatsapp.href = `https://wa.me/?text=${encodeURIComponent(`${activeShareText}\n${activeShareUrl}`)}`;
+      shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(activeShareUrl)}`;
+      shareLinkedin.href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(activeShareUrl)}`;
+      shareDialogStatus.textContent = "";
+      shareDialog.classList.add("active");
+      shareDialog.setAttribute("aria-hidden", "false");
+    }
+
+    function closeShareDialog() {
+      shareDialog.classList.remove("active");
+      shareDialog.setAttribute("aria-hidden", "true");
+    }
+
+    async function copyActiveShareUrl(message = "Enlace copiado") {
+      if (!activeShareUrl) return;
+      try {
+        await copyShareUrl(activeShareUrl);
+        shareDialogStatus.textContent = message;
+      } catch (error) {
+        window.prompt("Copia el enlace de la obra:", activeShareUrl);
+      }
+    }
+
+    async function shareToInstagram() {
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: activeShareText, text: activeShareText, url: activeShareUrl });
+          return;
+        } catch (error) {
+          if (error?.name === "AbortError") return;
+        }
+      }
+      await copyActiveShareUrl("Enlace copiado para compartir en Instagram");
+    }
+
+    function shareIconSvg() {
+      return `<svg class="share-icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 10.7 15.4 6.3"></path><path d="M8.6 13.3 15.4 17.7"></path></svg>`;
+    }
 
     const leafletMap = L.map("leaflet-map", {
       zoomControl: false,
       preferCanvas: true,
+      maxBoundsViscosity: 0.85,
       maxZoom: 17
     }).setView([-9.19, -75.02], 5);
     L.control.zoom({ position: "bottomright" }).addTo(leafletMap);
@@ -1415,30 +3283,25 @@
     function getCostClass(cost) {
       if (cost > 50) return "rango-50-plus";
       if (cost > 20) return "rango-20-50";
-      if (cost > 10) return "rango-10-20";
-      if (cost > 5) return "rango-5-10";
-      if (cost > 3) return "rango-3-5";
-      if (cost > 1) return "rango-1-3";
-      if (cost > 0.5) return "rango-05-1";
-      return "rango-05";
+      if (cost > 5) return "rango-5-20";
+      if (cost > 1) return "rango-1-5";
+      return "rango-1";
     }
 
     const initialMapBounds = L.latLngBounds(Object.values(workData).map((work) => work.latlng));
     leafletMap.fitBounds(initialMapBounds, { padding: [36, 36] });
     const initialMapZoom = leafletMap.getZoom();
     leafletMap.setMinZoom(initialMapZoom);
+    leafletMap.setMaxBounds(initialMapBounds.pad(0.08));
     const markerLayer = L.layerGroup().addTo(leafletMap);
     const markerRenderer = L.canvas({ padding: 0.5 });
 
     const costColors = {
       "rango-50-plus": "#b91c1c",
       "rango-20-50": "#dc2626",
-      "rango-10-20": "#ef4444",
-      "rango-5-10": "#f97316",
-      "rango-3-5": "#facc15",
-      "rango-1-3": "#a3e635",
-      "rango-05-1": "#4ade80",
-      "rango-05": "#16a34a"
+      "rango-5-20": "#f97316",
+      "rango-1-5": "#a3e635",
+      "rango-1": "#16a34a"
     };
 
     function getMarkerStyle(cost) {
@@ -1690,7 +3553,8 @@
           const pctValue = (count / visibleWorks.length) * 100;
           const pctLabel = pctValue < 1 ? pctValue.toFixed(1) : Math.round(pctValue).toString();
           const barWidth = Math.max(pctValue, 1);
-          return `<div class="bar-item"><div class="bar-head"><span>${cause}</span><span>${pctLabel}% - ${count.toLocaleString("es-PE")} obras</span></div><div class="bar-track"><div class="bar-fill" style="width:${barWidth}%"></div></div></div>`;
+          const displayCause = normalizeSearch(cause) === undeterminedCause ? "Causal con detalle insuficiente" : cause;
+          return `<div class="bar-item"><div class="bar-head"><span>${displayCause}</span><span>${pctLabel}% - ${count.toLocaleString("es-PE")} obras</span></div><div class="bar-track"><div class="bar-fill" style="width:${barWidth}%"></div></div></div>`;
         })
         .join("");
     }
@@ -1745,25 +3609,554 @@
       document.body.classList.remove("loading-kpis");
     }
 
+    function getFactGroup(label) {
+      const normalizedLabel = normalizeSearch(label);
+      const identityLabels = [
+        "codigo infobras",
+        "cui",
+        "entidad",
+        "ubicacion",
+        "nivel de gobierno"
+      ];
+      if (normalizedLabel === "codigo infobras" || normalizedLabel === "cui") return "identity compact";
+      if (identityLabels.includes(normalizedLabel)) return "identity";
+      if (normalizedLabel === "monto actualizado") return "status status-money";
+      if (normalizedLabel === "saldo por ejecutar") return "status status-balance";
+      if (normalizedLabel === "avance fisico") return "status status-progress";
+      if (normalizedLabel === "tiempo paralizado") return "status status-time";
+      if (normalizedLabel === "causal de paralizacion") return "status status-cause";
+      if (normalizedLabel === "poblacion potencialmente afectada") return "status status-population";
+      return "";
+    }
+
+    function getFactIcon(label) {
+      const icons = {
+        "codigo infobras": "hash",
+        "cui": "file-text",
+        "entidad": "landmark",
+        "ubicacion": "map-pin",
+        "nivel de gobierno": "users",
+        "monto actualizado": "coins",
+        "saldo por ejecutar": "hand-coins",
+        "avance fisico": "chart-no-axes-combined",
+        "tiempo paralizado": "clock-3",
+        "causal de paralizacion": "triangle-alert",
+        "poblacion potencialmente afectada": "users"
+      };
+      return icons[normalizeSearch(label)] || "circle-dot";
+    }
+
+    function popupSectionTitle(icon, title) {
+      return `<div class="popup-section-title"><i data-lucide="${icon}" aria-hidden="true"></i><span>${title}</span></div>`;
+    }
+
     function renderFacts(facts) {
-      return Object.entries(facts)
-        .map(([label, value]) => {
-          const isLink = label.startsWith("Datos de ");
-          return `<div class="popup-fact ${isLink ? "popup-link-fact" : ""}"><span>${label}</span><strong>${value}</strong></div>`;
-        })
+      const entries = Object.entries(facts);
+      const byLabel = new Map(entries.map(([label, value]) => [normalizeSearch(label), [label, value]]));
+      const identityOrder = ["codigo infobras", "cui", "entidad", "ubicacion", "nivel de gobierno"];
+      const statusOrder = [
+        "monto actualizado",
+        "saldo por ejecutar",
+        "avance fisico",
+        "tiempo paralizado",
+        "causal de paralizacion",
+        "poblacion potencialmente afectada"
+      ];
+      const used = new Set();
+      const renderRow = ([label, value], extraClass = "") => {
+        used.add(normalizeSearch(label));
+        const isLink = label.startsWith("Datos de ");
+        if (isLink) {
+          return `<div class="popup-link-fact"><span class="popup-link-label"><span>${label}</span><i data-lucide="external-link" aria-hidden="true"></i></span><strong>${value}</strong></div>`;
+        }
+        const group = getFactGroup(label);
+        return `<div class="popup-fact ${group} ${extraClass}"><span class="popup-fact-icon" aria-hidden="true"><i data-lucide="${getFactIcon(label)}"></i></span><span class="popup-fact-content"><span class="popup-fact-label">${label}</span><strong>${value}</strong></span></div>`;
+      };
+      const identityRows = identityOrder
+        .filter((key) => byLabel.has(key))
+        .map((key) => renderRow(byLabel.get(key), key === "codigo infobras" || key === "cui" ? "half" : ""))
         .join("");
+      const statusRows = statusOrder
+        .filter((key) => byLabel.has(key))
+        .map((key) => renderRow(byLabel.get(key), ["monto actualizado", "saldo por ejecutar", "avance fisico", "tiempo paralizado"].includes(key) ? "half" : "full-detail"))
+        .join("");
+      const otherRows = entries
+        .filter(([label]) => !used.has(normalizeSearch(label)) && !label.startsWith("Datos de "))
+        .map((entry) => renderRow(entry))
+        .join("");
+      const linkRows = entries
+        .filter(([label]) => label.startsWith("Datos de "))
+        .map((entry) => renderRow(entry))
+        .join("");
+      const rows = `
+        ${popupSectionTitle("clipboard-list", "Datos generales")}
+        ${identityRows}
+        ${popupSectionTitle("chart-no-axes-combined", "Datos de ejecución física y financiera")}
+        ${statusRows}
+        ${otherRows}
+        ${popupSectionTitle("info", "Información complementaria")}
+        <div class="popup-links-row">${linkRows}</div>
+      `;
+      return rows;
+    }
+
+    function fitPopupTitle() {
+      const titleElement = document.getElementById("popup-title");
+      if (!titleElement || !mapPopup.classList.contains("active")) return;
+      let fontSize = 14.5;
+      titleElement.classList.remove("title-truncated");
+      titleElement.style.fontSize = `${fontSize}px`;
+      while (titleElement.scrollHeight > titleElement.clientHeight && fontSize > 11.5) {
+        fontSize -= 0.5;
+        titleElement.style.fontSize = `${fontSize}px`;
+      }
+      if (titleElement.scrollHeight > titleElement.clientHeight) {
+        titleElement.classList.add("title-truncated");
+      }
+    }
+
+    function fitMapPopup() {
+      fitPopupTitle();
     }
 
     function openMapPopup(workKey) {
       const work = workData[workKey];
       if (!work) return;
 
-      document.getElementById("popup-title").textContent = work.title;
+      const titleElement = document.getElementById("popup-title");
+      titleElement.textContent = work.title;
+      titleElement.title = work.title;
+      titleElement.className = "";
+      titleElement.style.fontSize = "";
       document.getElementById("popup-subtitle").textContent = work.subtitle;
       document.getElementById("popup-facts").innerHTML = renderFacts(work.facts);
+      if (window.lucide) window.lucide.createIcons();
+      const satelliteOpen = document.getElementById("satellite-open");
+      if (satelliteOpen) {
+        satelliteOpen.onclick = () => openSatelliteModal(work);
+      }
+      if (shareButton) {
+        shareButton.onclick = () => openShareDialog(work, false);
+        shareButton.innerHTML = shareIconSvg();
+        shareButton.classList.remove("copied");
+        shareButton.title = "Compartir obra";
+        shareButton.setAttribute("aria-label", "Compartir obra");
+      }
       mapPopup.style.borderTopColor = work.statusColor;
       mapPopup.classList.add("active");
       activePopupWork = workKey;
+      fitMapPopup();
+    }
+
+    async function getWaybackItems() {
+      if (waybackItems) return waybackItems;
+      const response = await fetch(waybackConfigUrl);
+      const config = await response.json();
+      waybackItems = Object.entries(config)
+        .map(([releaseNum, item]) => {
+          const match = item.itemTitle.match(/(\d{4})-(\d{2})-(\d{2})/);
+          const releaseDate = match ? match[0] : "";
+          return {
+            releaseNum,
+            releaseDate,
+            year: releaseDate ? Number(releaseDate.slice(0, 4)) : null,
+            itemTitle: item.itemTitle,
+            itemURL: item.itemURL
+          };
+        })
+        .filter((item) => item.year)
+        .sort((a, b) => a.releaseDate.localeCompare(b.releaseDate));
+      return waybackItems;
+    }
+
+    function buildSatellitePeriods(work, items) {
+      const currentYear = new Date().getFullYear();
+      const firstYear = 2017;
+      const latestByYear = new Map();
+      items
+        .filter((item) => item.year >= firstYear && item.year <= currentYear)
+        .forEach((item) => latestByYear.set(item.year, item));
+      return Array.from(latestByYear.entries()).map(([year, item]) => ({
+        label: String(year),
+        year,
+        releaseDate: item.releaseDate,
+        item
+      }));
+    }
+
+    function tileCoordinates(lat, lon, zoom) {
+      const scale = 2 ** zoom;
+      return {
+        x: Math.floor(((lon + 180) / 360) * scale),
+        y: Math.floor(((1 - Math.asinh(Math.tan((lat * Math.PI) / 180)) / Math.PI) / 2) * scale)
+      };
+    }
+
+    async function tileFingerprint(item, work, zoom = 17) {
+      const { x, y } = tileCoordinates(work.latlng[0], work.latlng[1], zoom);
+      const tileUrl = tileUrlFromWayback(item)
+        .replace("{z}", String(zoom))
+        .replace("{y}", String(y))
+        .replace("{x}", String(x));
+      const response = await fetch(tileUrl, { cache: "force-cache" });
+      if (!response.ok) throw new Error(`Imagen Esri no disponible: ${response.status}`);
+      const blob = await response.blob();
+      if (typeof createImageBitmap === "function" && typeof OffscreenCanvas === "function") {
+        const bitmap = await createImageBitmap(blob);
+        const canvas = new OffscreenCanvas(16, 16);
+        const context = canvas.getContext("2d", { willReadFrequently: true });
+        context.drawImage(bitmap, 0, 0, 16, 16);
+        bitmap.close();
+        const pixels = context.getImageData(0, 0, 16, 16).data;
+        const signature = [];
+        for (let index = 0; index < pixels.length; index += 4) {
+          signature.push(Math.round((pixels[index] * 0.299) + (pixels[index + 1] * 0.587) + (pixels[index + 2] * 0.114)));
+        }
+        return signature;
+      }
+      const digest = await crypto.subtle.digest("SHA-256", await blob.arrayBuffer());
+      return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+    }
+
+    function sameTileFingerprint(first, second) {
+      if (typeof first === "string" || typeof second === "string") return first === second;
+      if (!first || !second || first.length !== second.length) return false;
+      const meanDifference = first.reduce((total, value, index) => total + Math.abs(value - second[index]), 0) / first.length;
+      return meanDifference < 4;
+    }
+
+    async function distinctSatellitePeriods(periods, work) {
+      const checked = await Promise.all(periods.map(async (period) => {
+        try {
+          return { period, fingerprint: await tileFingerprint(period.item, work) };
+        } catch {
+          return null;
+        }
+      }));
+      const unique = [];
+      const fingerprints = [];
+      checked.filter(Boolean).forEach(({ period, fingerprint }) => {
+        if (fingerprints.some((saved) => sameTileFingerprint(saved, fingerprint))) return;
+        fingerprints.push(fingerprint);
+        unique.push(period);
+      });
+      return unique.length ? unique : periods.slice(-1);
+    }
+
+    function buildGoogleEarthProPeriods(work) {
+      return googleEarthProImages(work)
+        .filter((capture) => capture && capture.src && capture.date)
+        .sort((a, b) => a.date.localeCompare(b.date))
+        .map((capture) => ({
+          label: capture.date.slice(0, 4),
+          year: Number(capture.date.slice(0, 4)),
+          releaseDate: capture.date,
+          capture,
+          source: "google-pro"
+        }));
+    }
+
+    function itemForYear(items, year) {
+      const sameYear = items.filter((item) => item.year === year);
+      if (sameYear.length) return sameYear[sameYear.length - 1];
+      return items.filter((item) => item.year < year).at(-1) || items[items.length - 1];
+    }
+
+    function formatReleaseDate(releaseDate) {
+      if (!releaseDate) return "Sin fecha";
+      const [year, month, day] = releaseDate.split("-");
+      return `${day}/${month}/${year}`;
+    }
+
+    function formatNumericMonthYear(releaseDate) {
+      if (!releaseDate) return "Sin fecha";
+      const [year, month] = releaseDate.split("-");
+      return `${month}-${year}`;
+    }
+
+    function parsePeruDate(dateText) {
+      const match = String(dateText || "").match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if (!match) return null;
+      return new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
+    }
+
+    function dateFromInfobras(work) {
+      const code = work?.facts?.["Código Infobras"];
+      return code && window.INFOBRAS_FECHAS ? window.INFOBRAS_FECHAS[code] : null;
+    }
+
+    function declaredStartInfo(work, infobrasDates) {
+      const infobrasDate = infobrasDates?.fecha_inicio_obra || "";
+      if (parsePeruDate(infobrasDate)) return { date: infobrasDate, source: "INFOBRAS" };
+      const investmentDate = work.fecha_inicio_declarada || work.facts["Fecha de inicio declarada"] || "";
+      if (parsePeruDate(investmentDate)) return { date: investmentDate, source: "Invierte.pe / SSI" };
+      return { date: "No disponible", source: "" };
+    }
+
+    function reliableParalysisDate(work, infobrasDates) {
+      const start = parsePeruDate(infobrasDates?.fecha_inicio_obra);
+      const paralysis = parsePeruDate(infobrasDates?.fecha_paralizacion_infobras);
+      if (start && paralysis && paralysis >= start) return infobrasDates.fecha_paralizacion_infobras;
+      if (work.fecha_inicio_max_interrupcion) return formatReleaseDate(work.fecha_inicio_max_interrupcion);
+      return "No disponible";
+    }
+
+    function tileUrlFromWayback(item) {
+      return item.itemURL
+        .replace("{level}", "{z}")
+        .replace("{row}", "{y}")
+        .replace("{col}", "{x}");
+    }
+
+    function googleTileUrl() {
+      return "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}";
+    }
+
+    function setSatelliteMode(mode) {
+      const showGoogle = mode === "google";
+      const showGooglePro = mode === "google-pro";
+      satelliteGoogleProImage.classList.remove("active");
+      satelliteGoogleProImage.style.display = "none";
+      satelliteGoogleProPanel.classList.toggle("active", false);
+      document.querySelector(".satellite-pin").style.display = "block";
+      satelliteReset.style.display = "inline-flex";
+      document.querySelector(".satellite-timebar").style.display = showGoogle ? "none" : "grid";
+      satelliteProviderNote.classList.toggle("active", showGoogle || showGooglePro);
+      satelliteProviderNote.classList.toggle("with-timeline", showGooglePro);
+    }
+
+    function googleEarthProImages(work) {
+      const code = work.facts?.["Código Infobras"];
+      const registry = window.GOOGLE_EARTH_PRO_IMAGES || {};
+      return work.google_earth_pro_images || registry[code] || [];
+    }
+
+    function renderSatelliteTimeline(periods, titlePrefix) {
+      satelliteTimeline.innerHTML = periods.map((period, index) => {
+        const isCurrent = index === periods.length - 1;
+        const dateLabel = period.dateLabel || formatReleaseDate(period.releaseDate);
+        const mainLabel = period.timelineLabel || period.label;
+        const detail = period.timelineLabel ? "" : `<strong>${dateLabel}</strong>`;
+        return `<button class="satellite-year ${isCurrent ? "active" : ""}" type="button" data-period="${index}" title="${titlePrefix} ${period.timelineLabel || dateLabel}"><span>${mainLabel}</span>${detail}</button>`;
+      }).join("");
+
+      satelliteTimeline.querySelectorAll(".satellite-year").forEach((button) => {
+        button.addEventListener("click", () => activateSatellitePeriod(Number(button.dataset.period)));
+      });
+    }
+
+    function satelliteNarrative(period, work) {
+      const facts = work.facts || {};
+      const cause = facts["Causal de paralización"] || work.causa || "causal no disponible";
+      const subcause = work.subcausa_paralizacion ? ` Subcausa: ${work.subcausa_paralizacion}.` : "";
+      return `${cause}.${subcause} La causal corresponde a lo declarado por la entidad ejecutora de la obra y al afinamiento aplicado en la base de datos.`;
+    }
+
+    function showGoogleEarthUnavailable() {
+      satelliteGoogleProMessage.textContent = "No hay capturas históricas de Google Earth disponibles para esta obra.";
+      satelliteGoogleProImage.removeAttribute("src");
+      satelliteGoogleProImage.style.display = "none";
+      satelliteGoogleProImage.classList.remove("active");
+      satelliteGoogleProPanel.classList.add("active");
+      satelliteProviderNote.textContent = "";
+      satelliteProviderNote.classList.remove("active", "with-timeline");
+      document.querySelector(".satellite-timebar").style.display = "none";
+      satelliteSource.textContent = "Fuente: Google Earth histórico.";
+    }
+
+    async function setSatelliteLayer(item, work, period, resetView = false) {
+      if (satelliteLayer) satelliteMap.removeLayer(satelliteLayer);
+      setSatelliteMode(satelliteProvider);
+
+      if (satelliteProvider === "google") {
+        satelliteLayer = L.tileLayer(googleTileUrl(), {
+          maxZoom: 21,
+          maxNativeZoom: 21,
+          attribution: "Google Satellite"
+        }).addTo(satelliteMap);
+        if (resetView) resetSatelliteView(18);
+        satelliteProviderNote.textContent = "Imagen satelital de Google disponible como referencia visual dentro del visor.";
+        satelliteSource.textContent = "Fuente: Google satelital. Para revisar cambios, usa Google Earth histórico o Imágenes Esri históricas cuando existan cortes disponibles.";
+        satelliteMap.invalidateSize();
+        satelliteInsight.textContent = satelliteNarrative(period, work);
+        return;
+      }
+
+      if (satelliteProvider === "google-pro") {
+        if (resetView) resetSatelliteView(18);
+        if (period?.capture) {
+          satelliteGoogleProPanel.classList.add("active");
+          satelliteGoogleProImage.classList.remove("active");
+          satelliteGoogleProImage.style.display = "none";
+          satelliteGoogleProImage.onload = () => {
+            if (satelliteProvider !== "google-pro") return;
+            satelliteGoogleProImage.style.display = "block";
+            satelliteGoogleProImage.classList.add("active");
+            satelliteGoogleProPanel.classList.remove("active");
+          };
+          satelliteGoogleProImage.onerror = () => showGoogleEarthUnavailable();
+          satelliteGoogleProImage.src = period.capture.src;
+          satelliteGoogleProImage.alt = `Captura histórica de Google Earth del ${formatReleaseDate(period.capture.date)}`;
+          satelliteProviderNote.textContent = `Captura histórica de Google Earth: ${formatReleaseDate(period.capture.date)}.`;
+          satelliteSource.textContent = `Fuente: Google Earth histórico. Captura fechada: ${formatReleaseDate(period.capture.date)}.`;
+        } else {
+          showGoogleEarthUnavailable();
+        }
+        satelliteInsight.textContent = satelliteNarrative(period, work);
+        return;
+      }
+
+      satelliteMap.setMinZoom(14);
+      satelliteMap.setMaxZoom(20);
+      satelliteLayer = L.tileLayer(tileUrlFromWayback(item), {
+        maxZoom: 20,
+        maxNativeZoom: 17,
+        attribution: "Esri World Imagery Wayback"
+      }).addTo(satelliteMap);
+      if (resetView) resetSatelliteView(18);
+      satelliteProviderNote.textContent = "";
+      satelliteProviderNote.classList.remove("active", "with-timeline");
+      satelliteSource.textContent = "Fuente: archivo histórico de Esri World Imagery. La imagen se presenta como referencia visual y no acredita por sí sola un cambio constructivo.";
+      satelliteMap.invalidateSize();
+      satelliteInsight.textContent = satelliteNarrative(period, work);
+    }
+
+    function resetSatelliteView(zoom = 18) {
+      if (!satelliteMap || !satelliteWork) return;
+      satelliteMap.dragging.enable();
+      satelliteMap.setMaxBounds(null);
+      satelliteMap.setView(satelliteWork.latlng, zoom, { animate: false });
+    }
+
+    function activateSatellitePeriod(index, resetView = false) {
+      if (!satellitePeriods.length || !satelliteWork) return;
+      satelliteCurrentIndex = Math.max(0, Math.min(index, satellitePeriods.length - 1));
+      satelliteTimeline.querySelectorAll(".satellite-year").forEach((button, buttonIndex) => {
+        button.classList.toggle("active", buttonIndex === satelliteCurrentIndex);
+      });
+      const period = satellitePeriods[satelliteCurrentIndex];
+      const selected = period.item || itemForYear(satelliteItems, period.year);
+      if (period.capture) {
+        setSatelliteLayer(null, satelliteWork, period, resetView);
+        return;
+      }
+      if (selected) setSatelliteLayer(selected, satelliteWork, period, resetView);
+    }
+
+    function switchSatelliteProvider(provider) {
+      satelliteProvider = provider;
+      satelliteSourceButtons.forEach((sourceButton) => {
+        sourceButton.classList.toggle("active", sourceButton.dataset.source === provider);
+      });
+
+      if (provider === "google-pro") {
+        satellitePeriods = buildGoogleEarthProPeriods(satelliteWork);
+        if (satellitePeriods.length) {
+          satelliteItems = [];
+          renderSatelliteTimeline(satellitePeriods, "Ver captura de Google Earth del");
+          activateSatellitePeriod(satellitePeriods.length - 1, true);
+        } else {
+          satelliteCurrentIndex = 0;
+          satellitePeriods = [];
+          satelliteTimeline.innerHTML = "";
+          setSatelliteMode("google-pro");
+          setSatelliteLayer(null, satelliteWork, null, true);
+        }
+        return;
+      }
+
+      if (provider === "esri") {
+        getWaybackItems().then(async (items) => {
+          satelliteItems = items;
+          const availablePeriods = buildSatellitePeriods(satelliteWork, satelliteItems);
+          const distinctPeriods = await distinctSatellitePeriods(availablePeriods, satelliteWork);
+          if (satelliteProvider !== "esri") return;
+          satellitePeriods = distinctPeriods.map((period) => ({
+            ...period,
+            timelineLabel: formatNumericMonthYear(period.releaseDate)
+          }));
+          renderSatelliteTimeline(satellitePeriods, "Ver versión Esri de");
+          activateSatellitePeriod(satellitePeriods.length - 1, true);
+        });
+        return;
+      }
+
+      satellitePeriods = [];
+      satelliteItems = [];
+      satelliteTimeline.innerHTML = "";
+      setSatelliteLayer(null, satelliteWork, null, true);
+    }
+
+    async function openSatelliteModal(work) {
+      satelliteModal.classList.add("active");
+      satelliteModal.setAttribute("aria-hidden", "false");
+      satelliteWork = work;
+      document.getElementById("satellite-title").textContent = work.title;
+      document.getElementById("satellite-title").title = work.title;
+      document.getElementById("satellite-subtitle").textContent = `CUI ${work.facts["CUI"] || "N/D"} | Código INFOBRAS ${work.facts["Código Infobras"] || "N/D"}`;
+      satelliteLocation.textContent = `${work.region} - ${work.provincia} - ${work.distrito}`;
+      const hasGoogleProCaptures = buildGoogleEarthProPeriods(work).length > 0;
+      satelliteProvider = "google";
+      satelliteSourceButtons.forEach((button) => {
+        if (button.dataset.source === "google-pro") {
+          button.disabled = false;
+          button.title = hasGoogleProCaptures
+            ? "Ver capturas históricas de Google Earth"
+            : "Consultar disponibilidad de imágenes históricas para esta obra";
+        }
+        button.classList.toggle("active", button.dataset.source === "google");
+      });
+      setSatelliteMode("google");
+      satelliteSource.textContent = "Fuente: Google satelital. Para revisar cambios, usa Google Earth histórico o Imágenes Esri históricas cuando existan cortes disponibles.";
+      satelliteInsight.textContent = "Cargando lectura temporal...";
+      const infobrasDates = dateFromInfobras(work);
+      const declaredStart = declaredStartInfo(work, infobrasDates);
+      const paralysisStart = reliableParalysisDate(work, infobrasDates);
+      const declaredStartSource = declaredStart.source ? ` <small>(Fuente: ${declaredStart.source})</small>` : "";
+      satelliteWorkSummary.innerHTML = `
+        <span class="satellite-data-row"><strong>Costo actualizado de la inversión:</strong><span>${work.facts["Monto actualizado"] || "No disponible"}</span></span>
+        <span class="satellite-data-row"><strong>Avance físico:</strong><span>${work.facts["Avance físico"] || "No disponible"}</span></span>
+        <span class="satellite-data-row"><strong>Entidad ejecutora:</strong><span>${work.facts["Entidad"] || "No disponible"}</span></span>
+        <span class="satellite-data-row"><strong>Fecha de inicio declarada:</strong><span>${declaredStart.date}${declaredStartSource}</span></span>
+        <span class="satellite-data-row"><strong>Fecha de paralización referencial:</strong><span>${paralysisStart}</span></span>
+      `;
+      setTimeout(async () => {
+        if (!satelliteMap) {
+          satelliteMap = L.map("satellite-map", {
+            zoomControl: true,
+            attributionControl: false,
+            dragging: true,
+            scrollWheelZoom: true,
+            doubleClickZoom: true,
+            boxZoom: false,
+            keyboard: true,
+            touchZoom: true,
+            minZoom: 14,
+            maxZoom: 20
+          }).setView(work.latlng, 18);
+          satelliteMarker = L.circleMarker(work.latlng, {
+            radius: 7,
+            color: "#fff",
+            weight: 3,
+            fillColor: "#27ae60",
+            fillOpacity: 1
+          }).addTo(satelliteMap);
+        } else {
+          satelliteMap.dragging.enable();
+          satelliteMarker.setLatLng(work.latlng);
+          satelliteMap.invalidateSize();
+        }
+
+        satellitePeriods = [];
+        satelliteItems = [];
+        satelliteTimeline.innerHTML = "";
+        setSatelliteLayer(null, work, null, true);
+      }, 120);
+    }
+
+    function closeSatelliteModal() {
+      satelliteModal.classList.remove("active");
+      satelliteModal.setAttribute("aria-hidden", "true");
     }
 
     function closeMapPopup() {
@@ -1771,9 +4164,52 @@
       activePopupWork = null;
     }
 
+    function openSharedWorkFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const workKey = findWorkKeyByShareId(params.get("obra"));
+      if (!workKey) return;
+      const work = workData[workKey];
+      leafletMap.setView(work.latlng, Math.max(leafletMap.getZoom(), 13), { animate: false });
+      openMapPopup(workKey);
+      if (params.get("seguimiento") === "1") {
+        setTimeout(() => openSatelliteModal(work), 250);
+      }
+    }
+
+    function isPageReload() {
+      const navigation = performance.getEntriesByType("navigation")[0];
+      return navigation ? navigation.type === "reload" : performance.navigation?.type === 1;
+    }
+
     mapPopupClose.addEventListener("click", closeMapPopup);
+    satelliteClose.addEventListener("click", closeSatelliteModal);
+    satelliteModal.addEventListener("click", (event) => {
+      if (event.target === satelliteModal) closeSatelliteModal();
+    });
+    satellitePrev.addEventListener("click", () => activateSatellitePeriod(satelliteCurrentIndex - 1));
+    satelliteNext.addEventListener("click", () => activateSatellitePeriod(satelliteCurrentIndex + 1));
+    satelliteReset.addEventListener("click", () => resetSatelliteView());
+    satelliteShare.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openShareDialog(satelliteWork, true);
+    });
+    satelliteSourceButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        switchSatelliteProvider(button.dataset.source);
+      });
+    });
+    shareDialogClose.addEventListener("click", closeShareDialog);
+    shareDialog.addEventListener("click", (event) => {
+      if (event.target === shareDialog) closeShareDialog();
+    });
+    shareCopy.addEventListener("click", () => copyActiveShareUrl());
+    shareInstagram.addEventListener("click", shareToInstagram);
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMapPopup();
+      if (event.key === "Escape") {
+        closeShareDialog();
+        closeSatelliteModal();
+        closeMapPopup();
+      }
     });
 
     Object.values(filterControls).forEach((control) => {
@@ -1810,15 +4246,22 @@
 
     fullscreenButton.addEventListener("click", () => {
       const isFullscreen = peruMap.classList.toggle("fullscreen-map");
-      fullscreenButton.textContent = isFullscreen ? "Salir de pantalla completa" : "Pantalla completa";
-      setTimeout(() => leafletMap.invalidateSize(), 180);
+      fullscreenButton.textContent = isFullscreen ? "×" : "⛶";
+      fullscreenButton.title = isFullscreen ? "Salir de pantalla completa" : "Pantalla completa";
+      fullscreenButton.setAttribute("aria-label", fullscreenButton.title);
+      setTimeout(() => {
+        leafletMap.invalidateSize();
+        fitMapPopup();
+      }, 180);
     });
 
+    window.addEventListener("resize", fitMapPopup);
+
     populateCauseFilter();
-    applyFilters();
+    resetFilters();
     renderPriorityTable();
+    if (!isPageReload()) setTimeout(openSharedWorkFromUrl, 250);
   </script>
 </body>
 </html>
-
 
