@@ -2656,7 +2656,7 @@
     <div class="hero-red empty" aria-hidden="true"></div>
     <div class="hero-blue">
       <h1>Alertas de Obras Públicas Paralizadas en el Perú</h1>
-      <p>Plataforma basada en datos públicos para identificar y monitorear la paralización de obras en el Perú.</p>
+      <p>Corte: Setiembre 2026 · 1.121 obras registradas para seguimiento.</p>
     </div>
 
     <div class="layout-dashboard">
@@ -2754,6 +2754,15 @@
           </select>
         </div>
 
+        <div class="filter-field">
+          <label for="alerta-predictiva">Alerta predictiva</label>
+          <select id="alerta-predictiva" aria-label="Alerta predictiva">
+            <option value="todos">Todas</option>
+            <option value="1">Con señal del modelo</option>
+            <option value="0">Sin señal del modelo</option>
+          </select>
+        </div>
+
         <button class="btn btn-block filter-action" id="btn-limpiar" type="button">Limpiar filtros</button>
       </aside>
 
@@ -2768,35 +2777,36 @@
         <h3 class="section-title">Indicadores clave</h3>
         <div class="kpi-grid">
           <div class="value-box" style="border-left-color: var(--danger)">
-            <p class="number" id="kpi-obras">1.151</p>
+            <p class="number" id="kpi-obras">—</p>
             <p class="label">Obras paralizadas</p>
             <span class="sub" id="kpi-obras-sub">total de obras visibles</span>
           </div>
           <div class="value-box" style="border-left-color: var(--gfp-red)">
-            <p class="number compact" id="kpi-inversion">S/ 16 mil mill.</p>
+            <p class="number compact" id="kpi-inversion">—</p>
             <p class="label">Inversión comprometida</p>
-            <span class="sub" id="kpi-inversion-sub">costo actualizado de inversión</span>
+            <span class="sub" id="kpi-inversion-sub">costo actualizado sin duplicar CUI</span>
           </div>
           <div class="value-box" style="border-left-color: var(--amber)">
-            <p class="number compact" id="kpi-saldo">S/ 6.7 mil mill.</p>
+            <p class="number compact" id="kpi-saldo">—</p>
             <p class="label">Saldo por ejecutar</p>
             <span class="sub" id="kpi-saldo-sub">saldo por ejecutar</span>
           </div>
           <div class="value-box" style="border-left-color: var(--sky)">
-            <p class="number compact" id="kpi-personas">19.3 mill.</p>
+            <p class="number compact" id="kpi-personas">—</p>
             <p class="label">Población potencialmente afectada</p>
-            <span class="sub source-note" id="kpi-personas-sub">(Aproximación por distrito) | Fuente: SSI</span>
+            <span class="sub source-note" id="kpi-personas-sub">Aproximación distrital · SSI e INEI 2026</span>
           </div>
           <div class="value-box" style="border-left-color: var(--green)">
-            <p class="number" id="kpi-regionales">963</p>
+            <p class="number" id="kpi-regionales">—</p>
             <p class="label">Obras de nivel subnacional</p>
-            <span class="sub" id="kpi-regionales-sub">total visible | GR: 145 | GL: 818</span>
+            <span class="sub" id="kpi-regionales-sub">Cargando indicadores</span>
           </div>
         </div>
 
         <div class="dashboard-grid">
           <section class="panelbox">
             <h3 class="section-title">Mapa de obras públicas paralizadas</h3>
+            <p id="map-coverage" class="source-note" aria-live="polite"></p>
             <div class="map-wrap">
               <div class="peru-map" aria-label="Mapa de obras públicas paralizadas">
                 <div id="leaflet-map" class="leaflet-map"></div>
@@ -2865,6 +2875,8 @@
     <div class="layout-dashboard" style="grid-template-columns:1fr">
       <section class="table-panel">
         <h3 class="section-title">Ranking de las 50 obras con mayor costo actualizado de inversión</h3>
+        <p>Setiembre 2026 · Orden por costo actualizado de cada registro INFOBRAS.</p>
+        <a class="btn secondary" href="ranking_50_setiembre_2026.csv" download>Descargar ranking</a>
         <table class="priority-table">
           <thead>
             <tr>
@@ -2928,6 +2940,14 @@
           </div>
         </div>
         <div class="month-grid">
+          <article class="month-card">
+            <div class="month-card-head"><h3>Setiembre 2026</h3></div>
+            <p>Corte de setiembre de 2026: 1.121 obras. Base completa con 58 columnas y Diccionario.</p>
+            <div class="month-actions">
+              <a class="btn secondary" href="BD_OBRAS_PARALIZADAS_SEPTIEMBRE_2026.xlsx" download>Descargar base de datos</a>
+              <a class="btn secondary" href="ranking_50_setiembre_2026.csv" download>Descargar ranking de 50 obras</a>
+            </div>
+          </article>
           <article class="month-card">
             <div class="month-card-head">
               <h3>Mayo 2026</h3>
@@ -3056,7 +3076,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="assets/google-earth-pro-captures.js?v=20260910"></script>
   <script src="assets/infobras-dates.js?v=20260910"></script>
-  <script src="assets/obras-data.js?v=20260910"></script>
+  <script src="assets/obras-data.js?v=20261014"></script>
+  <script src="assets/indicadores.js?v=20261014"></script>
   <script src="assets/peru-shapes.js?v=20260910"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script>
@@ -3100,7 +3121,8 @@
       sector: document.getElementById("sector"),
       causa: document.getElementById("causa"),
       costo: document.getElementById("costo"),
-      tiempo: document.getElementById("tiempo-paralizado")
+      tiempo: document.getElementById("tiempo-paralizado"),
+      predictivo: document.getElementById("alerta-predictiva")
     };
     const clearFiltersButton = document.getElementById("btn-limpiar");
     const filterStatus = document.getElementById("filter-status");
@@ -3288,7 +3310,7 @@
       return "rango-1";
     }
 
-    const initialMapBounds = L.latLngBounds(Object.values(workData).map((work) => work.latlng));
+    const initialMapBounds = L.latLngBounds(Object.values(workData).filter(window.OBRAS_INDICADORES.hasCoordinates).map((work) => work.latlng));
     leafletMap.fitBounds(initialMapBounds, { padding: [36, 36] });
     const initialMapZoom = leafletMap.getZoom();
     leafletMap.setMinZoom(initialMapZoom);
@@ -3320,6 +3342,7 @@
     }
 
     const markersByWork = Object.entries(workData).reduce((acc, [key, work]) => {
+      if (!window.OBRAS_INDICADORES.hasCoordinates(work)) return acc;
       const marker = L.circleMarker(work.latlng, getMarkerStyle(work.cost));
       marker.options.title = work.title;
       marker.workCost = work.cost;
@@ -3331,7 +3354,7 @@
     function syncMarkerLayer(visibleWorkKeys) {
       markerLayer.clearLayers();
       visibleWorkKeys.forEach((key) => {
-        markerLayer.addLayer(markersByWork[key]);
+        if (markersByWork[key]) markerLayer.addLayer(markersByWork[key]);
       });
       if (!leafletMap.hasLayer(markerLayer)) markerLayer.addTo(leafletMap);
     }
@@ -3351,6 +3374,12 @@
         panels.forEach((panel) => panel.classList.remove("active"));
         tab.classList.add("active");
         document.getElementById(`tab-${tab.dataset.tab}`).classList.add("active");
+        if (tab.dataset.tab === "dashboard") {
+          requestAnimationFrame(() => {
+            leafletMap.invalidateSize();
+            applyFilters();
+          });
+        }
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     });
@@ -3375,17 +3404,19 @@
         && (selectedSector === "Todos" || work.sector === selectedSector)
         && (selectedCausa === "Todas" || work.causa === selectedCausa)
         && (selectedCosto === "todos" || selectedCosto === costClass)
-        && (selectedTiempo === "todos" || selectedTiempo === paralysisBucket);
+        && (selectedTiempo === "todos" || selectedTiempo === paralysisBucket)
+        && (filterControls.predictivo.value === "todos" || work.modelo_predictivo === filterControls.predictivo.value);
     }
 
     function formatMoneyMillions(value) {
+      if (!Number.isFinite(value)) return "N/D";
       if (value < 1) {
         return `S/ ${Math.round(value * 1000).toLocaleString("es-PE")} mil`;
       }
       const amount = value >= 1000 ? value / 1000 : value;
       const formatted = amount.toLocaleString("es-PE", {
-        minimumFractionDigits: amount < 10 && amount % 1 !== 0 ? 1 : 0,
-        maximumFractionDigits: amount < 10 ? 1 : 0
+        minimumFractionDigits: (value >= 1000 || amount < 10) && amount % 1 !== 0 ? 1 : 0,
+        maximumFractionDigits: value >= 1000 || amount < 10 ? 1 : 0
       });
       return value >= 1000 ? `S/ ${formatted} mil mill.` : `S/ ${formatted} mill.`;
     }
@@ -3404,7 +3435,7 @@
       if (!dateText) return null;
       const start = new Date(`${dateText}T00:00:00`);
       if (Number.isNaN(start.getTime())) return null;
-      const now = new Date();
+      const now = new Date("2026-09-30T12:00:00");
       let months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
       if (now.getDate() < start.getDate()) months -= 1;
       return Math.max(months, 0);
@@ -3420,27 +3451,8 @@
       return "36-plus";
     }
 
-    function adjustedPopulation(visibleWorks) {
-      const adjustedValues = visibleWorks
-        .map((work) => Number(work.peopleAdjusted))
-        .filter((value) => Number.isFinite(value) && value > 0);
-      if (adjustedValues.length > 0) {
-        return adjustedValues.reduce((sum, value) => sum + value, 0);
-      }
-
-      const districts = new Map();
-      let validValues = 0;
-      visibleWorks.forEach((work) => {
-        const value = Number(work.people);
-        if (!Number.isFinite(value) || value <= 0) return;
-        if (value > 1000000) return;
-        validValues += 1;
-        const key = districtKey(work);
-        const current = districts.get(key);
-        if (!current || value > current) districts.set(key, value);
-      });
-      if (validValues === 0) return null;
-      return Array.from(districts.values()).reduce((sum, value) => sum + value, 0);
+    function adjustedPopulation(works) {
+      return window.OBRAS_INDICADORES.population(works);
     }
 
     function normalizeSearch(value) {
@@ -3500,7 +3512,8 @@
         ["Sector", filterControls.sector.value, "Todos"],
         ["Causa", filterControls.causa.value, "Todas"],
         ["Costo", filterControls.costo.options[filterControls.costo.selectedIndex].text, "Todos"],
-        ["Tiempo paralizado", filterControls.tiempo.options[filterControls.tiempo.selectedIndex].text, "Todos"]
+        ["Tiempo paralizado", filterControls.tiempo.options[filterControls.tiempo.selectedIndex].text, "Todos"],
+        ["Alerta predictiva", filterControls.predictivo.options[filterControls.predictivo.selectedIndex].text, "Todas"]
       ];
       return filters.filter(([, value, defaultValue]) => value !== defaultValue);
     }
@@ -3516,8 +3529,8 @@
     }
 
     function updateKpis(visibleWorks) {
-      const investment = visibleWorks.reduce((sum, work) => sum + work.cost, 0);
-      const saldo = visibleWorks.reduce((sum, work) => sum + work.saldo, 0);
+      const investment = window.OBRAS_INDICADORES.financial(visibleWorks, "investmentCost");
+      const saldo = window.OBRAS_INDICADORES.financial(visibleWorks, "investmentSaldo");
       const people = adjustedPopulation(visibleWorks);
       const regionalGov = visibleWorks.filter((work) => normalizeSearch(work.nivel) === "gobierno regional").length;
       const localGov = visibleWorks.filter((work) => normalizeSearch(work.nivel) === "gobierno local").length;
@@ -3526,9 +3539,16 @@
 
       kpiEls.obras.textContent = visibleWorks.length.toLocaleString("es-PE");
       kpiEls.obrasSub.textContent = scoped;
-      kpiEls.inversion.textContent = formatMoneyMillions(investment);
-      kpiEls.saldo.textContent = formatMoneyMillions(saldo);
+      kpiEls.inversion.textContent = formatMoneyMillions(investment.total);
+      kpiEls.saldo.textContent = formatMoneyMillions(saldo.total);
       kpiEls.personas.textContent = people === null ? "N/D" : formatPeople(people);
+      kpiEls.inversion.title = investment.total === null ? "Sin datos" : `S/ ${(investment.total * 1000000).toLocaleString("es-PE", {maximumFractionDigits: 2})}`;
+      kpiEls.saldo.title = saldo.total === null ? "Sin datos" : `S/ ${(saldo.total * 1000000).toLocaleString("es-PE", {maximumFractionDigits: 2})}`;
+      kpiEls.personas.title = people === null ? "Sin datos" : people.toLocaleString("es-PE");
+      document.getElementById("kpi-saldo-sub").textContent = `Sin duplicar CUI · ${saldo.missing} inversiones sin saldo disponible`;
+      const mapped = visibleWorks.filter(window.OBRAS_INDICADORES.hasCoordinates).length;
+      document.getElementById("map-coverage").textContent = `${mapped.toLocaleString("es-PE")} obras con ubicación referencial · ${(visibleWorks.length - mapped).toLocaleString("es-PE")} sin coordenadas verificables (incluidas en indicadores)`;
+      document.getElementById("kpi-personas-sub").textContent = `Aproximación distrital · ${visibleWorks.filter(w => Number.isFinite(w.people)).length} obras con dato validado · SSI e INEI 2026`;
       kpiEls.regionales.textContent = regional.toLocaleString("es-PE");
       kpiEls.regionalesSub.textContent = `${scoped} | GR: ${regionalGov.toLocaleString("es-PE")} | GL: ${localGov.toLocaleString("es-PE")}`;
     }
@@ -3598,7 +3618,7 @@
         closeMapPopup();
       }
 
-      const visibleLatLngs = Array.from(visibleWorkKeys).map((key) => workData[key].latlng);
+      const visibleLatLngs = Array.from(visibleWorkKeys).map((key) => workData[key]).filter(window.OBRAS_INDICADORES.hasCoordinates).map(work => work.latlng);
       if (visibleLatLngs.length > 0) {
         leafletMap.fitBounds(visibleLatLngs, { padding: [48, 48], maxZoom: 7 });
       }
@@ -3733,6 +3753,8 @@
       if (window.lucide) window.lucide.createIcons();
       const satelliteOpen = document.getElementById("satellite-open");
       if (satelliteOpen) {
+        satelliteOpen.disabled = !window.OBRAS_INDICADORES.hasCoordinates(work);
+        satelliteOpen.title = satelliteOpen.disabled ? "Sin coordenadas verificables" : "Ver seguimiento satelital";
         satelliteOpen.onclick = () => openSatelliteModal(work);
       }
       if (shareButton) {
@@ -4088,6 +4110,7 @@
     }
 
     async function openSatelliteModal(work) {
+      if (!window.OBRAS_INDICADORES.hasCoordinates(work)) return;
       satelliteModal.classList.add("active");
       satelliteModal.setAttribute("aria-hidden", "false");
       satelliteWork = work;
@@ -4169,7 +4192,7 @@
       const workKey = findWorkKeyByShareId(params.get("obra"));
       if (!workKey) return;
       const work = workData[workKey];
-      leafletMap.setView(work.latlng, Math.max(leafletMap.getZoom(), 13), { animate: false });
+      if (window.OBRAS_INDICADORES.hasCoordinates(work)) leafletMap.setView(work.latlng, Math.max(leafletMap.getZoom(), 13), { animate: false });
       openMapPopup(workKey);
       if (params.get("seguimiento") === "1") {
         setTimeout(() => openSatelliteModal(work), 250);
@@ -4229,6 +4252,7 @@
       filterControls.causa.value = "Todas";
       filterControls.costo.value = "todos";
       filterControls.tiempo.value = "todos";
+      filterControls.predictivo.value = "todos";
       closeMapPopup();
       applyFilters();
     }
@@ -4257,6 +4281,12 @@
 
     window.addEventListener("resize", fitMapPopup);
 
+    const sectorOptions = [...new Set(Object.values(workData).map(work => work.sector))].sort((a,b) => a.localeCompare(b, "es"));
+    filterControls.sector.replaceChildren(new Option("Todos", "Todos"), ...sectorOptions.map(value => new Option(value, value)));
+    for (const [control, field] of [[filterControls.nivel, "nivel"], [filterControls.departamento, "region"]]) {
+      const options = [...new Set(Object.values(workData).map(work => work[field]))].sort((a,b) => a.localeCompare(b, "es"));
+      control.replaceChildren(new Option("Todos", "Todos"), ...options.map(value => new Option(value, value)));
+    }
     populateCauseFilter();
     resetFilters();
     renderPriorityTable();
