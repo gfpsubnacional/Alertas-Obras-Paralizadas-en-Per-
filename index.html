@@ -2629,12 +2629,11 @@
 
 
     /* Cabecera y fichas adaptables: revisión de octubre de 2026. */
-    .topic-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:12px 28px; padding:14px 20px; background:linear-gradient(100deg,#d21e25,#f13a40); }
-    .topic-nav a { color:#fff; text-decoration:none; font-size:.85rem; font-weight:700; }
-    .topic-nav a:hover { text-decoration:underline; }
     .navbar { position:static; min-height:38px; padding:5px 20px; justify-content:flex-end; background:var(--gfp-red); border-top:1px solid #ffffff50; border-bottom:0; }
-    .navbar .nav-tabs { width:auto; justify-content:flex-end; gap:3px; padding:4px; background:#fff; border-radius:3px; }
-    .nav-tabs button { padding:6px 9px; font-size:.75rem; }
+    .navbar .nav-tabs { width:auto; justify-content:flex-end; gap:3px; padding:4px; background:transparent; border-radius:3px; }
+    .nav-tabs button { padding:6px 9px; font-size:.75rem; color:#fff; background:transparent; }
+    .nav-tabs button:hover { background:transparent; text-decoration:underline; }
+    .nav-tabs button.active { background:var(--gfp-accent); color:#fff; text-decoration:none; }
     .well-panel { grid-template-columns:minmax(130px,1.15fr) repeat(7,minmax(0,1fr)) 118px; gap:10px; }
     .well-panel label { font-size:.8rem; }
     .filter-action { min-height:38px; height:38px; padding:6px 8px; white-space:nowrap; font-size:.8rem; }
@@ -2661,8 +2660,6 @@
       .peru-map:has(.map-popup.active) { min-height:680px; }
       .popup-facts { grid-template-columns:1fr; }
       .popup-fact.half,.popup-fact.compact { grid-column:1/-1; }
-      .topic-nav { gap:10px 18px; padding:12px; }
-      .topic-nav a { font-size:.78rem; }
       .navbar { padding:5px 12px; }
     }
     @media (max-width:600px) {
@@ -2675,7 +2672,6 @@
   </style>
 </head>
 <body class="loading-kpis">
-  <nav class="topic-nav" aria-label="Áreas temáticas de GFP"><a href="https://www.gfpsubnacional.pe/finanzas-verdes/">Finanzas Verdes</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/abastecimiento/">Abastecimiento</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/inversion-publica/">Inversión Pública</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/planificacion/">Planificación</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/presupuesto/">Presupuesto</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/tributacion-municipal/">Tributación Municipal</a></nav>
   <nav class="navbar" aria-label="Navegación principal">
     <ul class="nav-tabs">
       <li><button class="active" data-tab="dashboard" type="button">Dashboard</button></li>
