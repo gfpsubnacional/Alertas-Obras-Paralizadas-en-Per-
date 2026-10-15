@@ -2627,24 +2627,56 @@
       }
     }
 
+
+    /* Cabecera y fichas adaptables: revisión de octubre de 2026. */
+    .topic-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:12px 28px; padding:14px 20px; background:linear-gradient(100deg,#d21e25,#f13a40); }
+    .topic-nav a { color:#fff; text-decoration:none; font-size:.85rem; font-weight:700; }
+    .topic-nav a:hover { text-decoration:underline; }
+    .navbar { position:static; min-height:38px; padding:5px 20px; justify-content:flex-end; background:var(--gfp-red); border-top:1px solid #ffffff50; border-bottom:0; }
+    .navbar .nav-tabs { width:auto; justify-content:flex-end; gap:3px; padding:4px; background:#fff; border-radius:3px; }
+    .nav-tabs button { padding:6px 9px; font-size:.75rem; }
+    .well-panel { grid-template-columns:minmax(130px,1.15fr) repeat(7,minmax(0,1fr)) 118px; gap:10px; }
+    .well-panel label { font-size:.8rem; }
+    .filter-action { min-height:38px; height:38px; padding:6px 8px; white-space:nowrap; font-size:.8rem; }
+    .peru-map .map-popup { width:min(480px,48%); padding:16px; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; scrollbar-gutter:stable; background:#fff; z-index:1100; }
+    .peru-map .map-popup.active { display:block; }
+    .popup-header { min-height:0; align-items:start; gap:12px; padding:0 0 14px; margin:0; }
+    .map-popup .popup-heading h4 { height:auto; max-height:none; overflow:visible; display:block; -webkit-line-clamp:unset; margin:0 24px 8px 0; font-size:1rem; line-height:1.4; overflow-wrap:anywhere; text-align:left; }
+    .map-popup .popup-heading p { font-size:.78rem; line-height:1.4; }
+    .popup-facts { gap:8px; overflow:visible; }
+    .popup-fact, .popup-fact.half { min-width:0; min-height:44px; overflow:visible; font-size:.8rem; line-height:1.4; }
+    .popup-fact-content { grid-template-columns:1fr; gap:4px; padding:8px 10px; }
+    .popup-fact.half .popup-fact-content, .popup-fact.full-detail .popup-fact-content { gap:4px; }
+    .popup-fact strong, .popup-fact-label { min-width:0; overflow-wrap:anywhere; white-space:normal; font-size:.8rem; line-height:1.4; }
+    .popup-section-title { margin:10px 0 2px; padding:9px 10px; font-size:.85rem; line-height:1.3; }
+    .popup-links-row { grid-column:1/-1; display:grid; grid-template-columns:1fr; gap:8px; overflow:visible; }
+    .popup-links-row .popup-link-fact { min-width:0; padding:10px; border:1px solid #c5d7eb; border-radius:6px; grid-template-rows:auto auto; }
+    .popup-links-row .popup-link-fact + .popup-link-fact { border-left:1px solid #c5d7eb; }
+    .popup-links-row .popup-link-fact span { font-size:.8rem; line-height:1.35; }
+    .popup-links-row .popup-link-fact a { min-height:36px; font-size:.8rem; }
+    .popup-action-row { position:static; margin-top:16px; padding-top:12px; background:#fff; }
+    @media (max-width:1199px) { .well-panel { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+    @media (max-width:760px) {
+      .peru-map .map-popup { width:100%; height:100%; padding:14px; }
+      .peru-map:has(.map-popup.active) { min-height:680px; }
+      .popup-facts { grid-template-columns:1fr; }
+      .popup-fact.half,.popup-fact.compact { grid-column:1/-1; }
+      .topic-nav { gap:10px 18px; padding:12px; }
+      .topic-nav a { font-size:.78rem; }
+      .navbar { padding:5px 12px; }
+    }
+    @media (max-width:600px) {
+      .well-panel { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .well-panel .filter-field:first-child { grid-column:1/-1; }
+      .popup-header { grid-template-columns:36px minmax(0,1fr); gap:8px; }
+      .popup-project-icon { width:36px; height:36px; }
+      .popup-project-icon svg { width:22px; height:22px; }
+    }
   </style>
 </head>
 <body class="loading-kpis">
+  <nav class="topic-nav" aria-label="Áreas temáticas de GFP"><a href="https://www.gfpsubnacional.pe/finanzas-verdes/">Finanzas Verdes</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/abastecimiento/">Abastecimiento</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/inversion-publica/">Inversión Pública</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/planificacion/">Planificación</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/presupuesto/">Presupuesto</a><a href="https://www.gfpsubnacional.pe/tema_de_curso/tributacion-municipal/">Tributación Municipal</a></nav>
   <nav class="navbar" aria-label="Navegación principal">
-    <div class="brand">
-      <div class="brand-logos" aria-label="GFP, SECO y Basel Institute on Governance">
-        <a href="https://www.gfpsubnacional.pe/" target="_blank" rel="noopener noreferrer" aria-label="Abrir GFP Subnacional">
-          <img class="brand-logo gfp" src="assets/GFP.png" alt="GFP Subnacional" />
-        </a>
-        <a href="https://www.cooperacionsuiza.pe/seco/" target="_blank" rel="noopener noreferrer" aria-label="Abrir SECO Cooperación Suiza">
-          <img class="brand-logo seco" src="assets/SECO.png" alt="Cooperación Económica Suiza SECO" />
-        </a>
-        <a href="https://baselgovernance.org/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Basel Institute on Governance">
-          <img class="brand-logo basel" src="assets/BASEL.png" alt="Basel Institute on Governance" />
-        </a>
-      </div>
-      <span class="brand-title">Alertas de Obras Públicas Paralizadas</span>
-    </div>
     <ul class="nav-tabs">
       <li><button class="active" data-tab="dashboard" type="button">Dashboard</button></li>
       <li><button data-tab="priorizacion" type="button">Priorización</button></li>
@@ -2653,7 +2685,6 @@
   </nav>
 
   <section id="tab-dashboard" class="tab-panel active">
-    <div class="hero-red empty" aria-hidden="true"></div>
     <div class="hero-blue">
       <h1>Alertas de Obras Públicas Paralizadas en el Perú</h1>
       <p>Corte: Setiembre 2026 · 1.121 obras registradas para seguimiento.</p>
@@ -2805,8 +2836,6 @@
 
         <div class="dashboard-grid">
           <section class="panelbox">
-            <h3 class="section-title">Mapa de obras públicas paralizadas</h3>
-            <p id="map-coverage" class="source-note" aria-live="polite"></p>
             <div class="map-wrap">
               <div class="peru-map" aria-label="Mapa de obras públicas paralizadas">
                 <div id="leaflet-map" class="leaflet-map"></div>
@@ -2921,7 +2950,7 @@
           <article class="download-card">
             <h3>Metodología</h3>
             <p>Guía metodológica con fuentes de información, criterios de identificación y reglas de depuración para construir las alertas.</p>
-            <a class="btn secondary" href="metodologia_op.pdf" download>Descargar</a>
+            <a class="btn secondary" href="metodologia_op_1.pdf" download>Descargar</a>
           </article>
           <article class="download-card">
             <h3>Documento de trabajo</h3>
@@ -2945,7 +2974,7 @@
             <p>Resultados del corte de evaluación a setiembre de 2026.</p>
             <div class="month-actions">
               <a class="btn secondary" href="BD_OBRAS_PARALIZADAS_SEPTIEMBRE_2026.xlsx" download>Descargar base de datos</a>
-              <a class="btn secondary" href="ranking_50_setiembre_2026.csv" download>Descargar ranking de 50 obras</a>
+              <a class="btn secondary" href="reporte_op_sep.pdf" download>Reporte de alertas de obras paralizadas</a>
             </div>
           </article>
           <article class="month-card">
@@ -3522,7 +3551,7 @@
       const activeFilters = getActiveFilters();
       const hasFilters = activeFilters.length > 0;
       filterStatus.classList.toggle("active", hasFilters);
-      clearFiltersButton.innerHTML = hasFilters ? "Limpiar filtros<br>activos" : "Limpiar filtros";
+      clearFiltersButton.textContent = "Limpiar filtros";
       filterChips.innerHTML = activeFilters
         .map(([label, value]) => `<span class="filter-chip">${label}: ${value}</span>`)
         .join("");
@@ -3546,9 +3575,6 @@
       kpiEls.saldo.title = saldo.total === null ? "Sin datos" : `S/ ${(saldo.total * 1000000).toLocaleString("es-PE", {maximumFractionDigits: 2})}`;
       kpiEls.personas.title = people === null ? "Sin datos" : people.toLocaleString("es-PE");
       document.getElementById("kpi-saldo-sub").textContent = `Sin duplicar CUI · ${saldo.missing} inversiones sin saldo disponible`;
-      const mapped = visibleWorks.filter(window.OBRAS_INDICADORES.hasCoordinates).length;
-      const localityReferences = visibleWorks.filter(w => w.geoValidation === "REFERENCIA_LOCALIDAD_DENTRO_DISTRITO").length;
-      document.getElementById("map-coverage").textContent = `${mapped.toLocaleString("es-PE")} obras ubicadas${localityReferences ? ` · ${localityReferences} con referencia aproximada de localidad` : ""}${mapped < visibleWorks.length ? ` · ${visibleWorks.length - mapped} sin ubicación` : ""}`;
       document.getElementById("kpi-personas-sub").textContent = `Aproximación distrital · ${visibleWorks.filter(w => Number.isFinite(w.people)).length} obras con dato validado · SSI e INEI 2026`;
       kpiEls.regionales.textContent = regional.toLocaleString("es-PE");
       kpiEls.regionalesSub.textContent = `${scoped} | GR: ${regionalGov.toLocaleString("es-PE")} | GL: ${localGov.toLocaleString("es-PE")}`;
@@ -3723,17 +3749,9 @@
 
     function fitPopupTitle() {
       const titleElement = document.getElementById("popup-title");
-      if (!titleElement || !mapPopup.classList.contains("active")) return;
-      let fontSize = 14.5;
+      if (!titleElement) return;
       titleElement.classList.remove("title-truncated");
-      titleElement.style.fontSize = `${fontSize}px`;
-      while (titleElement.scrollHeight > titleElement.clientHeight && fontSize > 11.5) {
-        fontSize -= 0.5;
-        titleElement.style.fontSize = `${fontSize}px`;
-      }
-      if (titleElement.scrollHeight > titleElement.clientHeight) {
-        titleElement.classList.add("title-truncated");
-      }
+      titleElement.style.removeProperty("font-size");
     }
 
     function fitMapPopup() {
