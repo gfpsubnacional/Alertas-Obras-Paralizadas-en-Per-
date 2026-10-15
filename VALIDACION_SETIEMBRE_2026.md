@@ -12,11 +12,21 @@ La base conserva los 1.121 registros INFOBRAS y las 58 columnas originales de `b
 
 ## Ubicaciones y fuentes
 
-Las coordenadas se recuperan de la base de mayo solo con coincidencia de código INFOBRAS, CUI y territorio declarado, y validación dentro del departamento. Se completan con las fichas MEF consultadas el **9 de octubre de 2026**, cuando coinciden departamento, provincia y distrito. La coordenada de inversión MEF es referencial y puede no localizar el frente exacto de cada obra. No se utilizan centroides para suplir ubicaciones faltantes.
+La revisión del 14 de octubre de 2026 prioriza las geometrías del CUI en GeoInvierte (puntos, líneas y polígonos), luego las fichas MEF e INFOBRAS. Se examinan todas las ubicaciones de la inversión y se contrastan con la capa distrital oficial publicada por el MEF. Un punto dentro del distrito no acredita el frente exacto ni constituye verificación de campo.
 
-Las obras sin coordenadas verificables siguen incluidas en filtros, indicadores, Excel y ranking. Se informa su cantidad junto al mapa. No se ubican en el punto cero ni se habilita seguimiento satelital sin coordenadas.
+Se asignan **1.121 puntos**: **1.113** de inversión/obra dentro del distrito, **seis referencias aproximadas de localidad** dentro del distrito, **uno** a menos de 50 m del límite (INFOBRAS 106986; punto sin desplazar) y **uno** con concordancia de GeoInvierte, INFOBRAS y el centro poblado INEI Jorge Chávez (513690), cuya adscripción distrital entra en conflicto con el polígono de límites. Esta excepción se indica en la ficha, sin ocultarla como validación distrital estricta.
+
+Las referencias de localidad se aplican a 509215 (San Ramón), 167367 (Chipillico), 88902 (Llaullinco), 505462 (Santo Domingo), 517312 (Tawantinsuyo) y 517693 (Huarasayco). Proceden de centros poblados INEI publicados en GeoInvierte; no son centroides calculados ni coordenadas exactas de la obra. Se adoptaron con autorización expresa del usuario y se identifican como aproximadas en la ficha y en el resumen del mapa. Todas pasaron el contraste con el distrito declarado. Las 1.121 obras siguen incluidas en filtros, indicadores, Excel y ranking.
+
+Se corrigieron 58 adscripciones territoriales. Las tres columnas territoriales revisadas se reflejan también en el Excel, conservando sus 58 columnas y 1.121 registros. La población fue contrastada nuevamente con INEI tras estas correcciones: 635 obras con dato admisible y una aproximación agregada de 2.412.153 habitantes en 379 distritos. Los importes financieros permanecen sin cambios.
+
+Los CUI recuperados por coincidencia de ficha o denominación se utilizan únicamente para buscar coordenadas; no reemplazan los CUI de la base ni alteran su consolidación financiera. Los registros geográficos y sus observaciones están en `assets/georreferenciacion-setiembre-2026.json`.
 
 Fuentes de enriquecimiento:
+
+- [GeoInvierte: geometrías de inversiones](https://ws.mineco.gob.pe/server/rest/services/cartografia_pip_georef_edicion_lectura/MapServer).
+- [MEF: límites distritales y centros poblados INEI](https://ws.mineco.gob.pe/server/rest/services/cartografia_base_limites/MapServer).
+- [INFOBRAS: ficha pública](https://infobras.contraloria.gob.pe/InfobrasWeb/Mapa/DatosGenerales).
 
 - MEF, ficha de ejecución: `https://ofi5.mef.gob.pe/invierte/ejecucion/verFichaEjecucion/{CUI}`.
 - MEF, seguimiento SSI/F12B: `https://ofi5.mef.gob.pe/ssi/Ssi/Index?codigo={CUI}&tipo=2`.

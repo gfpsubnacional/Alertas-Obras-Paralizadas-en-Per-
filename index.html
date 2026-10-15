@@ -2942,7 +2942,7 @@
         <div class="month-grid">
           <article class="month-card">
             <div class="month-card-head"><h3>Setiembre 2026</h3></div>
-            <p>Corte de setiembre de 2026: 1.121 obras. Base completa con 58 columnas y Diccionario.</p>
+            <p>Resultados del corte de evaluación a setiembre de 2026.</p>
             <div class="month-actions">
               <a class="btn secondary" href="BD_OBRAS_PARALIZADAS_SEPTIEMBRE_2026.xlsx" download>Descargar base de datos</a>
               <a class="btn secondary" href="ranking_50_setiembre_2026.csv" download>Descargar ranking de 50 obras</a>
@@ -3547,7 +3547,8 @@
       kpiEls.personas.title = people === null ? "Sin datos" : people.toLocaleString("es-PE");
       document.getElementById("kpi-saldo-sub").textContent = `Sin duplicar CUI · ${saldo.missing} inversiones sin saldo disponible`;
       const mapped = visibleWorks.filter(window.OBRAS_INDICADORES.hasCoordinates).length;
-      document.getElementById("map-coverage").textContent = `${mapped.toLocaleString("es-PE")} obras con ubicación referencial · ${(visibleWorks.length - mapped).toLocaleString("es-PE")} sin coordenadas verificables (incluidas en indicadores)`;
+      const localityReferences = visibleWorks.filter(w => w.geoValidation === "REFERENCIA_LOCALIDAD_DENTRO_DISTRITO").length;
+      document.getElementById("map-coverage").textContent = `${mapped.toLocaleString("es-PE")} obras ubicadas${localityReferences ? ` · ${localityReferences} con referencia aproximada de localidad` : ""}${mapped < visibleWorks.length ? ` · ${visibleWorks.length - mapped} sin ubicación` : ""}`;
       document.getElementById("kpi-personas-sub").textContent = `Aproximación distrital · ${visibleWorks.filter(w => Number.isFinite(w.people)).length} obras con dato validado · SSI e INEI 2026`;
       kpiEls.regionales.textContent = regional.toLocaleString("es-PE");
       kpiEls.regionalesSub.textContent = `${scoped} | GR: ${regionalGov.toLocaleString("es-PE")} | GL: ${localGov.toLocaleString("es-PE")}`;

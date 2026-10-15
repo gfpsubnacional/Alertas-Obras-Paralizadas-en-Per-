@@ -31,4 +31,4 @@ Abrir `index.html` en el navegador. La rama `main` contiene la única versión v
 
 ## Corte vigente
 
-Setiembre de 2026. Se conservan las 1.121 obras originales. El mapa muestra 893 ubicaciones referenciales verificables; las 228 sin coordenadas permanecen en los indicadores. Las cifras financieras se consolidan sin duplicar CUI. La población es una aproximación distrital con datos válidos para 629 obras, contrastada con INEI 2026. Los importes exactos están disponibles al pasar el puntero sobre cada indicador.
+Setiembre de 2026. Se conservan las 1.121 obras originales. El mapa muestra las 1.121 obras: 1.113 puntos dentro del distrito, seis referencias aproximadas de localidad INEI, uno a menos de 50 m del límite y uno respaldado por tres registros oficiales con discrepancia cartográfica documentada. Las referencias de localidad están identificadas en el mapa y en cada ficha. Las cifras financieras se consolidan sin duplicar CUI. La población es una aproximación distrital con datos válidos para 635 obras, contrastada con INEI 2026. Los importes exactos están disponibles al pasar el puntero sobre cada indicador.
