@@ -2706,7 +2706,7 @@
 .dashboard-grid{grid-template-columns:1fr;gap:18px}.panelbox{padding:16px}
 .map-wrap{min-height:560px;height:auto}.peru-map:not(.fullscreen-map){min-height:560px;height:560px}.map-note{font-size:9px}
 .cause-chart-summary{font-size:12px;margin-bottom:30px}.cause-columns{gap:14px}.cause-plot{height:160px}.cause-column-label{font-size:11px}.cause-percent{font-size:12px}.cause-count{font-size:14px}
-.cause-others-note{font-size:11px;line-height:1.5;margin-top:18px;padding-top:13px}.cause-others-note ul{gap:2px 24px}
+.cause-others-note{font-size:10px;line-height:1.4;margin-top:18px;padding-top:13px}.cause-others-note ul{gap:2px 24px}
 .footer-simple{padding:16px;font-size:12px}
 
 /* Keep every filter reachable on short screens and preserve the full-screen map. */
@@ -2920,7 +2920,7 @@
           <div class="value-box" style="border-left-color: var(--sky)">
             <p class="number compact" id="kpi-personas">—</p>
             <p class="label">Población potencialmente afectada</p>
-            <span class="sub source-note" id="kpi-personas-sub">Aproximación distrital · SSI e INEI 2026</span>
+            <span class="sub source-note" id="kpi-personas-sub">Fuente: SSI</span>
           </div>
           <div class="value-box" style="border-left-color: var(--green)">
             <p class="number" id="kpi-regionales">—</p>
@@ -3672,7 +3672,7 @@
       kpiEls.saldo.title = saldo.total === null ? "Sin datos" : `S/ ${(saldo.total * 1000000).toLocaleString("es-PE", {maximumFractionDigits: 2})}`;
       kpiEls.personas.title = people === null ? "Sin datos" : people.toLocaleString("es-PE");
       document.getElementById("kpi-saldo-sub").textContent = `Sin duplicar CUI · ${saldo.missing} inversiones sin saldo disponible`;
-      document.getElementById("kpi-personas-sub").textContent = `Aproximación distrital · ${visibleWorks.filter(w => Number.isFinite(w.people)).length} obras con dato validado · SSI e INEI 2026`;
+      document.getElementById("kpi-personas-sub").textContent = "Fuente: SSI";
       kpiEls.regionales.textContent = regional.toLocaleString("es-PE");
       kpiEls.regionalesSub.textContent = `${scoped} | GR: ${regionalGov.toLocaleString("es-PE")} | GL: ${localGov.toLocaleString("es-PE")}`;
     }
