@@ -2669,6 +2669,27 @@
       .popup-project-icon { width:36px; height:36px; }
       .popup-project-icon svg { width:22px; height:22px; }
     }
+
+    #causes-chart { display:block; }
+    .cause-chart-summary { margin:0 0 38px; color:#64748b; font-size:.85rem; line-height:1.5; }
+    .cause-columns { display:grid; grid-template-columns:repeat(var(--cause-columns),minmax(0,1fr)); gap:18px; align-items:start; }
+    .cause-column { display:block; min-width:0; padding:0; margin:0; border:0; background:transparent; color:var(--gfp-blue); font:inherit; text-align:center; cursor:pointer; }
+    .cause-column.grouped { cursor:default; }
+    .cause-column:focus-visible { outline:3px solid #d21e25; outline-offset:6px; border-radius:4px; }
+    .cause-plot { display:flex; align-items:end; justify-content:center; height:245px; border-bottom:1px solid #d8e2ee; }
+    .cause-column-fill { position:relative; display:flex; align-items:center; justify-content:center; width:82%; max-width:88px; background:#195986; border-radius:5px 5px 0 0; }
+    .cause-column:hover .cause-column-fill { background:#123e60; }
+    .cause-column.grouped .cause-column-fill { background:#677c94; }
+    .cause-count { position:absolute; bottom:100%; left:0; width:100%; padding-bottom:9px; color:#173451; font-size:1rem; font-weight:800; }
+    .cause-percent { color:#fff; font-size:.8rem; font-weight:700; white-space:nowrap; }
+    .cause-column-fill.tiny .cause-percent { position:absolute; bottom:0; background:#195986; padding:2px 4px; border-radius:3px; }
+    .cause-column-fill.tiny .cause-count { padding-bottom:25px; }
+    .cause-column-label { display:block; padding-top:12px; font-size:.8rem; line-height:1.4; overflow-wrap:anywhere; }
+    .cause-others-note { margin-top:26px; padding-top:18px; border-top:1px solid #d8e2ee; color:#52647e; font-size:.8rem; line-height:1.6; }
+    .cause-others-note ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 28px; padding-left:20px; margin-bottom:0; }
+    @media(max-width:1000px) { .cause-columns { gap:32px 16px; grid-template-columns:repeat(3,minmax(0,1fr)); } .cause-plot { height:190px; } }
+    @media(max-width:600px) { .cause-others-note ul { grid-template-columns:1fr; } .cause-plot { height:160px; } .cause-percent { font-size:.75rem; } }
+    @media(max-width:360px) { .cause-columns { grid-template-columns:repeat(2,minmax(0,1fr)); } }
   </style>
 </head>
 <body class="loading-kpis">
@@ -3583,25 +3604,63 @@
     }
 
     function updateCauseChart(visibleWorks) {
-      if (visibleWorks.length === 0) {
-        causesChart.innerHTML = `<div class="bar-item"><div class="bar-head"><span>Sin obras para los filtros seleccionados</span><span>0%</span></div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div></div>`;
+      causesChart.replaceChildren();
+      if (!visibleWorks.length) {
+        causesChart.textContent = "Sin obras para los filtros seleccionados.";
         return;
       }
-
-      const counts = visibleWorks.reduce((acc, work) => {
-        acc[work.causa] = (acc[work.causa] || 0) + 1;
-        return acc;
-      }, {});
-
-      causesChart.innerHTML = sortCauseEntries(Object.entries(counts))
-        .map(([cause, count]) => {
-          const pctValue = (count / visibleWorks.length) * 100;
-          const pctLabel = pctValue < 1 ? pctValue.toFixed(1) : Math.round(pctValue).toString();
-          const barWidth = Math.max(pctValue, 1);
-          const displayCause = normalizeSearch(cause) === undeterminedCause ? "Causal con detalle insuficiente" : cause;
-          return `<div class="bar-item"><div class="bar-head"><span>${displayCause}</span><span>${pctLabel}% - ${count.toLocaleString("es-PE")} obras</span></div><div class="bar-track"><div class="bar-fill" style="width:${barWidth}%"></div></div></div>`;
-        })
-        .join("");
+      const counts = new Map();
+      visibleWorks.forEach(work => counts.set(work.causa, (counts.get(work.causa) || 0) + 1));
+      const entries = [...counts].sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0], "es"));
+      const main = entries.slice(0,8), others = entries.slice(8);
+      const rows = [...main];
+      if (others.length) rows.push(["Otras", others.reduce((sum,row) => sum+row[1],0)]);
+      const percent = count => (100*count/visibleWorks.length).toLocaleString("es-PE", {maximumFractionDigits:1}) + "%";
+      const shortLabels = {
+        "Programación presupuestal insuficiente para continuidad":"Programación presupuestal",
+        "Contrato resuelto o incumplimiento contractual":"Incumplimiento contractual",
+        "Causal no determinada con detalle suficiente":"Detalle insuficiente",
+        "Deficiencias u observaciones del expediente técnico":"Expediente técnico",
+        "Controversia legal o arbitral que bloquea la continuidad":"Controversias legales",
+        "Saldo de obra sin expediente técnico aprobado":"Saldo sin expediente",
+        "Evento climático o condición externa":"Eventos externos",
+        "Falta de pago de valorizaciones o deuda contractual":"Falta de pago"
+      };
+      const summary = document.createElement("p");
+      summary.className = "cause-chart-summary";
+      summary.textContent = `${visibleWorks.length.toLocaleString("es-PE")} obras · Porcentaje sobre las obras de los filtros activos. Pulsa una causal para filtrar el mapa.`;
+      causesChart.append(summary);
+      const bars = document.createElement("div");bars.className = "cause-columns";
+      bars.style.setProperty("--cause-columns", rows.length);
+      const maximum = Math.max(...rows.map(row=>row[1]));
+      rows.forEach(([cause,count]) => {
+        const grouped = cause === "Otras";
+        const item = document.createElement(grouped ? "div" : "button");
+        item.className = "cause-column" + (grouped ? " grouped" : "");
+        if (!grouped) item.type = "button";
+        item.dataset.cause = cause; item.dataset.count = count;
+        item.title = `${cause}: ${count.toLocaleString("es-PE")} obras (${percent(count)})`;
+        item.setAttribute("aria-label", item.title + (grouped ? ". Detalle debajo del gráfico." : ". Filtrar por esta causal."));
+        const plot = document.createElement("span");plot.className = "cause-plot";
+        const fill = document.createElement("span");fill.className = "cause-column-fill";
+        fill.style.height = `${count/maximum*100}%`;
+        const amount = document.createElement("span");amount.className = "cause-count";amount.textContent = count.toLocaleString("es-PE");
+        const pct = document.createElement("span");pct.className = "cause-percent";pct.textContent = percent(count);
+        // Tiny bars use a compact label attached to their base so the percentage stays legible.
+        if(count/maximum < .14) fill.classList.add("tiny");
+        fill.append(amount,pct);plot.append(fill);
+        const label = document.createElement("span");label.className = "cause-column-label";label.textContent = grouped ? `Otras (${others.length} causas)` : (shortLabels[cause] || cause);
+        item.append(plot,label);bars.append(item);
+        if(!grouped) item.addEventListener("click",()=>{filterControls.causa.value=cause;applyFilters();});
+      });
+      causesChart.append(bars);
+      if(others.length){
+        const note=document.createElement("div");note.className="cause-others-note";
+        const title=document.createElement("strong");title.textContent=`Causales agrupadas en «Otras» (${others.reduce((sum,row)=>sum+row[1],0).toLocaleString("es-PE")} obras):`;
+        const list=document.createElement("ul");
+        others.forEach(([cause,count])=>{const item=document.createElement("li");item.textContent=`${cause}: ${count.toLocaleString("es-PE")} ${count===1?"obra":"obras"}.`;list.append(item);});
+        note.append(title,list);causesChart.append(note);
+      }
     }
 
     function renderPriorityTable() {
