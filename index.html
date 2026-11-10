@@ -2690,6 +2690,62 @@
     @media(max-width:1000px) { .cause-columns { gap:32px 16px; grid-template-columns:repeat(3,minmax(0,1fr)); } .cause-plot { height:190px; } }
     @media(max-width:600px) { .cause-others-note ul { grid-template-columns:1fr; } .cause-plot { height:160px; } .cause-percent { font-size:.75rem; } }
     @media(max-width:360px) { .cause-columns { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    /* Sidebar dashboard layout, matching the approved mockup. */
+
+.navbar{position:absolute;top:0;right:0;left:auto;width:auto;min-height:0;background:transparent;border:0;padding:10px 22px;z-index:20}.hero-blue{padding-top:46px!important}.navbar .nav-tabs{background:transparent}.nav-tabs button{color:white}.nav-tabs button.active{background:#2c527e}.hero-blue{border-top:0}
+.hero-blue{padding:18px 24px 20px}.hero-blue h1{font-size:30px;margin-bottom:5px}.hero-blue p{font-size:14px}
+#tab-dashboard .layout-dashboard{display:grid;grid-template-columns:240px minmax(0,1fr);gap:22px;max-width:1600px;padding:22px;align-items:start}
+#tab-dashboard .well-panel{display:flex;flex-direction:column;align-items:stretch;gap:17px;padding:20px;background:#fff;position:sticky;top:20px;border-top:4px solid #195986}
+#tab-dashboard .filters-title{font-size:16px;margin:0 0 3px;padding-bottom:13px;border-bottom:1px solid #e1e7ef}
+#tab-dashboard .filter-field{width:100%}#tab-dashboard .filter-field label{font-size:13px;margin-bottom:7px}
+#tab-dashboard .filter-field select,#tab-dashboard .filter-field input{font-size:13px;height:39px}
+#tab-dashboard #btn-limpiar{width:100%;height:40px;margin-top:2px}
+#tab-dashboard main{min-width:0}#tab-dashboard main>.section-title{margin-bottom:12px}
+.kpi-grid{gap:12px;margin-bottom:20px;grid-template-columns:repeat(5,minmax(0,1fr))}
+.value-box{padding:14px 12px;min-height:123px}.value-box .number{font-size:28px}.value-box .number.compact{font-size:25px}.value-box .label{font-size:11px;line-height:1.3}.value-box .sub{font-size:10px;line-height:1.35}
+.dashboard-grid{grid-template-columns:1fr;gap:18px}.panelbox{padding:16px}
+.map-wrap{min-height:390px;height:auto}.peru-map:not(.fullscreen-map){min-height:390px;height:390px}.map-note{font-size:9px}
+.cause-chart-summary{font-size:12px;margin-bottom:30px}.cause-columns{gap:14px}.cause-plot{height:160px}.cause-column-label{font-size:11px}.cause-percent{font-size:12px}.cause-count{font-size:14px}
+.cause-others-note{font-size:11px;line-height:1.5;margin-top:18px;padding-top:13px}.cause-others-note ul{gap:2px 24px}
+.footer-simple{padding:16px;font-size:12px}
+
+/* Keep every filter reachable on short screens and preserve the full-screen map. */
+#tab-dashboard .well-panel{max-height:calc(100dvh - 40px);overflow-y:auto;scrollbar-gutter:stable}
+.peru-map.fullscreen-map{height:auto;min-height:0}
+@media(max-width:1199px){
+  .kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cause-columns{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 16px}
+}
+@media(max-width:900px){
+  #tab-dashboard .layout-dashboard{grid-template-columns:minmax(0,1fr);padding:16px;gap:18px}
+  #tab-dashboard .well-panel{position:static;max-height:none;overflow:visible;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:end}
+  #tab-dashboard .filters-title{grid-column:1/-1}
+  .hero-blue h1,.hero-blue h2{font-size:26px}
+}
+@media(max-width:760px){
+  .navbar{padding:8px 12px;flex-direction:row}
+  .hero-blue{padding:52px 16px 20px!important}
+  .peru-map:not(.fullscreen-map){height:480px;min-height:480px}
+  .peru-map:not(.fullscreen-map):has(.map-popup.active){min-height:680px}
+  .map-wrap:has(.map-popup.active){min-height:680px}
+  .map-wrap:has(.fullscreen-map){min-height:390px}
+  .peru-map.fullscreen-map{min-height:0;height:auto}
+}
+@media(max-width:600px){
+  .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi-grid .value-box:last-child{grid-column:1/-1}
+  .value-box .number{font-size:26px}
+  #tab-dashboard .well-panel{padding:16px;gap:12px}
+  .cause-others-note ul{grid-template-columns:1fr}
+}
+@media(max-width:360px){
+  #tab-dashboard .well-panel{grid-template-columns:1fr}
+  .cause-columns{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .navbar .nav-tabs{gap:0;padding:0}
+  .nav-tabs button{padding:6px 8px;font-size:.75rem}
+}
+.table-panel{min-width:0}
+.priority-table-scroll{max-width:100%;overflow-x:auto;margin-top:16px}
   </style>
 </head>
 <body class="loading-kpis">
@@ -2708,8 +2764,8 @@
     </div>
 
     <div class="layout-dashboard">
-      <h3 class="section-title filters-title">Filtros de búsqueda</h3>
-      <aside class="well-panel">
+      <aside class="well-panel" aria-labelledby="filters-heading">
+        <h3 id="filters-heading" class="section-title filters-title">Filtros de búsqueda</h3>
         <div class="filter-field">
           <label for="palabra-clave">Palabra clave</label>
           <input id="palabra-clave" type="search" placeholder="Buscar obra, CUI, entidad o lugar">
@@ -2913,7 +2969,6 @@
   </section>
 
   <section id="tab-priorizacion" class="tab-panel">
-    <div class="hero-red">Cartera ordenada por costo actualizado de inversión</div>
     <div class="hero-blue">
       <h2>Obras con mayor costo actualizado de inversión</h2>
       <p>La priorización muestra primero las obras paralizadas con mayor costo actualizado de inversión, para identificar dónde se concentra el mayor volumen de recursos públicos comprometidos.</p>
@@ -2923,6 +2978,7 @@
         <h3 class="section-title">Ranking de las 50 obras con mayor costo actualizado de inversión</h3>
         <p>Setiembre 2026 · Orden por costo actualizado de cada registro INFOBRAS.</p>
         <a class="btn secondary" href="ranking_50_setiembre_2026.csv" download>Descargar ranking</a>
+        <div class="priority-table-scroll" role="region" aria-label="Ranking de obras; desplazar para ver todas las columnas" tabindex="0">
         <table class="priority-table">
           <thead>
             <tr>
@@ -2943,13 +2999,13 @@
             </tr>
           </tbody>
         </table>
+        </div>
       </section>
     </div>
     <footer class="footer-simple">Priorización por costo actualizado de inversión</footer>
   </section>
 
   <section id="tab-reportes" class="tab-panel">
-    <div class="hero-red">Productos para seguimiento y descarga</div>
     <div class="hero-blue">
       <h2>Reportes y bases de datos</h2>
       <p>Repositorio de consulta para acceder a la metodología, documentos de trabajo, bases de datos y reportes de resultados por cortes de evaluación.</p>
