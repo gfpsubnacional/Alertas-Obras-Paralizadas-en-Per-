@@ -2769,6 +2769,14 @@
       .peru-map:not(.fullscreen-map):has(.map-popup.active),.map-wrap:has(.map-popup.active){min-height:520px}
       .peru-map.fullscreen-map:has(.map-popup.active){min-height:0}
     }
+
+    .fen-welcome{padding:0;border:0;border-radius:10px;width:min(860px,94vw,calc(88dvh * 1034 / 946));max-width:94vw;max-height:92dvh;overflow:visible;background:transparent;box-shadow:0 20px 70px #0006}
+    .fen-welcome::backdrop{background:rgba(10,25,48,.65)}
+    .fen-welcome-image{display:block;width:100%;height:auto;border-radius:10px}
+    .fen-welcome button{position:absolute;border:0;background:transparent;cursor:pointer;padding:0;color:transparent}
+    .fen-welcome button:focus-visible{outline:3px solid #1474cc;outline-offset:3px;border-radius:6px}
+    #fen-welcome-close{top:9%;right:1.5%;width:6%;height:7%;min-width:32px;min-height:32px}
+    #fen-welcome-view{left:34.5%;top:83.7%;width:31.7%;height:10.8%;border-radius:10px}
   </style>
 </head>
 <body class="loading-kpis">
@@ -3201,6 +3209,11 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="assets/google-earth-pro-captures.js?v=20260910"></script>
   <script src="assets/infobras-dates.js?v=20260910"></script>
+  <dialog id="fen-welcome" class="fen-welcome" aria-label="Obras reactivables ante el Fenómeno El Niño">
+    <img class="fen-welcome-image" src="assets/aviso-reactivacion-fen.jpg" width="1034" height="946" alt="Presupuesto destinado: S/ 100 millones. Revisa aquí las obras que pueden reactivarse para prevenir las consecuencias del Fenómeno de El Niño.">
+    <button id="fen-welcome-close" type="button" aria-label="Cerrar aviso"></button>
+    <button id="fen-welcome-view" type="button" aria-label="Ver obras reactivables ante el Fenómeno El Niño" autofocus></button>
+  </dialog>
   <script src="assets/obras-data.js?v=clasificacion-20261110"></script>
   <script src="assets/indicadores.js?v=20261014"></script>
   <script src="assets/peru-shapes.js?v=20260910"></script>
@@ -4451,6 +4464,35 @@
     resetFilters();
     renderPriorityTable();
     setTimeout(openSharedWorkFromUrl, 250);
+
+    const fenWelcome = document.getElementById("fen-welcome");
+    const welcomePreviousOverflow = document.body.style.overflow;
+    function closeFenWelcome() {
+      fenWelcome.close();
+      document.body.style.overflow = welcomePreviousOverflow;
+      document.querySelector('.nav-tabs button.active').focus({preventScroll:true});
+    }
+    document.getElementById("fen-welcome-close").addEventListener("click", closeFenWelcome);
+    fenWelcome.addEventListener("cancel", event => {event.preventDefault(); closeFenWelcome();});
+    document.getElementById("fen-welcome-view").addEventListener("click", () => {
+      closeFenWelcome();
+      document.querySelector('[data-tab="dashboard"]').click();
+      resetFilters();
+      filterControls.clasificacion.value = "fen";
+      applyFilters();
+      filterControls.clasificacion.focus({preventScroll:true});
+      peruMap.scrollIntoView({behavior:"smooth",block:"center"});
+    });
+    fenWelcome.addEventListener("keydown", event => {
+      if (event.key !== "Tab") return;
+      const close = document.getElementById("fen-welcome-close");
+      const view = document.getElementById("fen-welcome-view");
+      if (event.shiftKey && document.activeElement === close) {event.preventDefault(); view.focus();}
+      else if (!event.shiftKey && document.activeElement === view) {event.preventDefault(); close.focus();}
+    });
+    fenWelcome.showModal();
+    document.body.style.overflow = "hidden";
+
   </script>
 </body>
 </html>
