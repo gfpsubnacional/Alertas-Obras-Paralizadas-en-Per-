@@ -3714,20 +3714,22 @@
         if (isLink) {
           return `<div class="popup-link-fact"><span class="popup-link-label"><span>${label}</span><i data-lucide="external-link" aria-hidden="true"></i></span><strong>${value}</strong></div>`;
         }
+        const displayLabel = label === "Coordenadas" ? "Ubicación" : label;
+        const displayValue = label === "Población potencialmente afectada" && value === "No disponible con validación distrital" ? "No disponible" : value;
         const group = getFactGroup(label);
-        return `<div class="popup-fact ${group} ${extraClass}"><span class="popup-fact-icon" aria-hidden="true"><i data-lucide="${getFactIcon(label)}"></i></span><span class="popup-fact-content"><span class="popup-fact-label">${label}</span><strong>${value}</strong></span></div>`;
+        return `<div class="popup-fact ${group} ${extraClass}"><span class="popup-fact-icon" aria-hidden="true"><i data-lucide="${getFactIcon(displayLabel)}"></i></span><span class="popup-fact-content"><span class="popup-fact-label">${displayLabel}</span><strong>${displayValue}</strong></span></div>`;
       };
       const identityRows = identityOrder
         .filter((key) => byLabel.has(key))
-        .map((key) => renderRow(byLabel.get(key), key === "codigo infobras" || key === "cui" ? "half" : ""))
+        .map((key) => renderRow(byLabel.get(key), "half"))
         .join("");
       const statusRows = statusOrder
         .filter((key) => byLabel.has(key))
-        .map((key) => renderRow(byLabel.get(key), ["monto actualizado", "saldo por ejecutar", "avance fisico", "tiempo paralizado"].includes(key) ? "half" : "full-detail"))
+        .map((key) => renderRow(byLabel.get(key), key === "causal de paralizacion" ? "full-detail" : "half"))
         .join("");
       const otherRows = entries
-        .filter(([label]) => !used.has(normalizeSearch(label)) && !label.startsWith("Datos de "))
-        .map((entry) => renderRow(entry))
+        .filter(([label]) => !used.has(normalizeSearch(label)) && !label.startsWith("Datos de ") && normalizeSearch(label) !== "revision de ubicacion")
+        .map((entry) => renderRow(entry, "half"))
         .join("");
       const linkRows = entries
         .filter(([label]) => label.startsWith("Datos de "))
