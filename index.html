@@ -2702,9 +2702,9 @@
 #tab-dashboard #btn-limpiar{width:100%;min-height:34px;height:34px;margin-top:0;padding:5px 10px}
 #tab-dashboard main{min-width:0}#tab-dashboard main>.section-title{margin-bottom:12px}
 .kpi-grid{gap:12px;margin-bottom:20px;grid-template-columns:repeat(5,minmax(0,1fr))}
-.value-box{padding:14px 12px;min-height:123px}.value-box .number{font-size:28px}.value-box .number.compact{font-size:25px}.value-box .label{font-size:11px;line-height:1.3}.value-box .sub{font-size:10px;line-height:1.35}
+.value-box{padding:10px 12px;min-height:100px}.value-box .number{font-size:28px}.value-box .number.compact{font-size:25px}.value-box .label{font-size:11px;line-height:1.2;margin:6px 0 3px}.value-box .sub{font-size:10px;line-height:1.2}
 .dashboard-grid{grid-template-columns:1fr;gap:18px}.panelbox{padding:16px}
-.map-wrap{min-height:390px;height:auto}.peru-map:not(.fullscreen-map){min-height:390px;height:390px}.map-note{font-size:9px}
+.map-wrap{min-height:560px;height:auto}.peru-map:not(.fullscreen-map){min-height:560px;height:560px}.map-note{font-size:9px}
 .cause-chart-summary{font-size:12px;margin-bottom:30px}.cause-columns{gap:14px}.cause-plot{height:160px}.cause-column-label{font-size:11px}.cause-percent{font-size:12px}.cause-count{font-size:14px}
 .cause-others-note{font-size:11px;line-height:1.5;margin-top:18px;padding-top:13px}.cause-others-note ul{gap:2px 24px}
 .footer-simple{padding:16px;font-size:12px}
@@ -2725,10 +2725,11 @@
 @media(max-width:760px){
   .navbar{padding:8px 12px;flex-direction:row}
   .hero-blue{padding:52px 16px 20px!important}
-  .peru-map:not(.fullscreen-map){height:480px;min-height:480px}
+  .map-wrap{min-height:520px}
+  .peru-map:not(.fullscreen-map){height:520px;min-height:520px}
   .peru-map:not(.fullscreen-map):has(.map-popup.active){min-height:680px}
   .map-wrap:has(.map-popup.active){min-height:680px}
-  .map-wrap:has(.fullscreen-map){min-height:390px}
+  .map-wrap:has(.fullscreen-map){min-height:520px}
   .peru-map.fullscreen-map{min-height:0;height:auto}
 }
 @media(max-width:600px){
