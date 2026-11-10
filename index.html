@@ -2882,11 +2882,12 @@
         </div>
 
         <div class="filter-field">
-          <label for="alerta-predictiva">Alerta predictiva</label>
-          <select id="alerta-predictiva" aria-label="Alerta predictiva">
+          <label for="clasificacion-obras">Clasificación de obras</label>
+          <select id="clasificacion-obras" aria-label="Clasificación de obras">
             <option value="todos">Todas</option>
-            <option value="1">Con señal del modelo</option>
-            <option value="0">Sin señal del modelo</option>
+            <option value="modelo">Obras paralizadas según modelo predictivo</option>
+            <option value="reactivacion">Obras con potencial de reactivación</option>
+            <option value="fen">Obras reactivables ante el Fenómeno El Niño</option>
           </select>
         </div>
 
@@ -3200,7 +3201,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="assets/google-earth-pro-captures.js?v=20260910"></script>
   <script src="assets/infobras-dates.js?v=20260910"></script>
-  <script src="assets/obras-data.js?v=20261014"></script>
+  <script src="assets/obras-data.js?v=clasificacion-20261110"></script>
   <script src="assets/indicadores.js?v=20261014"></script>
   <script src="assets/peru-shapes.js?v=20260910"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
@@ -3246,7 +3247,7 @@
       causa: document.getElementById("causa"),
       costo: document.getElementById("costo"),
       tiempo: document.getElementById("tiempo-paralizado"),
-      predictivo: document.getElementById("alerta-predictiva")
+      clasificacion: document.getElementById("clasificacion-obras")
     };
     const clearFiltersButton = document.getElementById("btn-limpiar");
     const filterStatus = document.getElementById("filter-status");
@@ -3531,7 +3532,7 @@
         && (selectedCausa === "Todas" || work.causa === selectedCausa)
         && (selectedCosto === "todos" || selectedCosto === costClass)
         && (selectedTiempo === "todos" || selectedTiempo === paralysisBucket)
-        && (filterControls.predictivo.value === "todos" || work.modelo_predictivo === filterControls.predictivo.value);
+        && (filterControls.clasificacion.value === "todos" || (work.clasificaciones || []).includes(filterControls.clasificacion.value));
     }
 
     function formatMoneyMillions(value) {
@@ -3639,7 +3640,7 @@
         ["Causa", filterControls.causa.value, "Todas"],
         ["Costo", filterControls.costo.options[filterControls.costo.selectedIndex].text, "Todos"],
         ["Tiempo paralizado", filterControls.tiempo.options[filterControls.tiempo.selectedIndex].text, "Todos"],
-        ["Alerta predictiva", filterControls.predictivo.options[filterControls.predictivo.selectedIndex].text, "Todas"]
+        ["Clasificación de obras", filterControls.clasificacion.options[filterControls.clasificacion.selectedIndex].text, "Todas"]
       ];
       return filters.filter(([, value, defaultValue]) => value !== defaultValue);
     }
@@ -3866,7 +3867,7 @@
         .join("");
       const otherRows = entries
         .filter(([label]) => !used.has(normalizeSearch(label)) && !label.startsWith("Datos de ") && normalizeSearch(label) !== "revision de ubicacion")
-        .map((entry) => renderRow(entry, "half"))
+        .map((entry) => renderRow(entry, entry[0] === "Clasificación de obras" ? "full-detail" : "half"))
         .join("");
       const linkRows = entries
         .filter(([label]) => label.startsWith("Datos de "))
@@ -4411,7 +4412,7 @@
       filterControls.causa.value = "Todas";
       filterControls.costo.value = "todos";
       filterControls.tiempo.value = "todos";
-      filterControls.predictivo.value = "todos";
+      filterControls.clasificacion.value = "todos";
       closeMapPopup();
       applyFilters();
     }
