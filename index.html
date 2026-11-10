@@ -3181,12 +3181,14 @@
     const waybackConfigUrl = "https://s3-us-west-2.amazonaws.com/config.maptiles.arcgis.com/waybackconfig.json";
 
     function workShareId(work) {
-      return work?.facts?.["CUI"] || work?.facts?.["Código Infobras"] || "";
+      const code = work?.facts?.["Código Infobras"];
+      return code ? `infobras_${code}` : "";
     }
 
     function findWorkKeyByShareId(shareId) {
       const normalized = String(shareId || "").trim();
       if (!normalized) return null;
+      if (normalized.startsWith("infobras_")) return workData[normalized] ? normalized : null;
       return Object.entries(workData).find(([, work]) =>
         String(work.facts?.["CUI"] || "") === normalized ||
         String(work.facts?.["Código Infobras"] || "") === normalized
@@ -3782,6 +3784,7 @@
       mapPopup.style.borderTopColor = work.statusColor;
       mapPopup.classList.add("active");
       activePopupWork = workKey;
+      mapPopup.scrollTop = 0;
       fitMapPopup();
     }
 
@@ -3926,6 +3929,8 @@
       const infobrasDate = infobrasDates?.fecha_inicio_obra || "";
       if (parsePeruDate(infobrasDate)) return { date: infobrasDate, source: "INFOBRAS" };
       const investmentDate = work.fecha_inicio_declarada || work.facts["Fecha de inicio declarada"] || "";
+      const isoDate = String(investmentDate).match(/^(\d{4})-(\d{2})-(\d{2})(?:T.*)?$/);
+      if (isoDate) return { date: `${isoDate[3]}/${isoDate[2]}/${isoDate[1]}`, source: "Base del corte" };
       if (parsePeruDate(investmentDate)) return { date: investmentDate, source: "Invierte.pe / SSI" };
       return { date: "No disponible", source: "" };
     }
@@ -4305,7 +4310,7 @@
     populateCauseFilter();
     resetFilters();
     renderPriorityTable();
-    if (!isPageReload()) setTimeout(openSharedWorkFromUrl, 250);
+    setTimeout(openSharedWorkFromUrl, 250);
   </script>
 </body>
 </html>
