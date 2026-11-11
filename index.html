@@ -2890,12 +2890,12 @@
         </div>
 
         <div class="filter-field">
-          <label for="clasificacion-obras">Clasificación de obras</label>
-          <select id="clasificacion-obras" aria-label="Clasificación de obras">
+          <label for="clasificacion-obras">Alertas</label>
+          <select id="clasificacion-obras" aria-label="Alertas">
             <option value="todos">Todas</option>
-            <option value="modelo">Obras paralizadas según modelo predictivo</option>
-            <option value="reactivacion">Obras con potencial de reactivación</option>
-            <option value="fen">Obras reactivables ante el Fenómeno El Niño</option>
+            <option value="modelo">Alertas de obras paralizadas</option>
+            <option value="reactivacion">Obras a reactivar (Ley 31589)</option>
+            <option value="fen">Obras a reactivar Fenómeno El Niño</option>
           </select>
         </div>
 
@@ -3209,12 +3209,12 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="assets/google-earth-pro-captures.js?v=20260910"></script>
   <script src="assets/infobras-dates.js?v=20260910"></script>
-  <dialog id="fen-welcome" class="fen-welcome" aria-label="Obras reactivables ante el Fenómeno El Niño">
+  <dialog id="fen-welcome" class="fen-welcome" aria-label="Obras a reactivar Fenómeno El Niño">
     <img class="fen-welcome-image" src="assets/aviso-reactivacion-fen.jpg" width="1034" height="946" alt="Presupuesto destinado: S/ 100 millones. Revisa aquí las obras que pueden reactivarse para prevenir las consecuencias del Fenómeno de El Niño.">
     <button id="fen-welcome-close" type="button" aria-label="Cerrar aviso"></button>
-    <button id="fen-welcome-view" type="button" aria-label="Ver obras reactivables ante el Fenómeno El Niño" autofocus></button>
+    <button id="fen-welcome-view" type="button" aria-label="Ver obras a reactivar Fenómeno El Niño" autofocus></button>
   </dialog>
-  <script src="assets/obras-data.js?v=clasificacion-20261110"></script>
+  <script src="assets/obras-data.js?v=alertas-20261111"></script>
   <script src="assets/indicadores.js?v=20261014"></script>
   <script src="assets/peru-shapes.js?v=20260910"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
@@ -3653,7 +3653,7 @@
         ["Causa", filterControls.causa.value, "Todas"],
         ["Costo", filterControls.costo.options[filterControls.costo.selectedIndex].text, "Todos"],
         ["Tiempo paralizado", filterControls.tiempo.options[filterControls.tiempo.selectedIndex].text, "Todos"],
-        ["Clasificación de obras", filterControls.clasificacion.options[filterControls.clasificacion.selectedIndex].text, "Todas"]
+        ["Alertas", filterControls.clasificacion.options[filterControls.clasificacion.selectedIndex].text, "Todas"]
       ];
       return filters.filter(([, value, defaultValue]) => value !== defaultValue);
     }
@@ -3880,7 +3880,7 @@
         .join("");
       const otherRows = entries
         .filter(([label]) => !used.has(normalizeSearch(label)) && !label.startsWith("Datos de ") && normalizeSearch(label) !== "revision de ubicacion")
-        .map((entry) => renderRow(entry, entry[0] === "Clasificación de obras" ? "full-detail" : "half"))
+        .map((entry) => renderRow(entry, entry[0] === "Alertas" ? "full-detail" : "half"))
         .join("");
       const linkRows = entries
         .filter(([label]) => label.startsWith("Datos de "))

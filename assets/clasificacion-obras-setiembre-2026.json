@@ -3,7 +3,7 @@
   "criterios": {
     "modelo": "modelo_predictivo == 1",
     "OBRA_REACTIVACION": "Código INFOBRAS incluido en el listado",
-    "OBRA_REACTIVACION_FEN": "CUI incluido en el listado"
+    "OBRA_REACTIVACION_FEN": "Código INFOBRAS incluido en el listado corregido por el usuario el 11/11/2026"
   },
   "cod_infobras_reactivacion": [
     "65265",
@@ -367,18 +367,21 @@
     "519777",
     "536710"
   ],
-  "cui_fen": [
-    "2419671",
-    "2493176",
-    "2445571",
-    "2340050",
-    "2482408",
-    "2483540",
-    "2444510"
-  ],
   "totales": {
     "modelo": 116,
     "reactivacion": 360,
-    "fen": 7
+    "fen": 5
+  },
+  "cod_infobras_fen": [
+    "101413",
+    "113161",
+    "113792",
+    "135419",
+    "138152"
+  ],
+  "etiquetas": {
+    "modelo": "Alertas de obras paralizadas",
+    "reactivacion": "Obras a reactivar (Ley 31589)",
+    "fen": "Obras a reactivar Fenómeno El Niño"
   }
 }
