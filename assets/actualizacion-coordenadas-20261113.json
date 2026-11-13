@@ -78,11 +78,16 @@
         -75.35334599999999
       ],
       "solicitada": [
+        -11.119588,
+        -75.367164
+      ],
+      "fuente": "Coordenadas corregidas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "solicitada_original": [
         -76.236856,
         -75.367164
       ],
-      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
-      "estado": "PENDIENTE_LATITUD_CORRECTA"
+      "validacion_distrital": "DENTRO_DISTRITO"
     },
     {
       "cod_infobras": "142784",
@@ -413,11 +418,16 @@
         -71.95527143999993
       ],
       "solicitada": [
+        -13.32199764,
+        -71.95949633
+      ],
+      "fuente": "Coordenadas corregidas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "solicitada_original": [
         -79.315946,
         -71.9594963
       ],
-      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
-      "estado": "PENDIENTE_LATITUD_CORRECTA"
+      "validacion_distrital": "DENTRO_DISTRITO"
     },
     {
       "cod_infobras": "154313",
@@ -468,11 +478,16 @@
         -80.62701227999997
       ],
       "solicitada": [
+        -5.174997,
+        -80.64618167
+      ],
+      "fuente": "Coordenadas corregidas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "solicitada_original": [
         -79.317647,
         -80.6461817
       ],
-      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
-      "estado": "PENDIENTE_LATITUD_CORRECTA"
+      "validacion_distrital": "DENTRO_DISTRITO"
     },
     {
       "cod_infobras": "159921",
