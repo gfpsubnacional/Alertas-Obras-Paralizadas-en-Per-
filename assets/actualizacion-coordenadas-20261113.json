@@ -1,0 +1,1318 @@
+{
+  "fecha": "2026-11-13",
+  "registros": [
+    {
+      "cod_infobras": "52010",
+      "antes": [
+        -14.188216589999968,
+        -75.71336255999995
+      ],
+      "solicitada": [
+        -14.320438,
+        -75.622906
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "537603",
+      "antes": [
+        -6.274149479999949,
+        -79.03681199999994
+      ],
+      "solicitada": [
+        -6.17888667,
+        -79.1082483
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "81363",
+      "antes": [
+        -8.20517499999994,
+        -77.95002899999997
+      ],
+      "solicitada": [
+        -8.194793,
+        -77.947948
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "500657",
+      "antes": [
+        -10.338800129999981,
+        -76.18332815999997
+      ],
+      "solicitada": [
+        -10.696794,
+        -76.236856
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "156639",
+      "antes": [
+        -16.422471719999976,
+        -71.81774351999996
+      ],
+      "solicitada": [
+        -16.554198,
+        -71.815326
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "508381",
+      "antes": [
+        -11.121418799999958,
+        -75.35334599999999
+      ],
+      "solicitada": [
+        -76.236856,
+        -75.367164
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "PENDIENTE_LATITUD_CORRECTA"
+    },
+    {
+      "cod_infobras": "142784",
+      "antes": [
+        -8.1755296,
+        -78.1779914
+      ],
+      "solicitada": [
+        -8.142952,
+        -78.167888
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "29053",
+      "antes": [
+        -5.904921999999942,
+        -77.79820999999998
+      ],
+      "solicitada": [
+        -5.778857,
+        -77.894608
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "52824",
+      "antes": [
+        -15.49320599999993,
+        -70.13560899999999
+      ],
+      "solicitada": [
+        -15.53082,
+        -70.131097
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "91154",
+      "antes": [
+        -8.261992709999959,
+        -77.89943627999997
+      ],
+      "solicitada": [
+        -8.99807,
+        -78.551275
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "35703",
+      "antes": [
+        -9.276397,
+        -76.40123
+      ],
+      "solicitada": [
+        -8.901405,
+        -76.086358
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "91046",
+      "antes": [
+        -15.650416259999929,
+        -72.50542415999996
+      ],
+      "solicitada": [
+        -15.665073,
+        -72.490994
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "91876",
+      "antes": [
+        -10.615710999999976,
+        -76.17990599999996
+      ],
+      "solicitada": [
+        -10.66678,
+        -76.25492
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "85226",
+      "antes": [
+        -11.49418099999997,
+        -77.21198799999996
+      ],
+      "solicitada": [
+        -11.5350655,
+        -77.2090038
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "79489",
+      "antes": [
+        -13.419529649999959,
+        -76.13295803999995
+      ],
+      "solicitada": [
+        -13.3788795,
+        -76.083651
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "66428",
+      "antes": [
+        -7.146652999999958,
+        -75.26970499999999
+      ],
+      "solicitada": [
+        -7.195764,
+        -75.29347
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "113767",
+      "antes": [
+        -9.524375999999961,
+        -77.15684999999996
+      ],
+      "solicitada": [
+        -9.504089,
+        -77.146826
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "128549",
+      "antes": [
+        -14.118387929999926,
+        -72.24712163999999
+      ],
+      "solicitada": [
+        -14.213385,
+        -72.193146
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "32527",
+      "antes": [
+        -9.29515299999997,
+        -77.78286899999995
+      ],
+      "solicitada": [
+        -9.225394,
+        -77.704497
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "125423",
+      "antes": [
+        -13.442515379999975,
+        -76.08265559999995
+      ],
+      "solicitada": [
+        -13.401947,
+        -76.200752
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "101752",
+      "antes": [
+        -5.342061419999936,
+        -79.83221579999997
+      ],
+      "solicitada": [
+        -5.346019,
+        -79.837347
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "87952",
+      "antes": [
+        -12.054515799999933,
+        -75.21798999999999
+      ],
+      "solicitada": [
+        -12.0330464,
+        -75.237332
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "510461",
+      "antes": [
+        -12.36802715999994,
+        -76.79385503999998
+      ],
+      "solicitada": [
+        -12.352143,
+        -76.814902
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "152150",
+      "antes": [
+        -5.184637814999974,
+        -80.67019214499999
+      ],
+      "solicitada": [
+        -5.18548,
+        -80.66699
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "118261",
+      "antes": [
+        -5.899556716999939,
+        -78.69456968999998
+      ],
+      "solicitada": [
+        -5.800245,
+        -78.733139
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "512208",
+      "antes": [
+        -9.857506270999977,
+        -75.01759347399997
+      ],
+      "solicitada": [
+        -9.871004,
+        -75.154684
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "131298",
+      "antes": [
+        -11.63650199999995,
+        -74.72450599999996
+      ],
+      "solicitada": [
+        -11.6897,
+        -74.8003
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "49211",
+      "antes": [
+        -5.659039999999948,
+        -79.31547599999999
+      ],
+      "solicitada": [
+        -5.655614,
+        -79.315946
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "172486",
+      "antes": [
+        -8.29710813,
+        -77.31883868
+      ],
+      "solicitada": [
+        -8.350847,
+        -77.454853
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "501050",
+      "antes": [
+        -13.322494259999928,
+        -71.95527143999993
+      ],
+      "solicitada": [
+        -79.315946,
+        -71.9594963
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "PENDIENTE_LATITUD_CORRECTA"
+    },
+    {
+      "cod_infobras": "154313",
+      "antes": [
+        -10.129651829999943,
+        -76.20436943999994
+      ],
+      "solicitada": [
+        -10.1277789,
+        -76.2066287
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "74322",
+      "antes": [
+        -8.475509969999962,
+        -74.80457963999999
+      ],
+      "solicitada": [
+        -5.564072,
+        -74.8060104
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "144930",
+      "antes": [
+        -13.284178829999973,
+        -75.31817471999994
+      ],
+      "solicitada": [
+        -13.2829853,
+        -75.318344
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "42631",
+      "antes": [
+        -5.195324249999942,
+        -80.62701227999997
+      ],
+      "solicitada": [
+        -79.317647,
+        -80.6461817
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "PENDIENTE_LATITUD_CORRECTA"
+    },
+    {
+      "cod_infobras": "159921",
+      "antes": [
+        -16.082771999999977,
+        -69.63807999999995
+      ],
+      "solicitada": [
+        -16.0827604,
+        -69.6377224
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "61561",
+      "antes": [
+        -11.10073732567241,
+        -74.69669166137693
+      ],
+      "solicitada": [
+        -11.24928,
+        -74.6386
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "112056",
+      "antes": [
+        -16.609984957999927,
+        -72.69763625499996
+      ],
+      "solicitada": [
+        -16.60997,
+        -72.69768
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "121533",
+      "antes": [
+        -12.8607268,
+        -76.0408224
+      ],
+      "solicitada": [
+        -13.028632,
+        -76.19559
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "102395",
+      "antes": [
+        -5.5713877,
+        -79.5332791
+      ],
+      "solicitada": [
+        -5.65729,
+        -79.530899
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "537559",
+      "antes": [
+        -5.105128759999957,
+        -79.88829628599996
+      ],
+      "solicitada": [
+        -5.104711,
+        -79.886851
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "125995",
+      "antes": [
+        -7.699350239999944,
+        -77.74400915999996
+      ],
+      "solicitada": [
+        -7.674639,
+        -77.847332
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "535294",
+      "antes": [
+        -6.5669339999999465,
+        -78.38023899999996
+      ],
+      "solicitada": [
+        -6.499966,
+        -78.421738
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "38955",
+      "antes": [
+        -10.596748999999932,
+        -75.38333199999994
+      ],
+      "solicitada": [
+        -10.598499,
+        -75.3862378
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "69928",
+      "antes": [
+        -17.613942389999977,
+        -70.76384819999998
+      ],
+      "solicitada": [
+        -18.0069283,
+        -70.2394418
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "146045",
+      "antes": [
+        -16.40035943999993,
+        -71.53520723999998
+      ],
+      "solicitada": [
+        -16.39186,
+        -71.53059
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "508325",
+      "antes": [
+        -6.674396999999942,
+        -79.03310389999996
+      ],
+      "solicitada": [
+        -6.740978,
+        -79.05939
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "108911",
+      "antes": [
+        -9.524375999999961,
+        -77.15684999999996
+      ],
+      "solicitada": [
+        -9.520394,
+        -77.153918
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "75897",
+      "antes": [
+        -16.675498999999945,
+        -70.71651799999995
+      ],
+      "solicitada": [
+        -16.674559,
+        -70.71
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "163701",
+      "antes": [
+        -18.054049975759064,
+        -70.25347335902921
+      ],
+      "solicitada": [
+        -17.84947,
+        -69.90573
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "148788",
+      "antes": [
+        -7.781908139999928,
+        -77.86688543999998
+      ],
+      "solicitada": [
+        -7.83257,
+        -77.87741
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "128723",
+      "antes": [
+        -5.977720529999942,
+        -79.07040395999996
+      ],
+      "solicitada": [
+        -5.924784,
+        -78.8417
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "102186",
+      "antes": [
+        -9.058064762999948,
+        -75.53963016699998
+      ],
+      "solicitada": [
+        -9.04922,
+        -75.51443
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "106961",
+      "antes": [
+        -5.5677606299999525,
+        -79.52493959999998
+      ],
+      "solicitada": [
+        -5.5873218,
+        -79.5211901
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "160105",
+      "antes": [
+        -10.944035999999926,
+        -69.57744803999998
+      ],
+      "solicitada": [
+        -10.9459338,
+        -69.5768428
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "123821",
+      "antes": [
+        -14.726502899999957,
+        -74.67091487999994
+      ],
+      "solicitada": [
+        -14.80385,
+        -74.65969
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "542025",
+      "antes": [
+        -14.044826789999945,
+        -75.70316015999998
+      ],
+      "solicitada": [
+        -14.0495251,
+        -75.6988169
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "91734",
+      "antes": [
+        -15.940265849999946,
+        -73.13023907999997
+      ],
+      "solicitada": [
+        -15.93238,
+        -73.13073
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "51721",
+      "antes": [
+        -9.861998999999969,
+        -76.17099899999994
+      ],
+      "solicitada": [
+        -9.86215,
+        -76.17023
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "142995",
+      "antes": [
+        -5.416263328999946,
+        -78.43792603799994
+      ],
+      "solicitada": [
+        -5.417986,
+        -78.435874
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "517755",
+      "antes": [
+        -15.493556999999953,
+        -70.13484999999997
+      ],
+      "solicitada": [
+        -15.479619,
+        -70.13631
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "133484",
+      "antes": [
+        -13.241550509999968,
+        -74.35434563999996
+      ],
+      "solicitada": [
+        -13.338027,
+        -74.365823
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "160985",
+      "antes": [
+        -11.055330629999958,
+        -75.32652707999995
+      ],
+      "solicitada": [
+        -11.0566415,
+        -75.3319704
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "166605",
+      "antes": [
+        -14.35897241999993,
+        -69.61955795999995
+      ],
+      "solicitada": [
+        -14.274338,
+        -69.492719
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "148610",
+      "antes": [
+        -13.600974999999949,
+        -71.85957099999996
+      ],
+      "solicitada": [
+        -13.59891,
+        -71.86013
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "26459",
+      "antes": [
+        -14.62120299999998,
+        -74.23448899999994
+      ],
+      "solicitada": [
+        -14.367108,
+        -74.268872
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "106350",
+      "antes": [
+        -5.24015873999997,
+        -79.44869519999997
+      ],
+      "solicitada": [
+        -5.2477,
+        -79.4550167
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "173010",
+      "antes": [
+        -9.0895493,
+        -78.0014184
+      ],
+      "solicitada": [
+        -12.3412131,
+        -74.6336111
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "173788",
+      "antes": [
+        -9.188314210999977,
+        -77.70855315499995
+      ],
+      "solicitada": [
+        -9.18850706,
+        -77.7084995
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "175592",
+      "antes": [
+        -8.095126294999943,
+        -78.15554510199996
+      ],
+      "solicitada": [
+        -8.09607833,
+        -78.1496883
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "85348",
+      "antes": [
+        -13.514650109999934,
+        -71.97748307999996
+      ],
+      "solicitada": [
+        -13.4983,
+        -71.9992
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "175450",
+      "antes": [
+        -5.269614391999937,
+        -80.73919765699998
+      ],
+      "solicitada": [
+        -5.279951,
+        -80.715359
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "107392",
+      "antes": [
+        -7.787225249999949,
+        -78.14024999999998
+      ],
+      "solicitada": [
+        -7.788536,
+        -78.139431
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "169559",
+      "antes": [
+        -8.066115568999976,
+        -79.01867281299997
+      ],
+      "solicitada": [
+        -8.06685225,
+        -79.0188096
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "172051",
+      "antes": [
+        -4.584027858999946,
+        -79.79781057899999
+      ],
+      "solicitada": [
+        -4.58392881,
+        -79.7979389
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "170078",
+      "antes": [
+        -8.132985989999952,
+        -78.05575223999995
+      ],
+      "solicitada": [
+        -8.13290167,
+        -78.0554083
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "154393",
+      "antes": [
+        -7.349402373999965,
+        -79.45708374299994
+      ],
+      "solicitada": [
+        -7.34962167,
+        -79.4567567
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "145989",
+      "antes": [
+        -6.865503479999973,
+        -79.81822151999995
+      ],
+      "solicitada": [
+        -6.86514333,
+        -79.8168917
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "145924",
+      "antes": [
+        -9.592705701999932,
+        -77.19429331199996
+      ],
+      "solicitada": [
+        -9.60446,
+        -77.179019
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "168580",
+      "antes": [
+        -12.8206524,
+        -75.7196121
+      ],
+      "solicitada": [
+        -12.873557,
+        -75.822533
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "106971",
+      "antes": [
+        -4.6399841099999435,
+        -79.71580763999998
+      ],
+      "solicitada": [
+        -4.63578921,
+        -79.7141395
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "105290",
+      "antes": [
+        -9.86319599999996,
+        -76.17021999999997
+      ],
+      "solicitada": [
+        -9.7877,
+        -76.302359
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "102020",
+      "antes": [
+        -15.183523799999932,
+        -72.90523907999994
+      ],
+      "solicitada": [
+        -15.194083,
+        -72.889903
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "49972",
+      "antes": [
+        -12.069713609999951,
+        -75.21137963999996
+      ],
+      "solicitada": [
+        -12.0525651,
+        -75.2061352
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "101775",
+      "antes": [
+        -15.730485119999969,
+        -72.10958831999994
+      ],
+      "solicitada": [
+        -15.717446,
+        -72.113918
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "106671",
+      "antes": [
+        -12.311547,
+        -76.0917398
+      ],
+      "solicitada": [
+        -12.7211361,
+        -76.4425356
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "106655",
+      "antes": [
+        -9.1160372,
+        -77.1129241
+      ],
+      "solicitada": [
+        -12.899695,
+        -74.323316
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "106689",
+      "antes": [
+        -3.5698424399999453,
+        -80.23263803999998
+      ],
+      "solicitada": [
+        -3.533279,
+        -80.227913
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "106656",
+      "antes": [
+        -9.1160372,
+        -77.1129241
+      ],
+      "solicitada": [
+        -12.969141,
+        -74.297278
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "101783",
+      "antes": [
+        -13.836461129999975,
+        -74.31596567999998
+      ],
+      "solicitada": [
+        -13.82974,
+        -74.327506
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "85450",
+      "antes": [
+        -7.8148299599999405,
+        -78.05002823999996
+      ],
+      "solicitada": [
+        -7.79019,
+        -78.095443
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "122636",
+      "antes": [
+        -14.140410479999957,
+        -73.14052967999999
+      ],
+      "solicitada": [
+        -14.141812,
+        -73.154655
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "117971",
+      "antes": [
+        -13.524635069999931,
+        -71.96304779999997
+      ],
+      "solicitada": [
+        -13.535556,
+        -71.943611
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    },
+    {
+      "cod_infobras": "503985",
+      "antes": [
+        -12.718837999999948,
+        -75.91487099999995
+      ],
+      "solicitada": [
+        -12.6164869,
+        -75.7987044
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "FUERA_DISTRITO_DECLARADO_PENDIENTE_REVISION"
+    },
+    {
+      "cod_infobras": "131400",
+      "antes": [
+        -5.401252749999969,
+        -79.60497999999995
+      ],
+      "solicitada": [
+        -5.42268,
+        -79.67854
+      ],
+      "fuente": "Coordenadas proporcionadas por el usuario el 13/11/2026",
+      "estado": "APLICADA",
+      "validacion_distrital": "DENTRO_DISTRITO"
+    }
+  ]
+}
