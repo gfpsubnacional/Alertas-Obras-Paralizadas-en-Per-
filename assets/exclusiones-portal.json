@@ -1,0 +1,62 @@
+{
+  "exclusiones": [
+    {
+      "cod_infobras": "500663",
+      "fecha": "2026-11-23",
+      "motivo": "Exclusión del portal solicitada por el usuario",
+      "registro_anterior": {
+        "title": "Construcción de aulas en el centro educativo N.° 1103 registro de capacitación",
+        "subtitle": "Lima | Gobierno Local | Sector Mancomunidades",
+        "region": "Lima",
+        "provincia": "Lima",
+        "distrito": "Jesus Maria",
+        "nivel": "Gobierno Local",
+        "sector": "Mancomunidades",
+        "causa": "Evento climático o condición externa",
+        "cost": 0.01,
+        "saldo": null,
+        "investmentKey": "INFO:500663",
+        "investmentCost": 0.01,
+        "investmentSaldo": null,
+        "people": null,
+        "modelo_predictivo": "1",
+        "fecha_inicio_max_interrupcion": "",
+        "fecha_inicio_declarada": "2023-03-11",
+        "datos_obras_eje_info": "https://infobras.contraloria.gob.pe/InfobrasWeb/Mapa/DatosEjecucion?obraId=500663",
+        "datos_obras_eje_inver": "",
+        "datos_obras_eje_ssi": "",
+        "latlng": [
+          -12.073002,
+          -77.038686
+        ],
+        "statusColor": "#16a34a",
+        "facts": {
+          "Código Infobras": "500663",
+          "CUI": "No disponible",
+          "Entidad": "Mancomunidad Municipal Huaytapallana",
+          "Ubicación": "Lima / Lima / Jesus Maria",
+          "Monto actualizado": "S/ 10,000.00",
+          "Saldo por ejecutar": "No disponible",
+          "Avance físico": "1.7 %",
+          "Nivel de gobierno": "Gobierno Local",
+          "Causal de paralización": "Evento climático o condición externa",
+          "Población potencialmente afectada": "No disponible con validación distrital",
+          "Tiempo paralizado": "No disponible",
+          "Coordenadas": "INFOBRAS",
+          "Datos de ejecución INFOBRAS": "<a href=\"https://infobras.contraloria.gob.pe/InfobrasWeb/Mapa/DatosEjecucion?obraId=500663\" target=\"_blank\" rel=\"noopener noreferrer\">Abrir ficha</a>",
+          "Datos de inversión Invierte.pe": "No disponible",
+          "Datos de inversión SSI": "No disponible",
+          "Revisión de ubicación": "DENTRO_DISTRITO",
+          "Alertas": "Alertas de obras paralizadas"
+        },
+        "geoValidation": "DENTRO_DISTRITO",
+        "OBRA_REACTIVACION": 0,
+        "OBRA_REACTIVACION_FEN": 0,
+        "clasificaciones": [
+          "modelo"
+        ],
+        "OBRA_MAYOR_COSTO_ACTUALIZADO": 0
+      }
+    }
+  ]
+}
