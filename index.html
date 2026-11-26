@@ -2777,6 +2777,10 @@
     .fen-welcome button:focus-visible{outline:3px solid #1474cc;outline-offset:3px;border-radius:6px}
     #fen-welcome-close{top:9%;right:1.5%;width:6%;height:7%;min-width:32px;min-height:32px}
     #fen-welcome-view{left:34.5%;top:83.7%;width:31.7%;height:10.8%;border-radius:10px}
+
+    .model-notice{width:min(1040px,94vw,calc(88dvh * 1383 / 1137))}
+    #model-notice-close{top:1.5%;right:1.5%;width:5%;height:6%;min-width:32px;min-height:32px}
+    #model-notice-research{left:62%;top:86.5%;width:35.5%;height:9%;cursor:default}
   </style>
 </head>
 <body class="loading-kpis">
@@ -3210,6 +3214,12 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="assets/google-earth-pro-captures.js?v=20260910"></script>
   <script src="assets/infobras-dates.js?v=20260910"></script>
+  <dialog id="model-notice" class="fen-welcome model-notice" aria-label="Factores asociados a la paralización de obras" aria-describedby="model-notice-description">
+    <img class="fen-welcome-image" src="assets/aviso-alertas-modelo.png" width="1383" height="1137" alt="Obras públicas paralizadas. Factores asociados a la paralización de obras. GFP Subnacional analiza, con modelos estadísticos y de aprendizaje automático, patrones vinculados a la paralización de obras públicas en el Perú.">
+    <p id="model-notice-description" hidden>Integra información pública de SUNAT, SEACE, CONOSCE, INFOBRAS, Invierte.pe, RENAMU y declaraciones juradas. Evalúa desempeño presupuestal, competencia en contrataciones, características de contratistas y atributos de funcionarios. Aplica regresión LASSO, Random Forest y XGBoost para distinguir obras paralizadas y en ejecución. Mide el aporte de los avances físico y financiero para fortalecer la priorización del seguimiento. Este análisis aporta evidencia para fortalecer el seguimiento preventivo de las inversiones públicas. Ver investigación aún no está disponible.</p>
+    <button id="model-notice-close" type="button" aria-label="Cerrar información de alertas" autofocus></button>
+    <button id="model-notice-research" type="button" aria-label="Ver investigación (no disponible)" disabled></button>
+  </dialog>
   <dialog id="fen-welcome" class="fen-welcome" aria-label="Obras a reactivar Fenómeno El Niño">
     <img class="fen-welcome-image" src="assets/aviso-reactivacion-fen.jpg" width="1034" height="946" alt="Presupuesto destinado: S/ 100 millones. Revisa aquí las obras que pueden reactivarse para prevenir las consecuencias del Fenómeno de El Niño.">
     <button id="fen-welcome-close" type="button" aria-label="Cerrar aviso"></button>
@@ -4490,6 +4500,26 @@
       const view = document.getElementById("fen-welcome-view");
       if (event.shiftKey && document.activeElement === close) {event.preventDefault(); view.focus();}
       else if (!event.shiftKey && document.activeElement === view) {event.preventDefault(); close.focus();}
+    });
+
+    const modelNotice = document.getElementById("model-notice");
+    const modelNoticeClose = document.getElementById("model-notice-close");
+    let modelNoticePreviousOverflow = "";
+    function closeModelNotice() {
+      modelNotice.close();
+      document.body.style.overflow = modelNoticePreviousOverflow;
+      filterControls.clasificacion.focus({preventScroll:true});
+    }
+    filterControls.clasificacion.addEventListener("change", () => {
+      if (filterControls.clasificacion.value !== "modelo" || modelNotice.open) return;
+      modelNoticePreviousOverflow = document.body.style.overflow;
+      modelNotice.showModal();
+      document.body.style.overflow = "hidden";
+    });
+    modelNoticeClose.addEventListener("click", closeModelNotice);
+    modelNotice.addEventListener("cancel", event => {event.preventDefault(); closeModelNotice();});
+    modelNotice.addEventListener("keydown", event => {
+      if (event.key === "Tab") {event.preventDefault(); modelNoticeClose.focus();}
     });
     fenWelcome.showModal();
     document.body.style.overflow = "hidden";
