@@ -2781,6 +2781,20 @@
     .model-notice{width:min(1040px,94vw,calc(88dvh * 1383 / 1137))}
     #model-notice-close{top:1.5%;right:1.5%;width:5%;height:6%;min-width:32px;min-height:32px}
     #model-notice-research{left:62%;top:86.5%;width:35.5%;height:9%;cursor:default}
+
+    .welcome-carousel{--stage-height:min(76dvh,calc(94vw * 946 / 1034),760px);padding:0;border:0;border-radius:10px;width:min(1000px,94vw);max-width:94vw;max-height:94dvh;background:#fff;overflow:hidden;box-shadow:0 20px 70px #0006}
+    .welcome-carousel::backdrop{background:rgba(10,25,48,.65)}
+    .welcome-stage{height:var(--stage-height);display:flex;align-items:center;justify-content:center}
+    .welcome-slide{position:relative;flex:none}
+    .welcome-slide[hidden]{display:none}
+    .welcome-model{width:min(100%,calc(var(--stage-height) * 1383 / 1137))}
+    .welcome-fen{width:min(100%,calc(var(--stage-height) * 1034 / 946))}
+    .welcome-slide img{display:block;width:100%;height:auto;border-radius:0}
+    .welcome-slide button{position:absolute;border:0;background:transparent;padding:0;color:transparent;cursor:pointer}
+    .welcome-slide button:disabled{cursor:default}
+    .welcome-carousel button:focus-visible{outline:3px solid #1474cc;outline-offset:2px}
+    .welcome-controls{height:52px;display:flex;align-items:center;justify-content:center;gap:18px;background:#f3f6fa;border-top:1px solid #dce3ee;color:#153052}
+    .welcome-controls button{min-width:40px;min-height:36px;padding:5px 10px;border:1px solid #ccd7e5;border-radius:6px;background:#fff;color:#153052;cursor:pointer;font-size:14px}
   </style>
 </head>
 <body class="loading-kpis">
@@ -3214,16 +3228,26 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="assets/google-earth-pro-captures.js?v=20260910"></script>
   <script src="assets/infobras-dates.js?v=20260910"></script>
-  <dialog id="model-notice" class="fen-welcome model-notice" aria-label="Factores asociados a la paralización de obras" aria-describedby="model-notice-description">
+  <dialog id="welcome-carousel" class="welcome-carousel" aria-label="Avisos de GFP Subnacional" tabindex="-1">
+    <div class="welcome-stage" aria-roledescription="carrusel" aria-label="Avisos destacados">
+      <section class="welcome-slide welcome-model" data-slide="0" aria-label="1 de 2: Obras públicas paralizadas">
     <img class="fen-welcome-image" src="assets/aviso-alertas-modelo.png" width="1383" height="1137" alt="Obras públicas paralizadas. Factores asociados a la paralización de obras. GFP Subnacional analiza, con modelos estadísticos y de aprendizaje automático, patrones vinculados a la paralización de obras públicas en el Perú.">
     <p id="model-notice-description" hidden>Integra información pública de SUNAT, SEACE, CONOSCE, INFOBRAS, Invierte.pe, RENAMU y declaraciones juradas. Evalúa desempeño presupuestal, competencia en contrataciones, características de contratistas y atributos de funcionarios. Aplica regresión LASSO, Random Forest y XGBoost para distinguir obras paralizadas y en ejecución. Mide el aporte de los avances físico y financiero para fortalecer la priorización del seguimiento. Este análisis aporta evidencia para fortalecer el seguimiento preventivo de las inversiones públicas. Ver investigación aún no está disponible.</p>
-    <button id="model-notice-close" type="button" aria-label="Cerrar información de alertas" autofocus></button>
+    <button id="model-notice-close" type="button" aria-label="Cerrar información de alertas"></button>
     <button id="model-notice-research" type="button" aria-label="Ver investigación (no disponible)" disabled></button>
-  </dialog>
-  <dialog id="fen-welcome" class="fen-welcome" aria-label="Obras a reactivar Fenómeno El Niño">
+      </section>
+      <section class="welcome-slide welcome-fen" data-slide="1" aria-label="2 de 2: Obras a reactivar ante El Niño" hidden>
     <img class="fen-welcome-image" src="assets/aviso-reactivacion-fen.jpg" width="1034" height="946" alt="Presupuesto destinado: S/ 100 millones. Revisa aquí las obras que pueden reactivarse para prevenir las consecuencias del Fenómeno de El Niño.">
     <button id="fen-welcome-close" type="button" aria-label="Cerrar aviso"></button>
-    <button id="fen-welcome-view" type="button" aria-label="Ver obras a reactivar Fenómeno El Niño" autofocus></button>
+    <button id="fen-welcome-view" type="button" aria-label="Ver obras a reactivar Fenómeno El Niño"></button>
+      </section>
+    </div>
+    <div class="welcome-controls">
+      <button id="welcome-pause" type="button">Pausar</button>
+      <button id="welcome-prev" type="button" aria-label="Aviso anterior">&#10094;</button>
+      <span id="welcome-position">1 / 2</span>
+      <button id="welcome-next" type="button" aria-label="Aviso siguiente">&#10095;</button>
+    </div>
   </dialog>
   <script src="assets/obras-data.js?v=exclusion-20261123"></script>
   <script src="assets/indicadores.js?v=20261014"></script>
@@ -4476,17 +4500,61 @@
     renderPriorityTable();
     setTimeout(openSharedWorkFromUrl, 250);
 
-    const fenWelcome = document.getElementById("fen-welcome");
-    const welcomePreviousOverflow = document.body.style.overflow;
-    function closeFenWelcome() {
-      fenWelcome.close();
-      document.body.style.overflow = welcomePreviousOverflow;
+    const welcomeCarousel = document.getElementById("welcome-carousel");
+    const welcomeSlides = [...welcomeCarousel.querySelectorAll(".welcome-slide")];
+    const welcomePause = document.getElementById("welcome-pause");
+    const previousWelcomeOverflow = document.body.style.overflow;
+    let welcomeSlide = 0;
+    let welcomeTimer;
+    let welcomePaused = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function scheduleWelcome() {
+      clearTimeout(welcomeTimer);
+      welcomePause.textContent = welcomePaused ? "Reanudar" : "Pausar";
+      if (!welcomePaused && welcomeCarousel.open && !document.hidden) {
+        welcomeTimer = setTimeout(() => {showWelcomeSlide(welcomeSlide + 1); scheduleWelcome();}, 15000);
+      }
+    }
+    function showWelcomeSlide(index) {
+      welcomeSlide = (index + welcomeSlides.length) % welcomeSlides.length;
+      welcomeSlides.forEach((slide, i) => {slide.hidden = i !== welcomeSlide;});
+      document.getElementById("welcome-position").textContent = `${welcomeSlide + 1} / ${welcomeSlides.length}`;
+    }
+    function pauseWelcome() {welcomePaused = true; scheduleWelcome();}
+    function closeWelcomeCarousel() {
+      clearTimeout(welcomeTimer);
+      welcomeCarousel.close();
+      document.body.style.overflow = previousWelcomeOverflow;
       document.querySelector('.nav-tabs button.active').focus({preventScroll:true});
     }
-    document.getElementById("fen-welcome-close").addEventListener("click", closeFenWelcome);
-    fenWelcome.addEventListener("cancel", event => {event.preventDefault(); closeFenWelcome();});
+    for (const id of ["model-notice-close", "fen-welcome-close"]) {
+      document.getElementById(id).addEventListener("click", closeWelcomeCarousel);
+    }
+    for (const [id, step] of [["welcome-prev", -1], ["welcome-next", 1]]) {
+      document.getElementById(id).addEventListener("click", () => {pauseWelcome(); showWelcomeSlide(welcomeSlide + step);});
+    }
+    welcomePause.addEventListener("click", () => {welcomePaused = !welcomePaused; scheduleWelcome();});
+    welcomeCarousel.addEventListener("cancel", event => {event.preventDefault(); closeWelcomeCarousel();});
+    welcomeCarousel.querySelector(".welcome-stage").addEventListener("mouseenter", () => clearTimeout(welcomeTimer));
+    welcomeCarousel.querySelector(".welcome-stage").addEventListener("mouseleave", scheduleWelcome);
+    welcomeCarousel.addEventListener("keydown", event => {
+      if (!(event.target === welcomePause && ["Enter", " "].includes(event.key))) pauseWelcome();
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+        event.preventDefault(); showWelcomeSlide(welcomeSlide + (event.key === "ArrowRight" ? 1 : -1));
+        document.getElementById(event.key === "ArrowRight" ? "welcome-next" : "welcome-prev").focus();
+      }
+      if (event.key === "Tab") {
+        const buttons = [...welcomeCarousel.querySelectorAll('button:not(:disabled)')].filter(b => b.getClientRects().length);
+        const first = buttons[0], last = buttons[buttons.length - 1];
+        if (event.shiftKey && (document.activeElement === first || document.activeElement === welcomeCarousel)) {event.preventDefault(); last.focus();}
+        else if (!event.shiftKey && document.activeElement === last) {event.preventDefault(); first.focus();}
+      }
+    });
+    welcomeCarousel.addEventListener("focusin", event => {
+      if (event.target !== welcomeCarousel && event.target !== welcomePause) pauseWelcome();
+    });
+    document.addEventListener("visibilitychange", scheduleWelcome);
     document.getElementById("fen-welcome-view").addEventListener("click", () => {
-      closeFenWelcome();
+      closeWelcomeCarousel();
       document.querySelector('[data-tab="dashboard"]').click();
       resetFilters();
       filterControls.clasificacion.value = "fen";
@@ -4494,35 +4562,12 @@
       filterControls.clasificacion.focus({preventScroll:true});
       peruMap.scrollIntoView({behavior:"smooth",block:"center"});
     });
-    fenWelcome.addEventListener("keydown", event => {
-      if (event.key !== "Tab") return;
-      const close = document.getElementById("fen-welcome-close");
-      const view = document.getElementById("fen-welcome-view");
-      if (event.shiftKey && document.activeElement === close) {event.preventDefault(); view.focus();}
-      else if (!event.shiftKey && document.activeElement === view) {event.preventDefault(); close.focus();}
-    });
-
-    const modelNotice = document.getElementById("model-notice");
-    const modelNoticeClose = document.getElementById("model-notice-close");
-    let modelNoticePreviousOverflow = "";
-    function closeModelNotice() {
-      modelNotice.close();
-      document.body.style.overflow = modelNoticePreviousOverflow;
-      filterControls.clasificacion.focus({preventScroll:true});
-    }
-    filterControls.clasificacion.addEventListener("change", () => {
-      if (filterControls.clasificacion.value !== "modelo" || modelNotice.open) return;
-      modelNoticePreviousOverflow = document.body.style.overflow;
-      modelNotice.showModal();
-      document.body.style.overflow = "hidden";
-    });
-    modelNoticeClose.addEventListener("click", closeModelNotice);
-    modelNotice.addEventListener("cancel", event => {event.preventDefault(); closeModelNotice();});
-    modelNotice.addEventListener("keydown", event => {
-      if (event.key === "Tab") {event.preventDefault(); modelNoticeClose.focus();}
-    });
-    fenWelcome.showModal();
+    welcomeCarousel.showModal();
+    welcomeCarousel.focus({preventScroll:true});
     document.body.style.overflow = "hidden";
+    // Initial focus belongs to the dialog, so automatic rotation can begin.
+    welcomePaused = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    scheduleWelcome();
 
   </script>
 </body>
