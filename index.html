@@ -2795,6 +2795,22 @@
     .welcome-carousel button:focus-visible{outline:3px solid #1474cc;outline-offset:2px}
     .welcome-controls{height:52px;display:flex;align-items:center;justify-content:center;gap:18px;background:#f3f6fa;border-top:1px solid #dce3ee;color:#153052}
     .welcome-controls button{min-width:40px;min-height:36px;padding:5px 10px;border:1px solid #ccd7e5;border-radius:6px;background:#fff;color:#153052;cursor:pointer;font-size:14px}
+
+    /* Overlay arrows and compact dot navigation, sized to the active image. */
+    .welcome-carousel{--welcome-ratio:1383 / 1137;width:min(1000px,94vw,calc(88dvh * var(--welcome-ratio)));max-height:90dvh;background:transparent}
+    .welcome-stage{height:auto;display:block}
+    .welcome-slide,.welcome-model,.welcome-fen{width:100%}
+    .welcome-slide img{border-radius:10px}
+    .welcome-controls{position:absolute;inset:0;height:auto;border:0;background:none;display:block;pointer-events:none}
+    .welcome-controls button{pointer-events:auto}
+    #welcome-prev,#welcome-next{position:absolute;top:50%;transform:translateY(-50%);width:32px;min-width:32px;height:52px;padding:0;border:0;border-radius:4px;background:rgba(225,235,242,.8);color:#173451;font-size:21px;box-shadow:0 1px 5px #0002}
+    #welcome-prev{left:5px}#welcome-next{right:5px}
+    .welcome-dots{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:3px 8px;border-radius:20px;background:rgba(15,30,50,.72);pointer-events:auto}
+    .welcome-dots .welcome-dot{width:20px;height:22px;min-width:20px;min-height:22px;padding:0;border:0;background:transparent;position:relative}
+    .welcome-dot::after{content:"";position:absolute;left:6px;top:7px;width:8px;height:8px;border-radius:8px;background:#ffffff80}
+    .welcome-dot[aria-current="true"]::after{left:2px;width:16px;background:#fff}
+    .welcome-dots #welcome-pause{width:24px;min-width:24px;height:22px;min-height:22px;padding:0;border:0;background:transparent;color:#fff;font-size:12px}
+    @media(max-width:600px){#welcome-prev,#welcome-next{width:27px;min-width:27px;height:42px;font-size:17px}}
   </style>
 </head>
 <body class="loading-kpis">
@@ -3243,10 +3259,13 @@
       </section>
     </div>
     <div class="welcome-controls">
-      <button id="welcome-pause" type="button">Pausar</button>
       <button id="welcome-prev" type="button" aria-label="Aviso anterior">&#10094;</button>
-      <span id="welcome-position">1 / 2</span>
       <button id="welcome-next" type="button" aria-label="Aviso siguiente">&#10095;</button>
+      <div class="welcome-dots" aria-label="Elegir aviso">
+        <button class="welcome-dot" data-index="0" type="button" aria-label="Mostrar aviso de obras paralizadas" aria-current="true"></button>
+        <button class="welcome-dot" data-index="1" type="button" aria-label="Mostrar aviso de El Niño" aria-current="false"></button>
+        <button id="welcome-pause" type="button" aria-label="Pausar avisos" title="Pausar avisos">Ⅱ</button>
+      </div>
     </div>
   </dialog>
   <script src="assets/obras-data.js?v=exclusion-20261123"></script>
@@ -4509,7 +4528,9 @@
     let welcomePaused = matchMedia("(prefers-reduced-motion: reduce)").matches;
     function scheduleWelcome() {
       clearTimeout(welcomeTimer);
-      welcomePause.textContent = welcomePaused ? "Reanudar" : "Pausar";
+      welcomePause.textContent = welcomePaused ? "▶" : "Ⅱ";
+      welcomePause.setAttribute("aria-label", welcomePaused ? "Reanudar avisos" : "Pausar avisos");
+      welcomePause.title = welcomePause.getAttribute("aria-label");
       if (!welcomePaused && welcomeCarousel.open && !document.hidden) {
         welcomeTimer = setTimeout(() => {showWelcomeSlide(welcomeSlide + 1); scheduleWelcome();}, 15000);
       }
@@ -4517,7 +4538,8 @@
     function showWelcomeSlide(index) {
       welcomeSlide = (index + welcomeSlides.length) % welcomeSlides.length;
       welcomeSlides.forEach((slide, i) => {slide.hidden = i !== welcomeSlide;});
-      document.getElementById("welcome-position").textContent = `${welcomeSlide + 1} / ${welcomeSlides.length}`;
+      welcomeCarousel.style.setProperty("--welcome-ratio", welcomeSlide === 0 ? "1383 / 1137" : "1034 / 946");
+      welcomeCarousel.querySelectorAll(".welcome-dot").forEach((dot, i) => dot.setAttribute("aria-current", String(i === welcomeSlide)));
     }
     function pauseWelcome() {welcomePaused = true; scheduleWelcome();}
     function closeWelcomeCarousel() {
@@ -4532,6 +4554,9 @@
     for (const [id, step] of [["welcome-prev", -1], ["welcome-next", 1]]) {
       document.getElementById(id).addEventListener("click", () => {pauseWelcome(); showWelcomeSlide(welcomeSlide + step);});
     }
+    welcomeCarousel.querySelectorAll(".welcome-dot").forEach(dot => dot.addEventListener("click", () => {
+      pauseWelcome(); showWelcomeSlide(Number(dot.dataset.index));
+    }));
     welcomePause.addEventListener("click", () => {welcomePaused = !welcomePaused; scheduleWelcome();});
     welcomeCarousel.addEventListener("cancel", event => {event.preventDefault(); closeWelcomeCarousel();});
     welcomeCarousel.querySelector(".welcome-stage").addEventListener("mouseenter", () => clearTimeout(welcomeTimer));
