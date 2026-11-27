@@ -2811,6 +2811,15 @@
     .welcome-dot[aria-current="true"]::after{left:2px;width:16px;background:#fff}
     .welcome-dots #welcome-pause{width:24px;min-width:24px;height:22px;min-height:22px;padding:0;border:0;background:transparent;color:#fff;font-size:12px}
     @media(max-width:600px){#welcome-prev,#welcome-next{width:27px;min-width:27px;height:42px;font-size:17px}}
+
+    .universe-selector{max-width:1600px;margin:0 auto;padding:16px 22px 0}
+    .universe-buttons{display:flex;gap:10px;flex-wrap:wrap}
+    .universe-buttons button{padding:10px 18px;border:1px solid #bccddd;border-radius:6px;background:#fff;color:var(--gfp-blue);font:inherit;font-weight:700;cursor:pointer}
+    .universe-buttons button[aria-pressed="true"]{background:var(--gfp-accent);border-color:var(--gfp-accent);color:#fff}
+    .universe-buttons button:focus-visible{outline:3px solid #d99414;outline-offset:2px}
+    .universe-context{margin:9px 0 0;color:#52647e;font-size:.8rem;line-height:1.4}
+    #tab-dashboard .layout-dashboard{padding-top:14px}
+    @media(max-width:600px){.universe-selector{padding:12px 16px 0}.universe-buttons button{flex:1;min-width:140px;padding:9px 10px}}
   </style>
 </head>
 <body class="loading-kpis">
@@ -2828,6 +2837,13 @@
       <p>Corte: Setiembre 2026 · 1.120 obras registradas para seguimiento.</p>
     </div>
 
+    <div class="universe-selector" aria-label="Secciones de obras">
+      <div class="universe-buttons">
+        <button type="button" data-universe="alertas" aria-pressed="true">Alertas</button>
+        <button type="button" data-universe="seguimiento" aria-pressed="false">Obras públicas paralizadas</button>
+      </div>
+      <p id="universe-context" class="universe-context" aria-live="polite"></p>
+    </div>
     <div class="layout-dashboard">
       <aside class="well-panel" aria-labelledby="filters-heading">
         <h3 id="filters-heading" class="section-title filters-title">Filtros de búsqueda</h3>
@@ -3343,6 +3359,30 @@
     let activeShareUrl = "";
     let activeShareText = "";
     const workData = window.OBRAS_PARALIZADAS_DATA || {};
+    // Review uses existing data only. The independent ML universe is not yet supplied.
+    let activeUniverse = "alertas";
+    function matchesUniverse(work) {
+      return activeUniverse === "seguimiento" || work.modelo_predictivo === "1";
+    }
+    function updateUniversePresentation() {
+      document.querySelectorAll("[data-universe]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.universe === activeUniverse)));
+      const alerts = activeUniverse === "alertas";
+      document.getElementById("universe-context").textContent = alerts
+        ? "Vista de revisión: 115 obras con señal del modelo dentro de la base actual. El nuevo universo de machine learning está pendiente de incorporación."
+        : "Base de seguimiento: 1.120 obras públicas paralizadas. Los grupos se consultan dentro de esta base.";
+      const classification = document.getElementById("clasificacion-obras");
+      classification.closest(".filter-field").hidden = alerts;
+      document.querySelector('label[for="clasificacion-obras"]').textContent = "Grupos de seguimiento";
+      document.querySelector('#tab-dashboard .hero-blue p').textContent = alerts
+        ? "Corte: Setiembre 2026 · Alertas de la base actual · Vista de revisión."
+        : "Corte: Setiembre 2026 · 1.120 obras registradas para seguimiento.";
+    }
+    function setUniverse(universe) {
+      activeUniverse = universe === "seguimiento" ? "seguimiento" : "alertas";
+      updateUniversePresentation();
+      resetFilters();
+      requestAnimationFrame(() => leafletMap.invalidateSize());
+    }
     const shareButton = document.getElementById("share-work");
     const undeterminedCause = "causal no determinada con detalle suficiente";
     const waybackConfigUrl = "https://s3-us-west-2.amazonaws.com/config.maptiles.arcgis.com/waybackconfig.json";
@@ -3592,7 +3632,7 @@
       const keywordTerms = keyword.split(" ").filter(Boolean);
       const matchesKeyword = keywordTerms.every((term) => searchableText.includes(term));
 
-      return matchesKeyword
+      return matchesUniverse(work) && matchesKeyword
         && (selectedRegion === "Todos" || work.region === selectedRegion)
         && (selectedNivel === "Todos" || work.nivel === selectedNivel)
         && (selectedSector === "Todos" || work.sector === selectedSector)
@@ -4419,6 +4459,7 @@
       const workKey = findWorkKeyByShareId(params.get("obra"));
       if (!workKey) return;
       const work = workData[workKey];
+      if (!matchesUniverse(work)) setUniverse("seguimiento");
       if (window.OBRAS_INDICADORES.hasCoordinates(work)) leafletMap.setView(work.latlng, Math.max(leafletMap.getZoom(), 13), { animate: false });
       openMapPopup(workKey);
       if (params.get("seguimiento") === "1") {
@@ -4514,6 +4555,8 @@
       const options = [...new Set(Object.values(workData).map(work => work[field]))].sort((a,b) => a.localeCompare(b, "es"));
       control.replaceChildren(new Option("Todos", "Todos"), ...options.map(value => new Option(value, value)));
     }
+    document.querySelectorAll("[data-universe]").forEach(button => button.addEventListener("click", () => setUniverse(button.dataset.universe)));
+    updateUniversePresentation();
     populateCauseFilter();
     resetFilters();
     renderPriorityTable();
@@ -4582,6 +4625,7 @@
       closeWelcomeCarousel();
       document.querySelector('[data-tab="dashboard"]').click();
       resetFilters();
+      setUniverse("seguimiento");
       filterControls.clasificacion.value = "fen";
       applyFilters();
       filterControls.clasificacion.focus({preventScroll:true});
