@@ -2,6 +2,8 @@
 
 Actualización del 27 de noviembre de 2026, a partir de `bop_nov_georreferenciado.xlsx`.
 
+La vista inicial y el primer botón corresponden al modelo predictivo. Se retiró el texto explicativo bajo los botones. En el mapa del modelo, el color depende exclusivamente de `probabilidad_paralizacion` (columna BS de la fuente, valores de 0 a 1): hasta 30% (1.339 obras), más de 30% a 50% (192), más de 50% a 80% (153) y más de 80% (42). Los límites 30%, 50% y 80% pertenecen al intervalo inferior. La leyenda y los marcadores mantienen estos rangos al cambiar filtros o zoom. Alertas conserva su mapa por costo actualizado.
+
 - **Alertas**: conserva las 1.120 obras, los indicadores y las clasificaciones anteriores (115 con señal del modelo anterior, 360 reactivables, 5 de El Niño y 94 con mayor costo actualizado). El archivo `assets/obras-data.js` permanece intacto.
 - **Modelo de predicción de paralización de obras**: 1.726 registros de `estado_actual = 0`, columna BT. El diccionario define ese valor como estado observado «No paralizado»; el resultado del modelo no equivale a una paralización verificada ni a una probabilidad calibrada para un plazo futuro. La probabilidad se conserva sin recalcular ni aplicar umbrales inventados.
 - El archivo recibido contiene 1.121 registros con `estado_actual = 1`. El adicional es INFOBRAS 500663, excluido previamente por el usuario. No se reincorpora ni se reemplazan las 1.120 obras existentes.

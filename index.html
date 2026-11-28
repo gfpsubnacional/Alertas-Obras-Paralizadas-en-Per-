@@ -454,6 +454,7 @@
     }
 
     .map-legend {
+      max-width: min(240px, calc(100% - 32px));
       position: absolute;
       left: 16px;
       top: 70px;
@@ -2817,7 +2818,6 @@
     .universe-buttons button{padding:10px 18px;border:1px solid #bccddd;border-radius:6px;background:#fff;color:var(--gfp-blue);font:inherit;font-weight:700;cursor:pointer}
     .universe-buttons button[aria-pressed="true"]{background:var(--gfp-accent);border-color:var(--gfp-accent);color:#fff}
     .universe-buttons button:focus-visible{outline:3px solid #d99414;outline-offset:2px}
-    .universe-context{margin:9px 0 0;color:#52647e;font-size:.8rem;line-height:1.4}
     #tab-dashboard .layout-dashboard{padding-top:14px}
     @media(max-width:600px){.universe-selector{padding:12px 16px 0}.universe-buttons button{flex:1;min-width:140px;padding:9px 10px}}
 
@@ -2831,7 +2831,6 @@
     .filter-field[hidden]{display:none!important}
     .universe-selector{padding:9px 18px 0}
     .universe-buttons{gap:7px}.universe-buttons button{padding:7px 12px;font-size:13px}
-    .universe-context{margin:5px 0 0;font-size:12px;line-height:1.3}
     .kpi-grid{gap:8px;margin-bottom:10px;grid-template-columns:repeat(5,minmax(0,1fr))}
     .value-box{min-height:80px;padding:7px 9px}
     .value-box .number,.value-box .number.compact{font-size:24px;line-height:1.1;margin:0}
@@ -2861,15 +2860,14 @@
   <section id="tab-dashboard" class="tab-panel active">
     <div class="hero-blue">
       <h1>Alertas de Obras Públicas Paralizadas en el Perú</h1>
-      <p>Corte: Setiembre 2026 · 1.120 obras registradas para seguimiento.</p>
+      <p>Base del modelo: noviembre de 2026 · Seguimiento de obras públicas.</p>
     </div>
 
     <div class="universe-selector" aria-label="Secciones de obras">
       <div class="universe-buttons">
-        <button type="button" data-universe="alertas" aria-pressed="true">Alertas</button>
-        <button type="button" data-universe="modelo" aria-pressed="false">Modelo de predicción de paralización de obras</button>
+        <button type="button" data-universe="modelo" aria-pressed="true">Modelo de predicción de paralización de obras</button>
+        <button type="button" data-universe="alertas" aria-pressed="false">Alertas</button>
       </div>
-      <p id="universe-context" class="universe-context" aria-live="polite"></p>
     </div>
     <div class="layout-dashboard">
       <aside class="well-panel" aria-labelledby="filters-heading">
@@ -2934,7 +2932,7 @@
           </select>
         </div>
 
-        <div class="filter-field">
+        <div class="filter-field" hidden>
           <label for="causa">Causa principal</label>
           <select id="causa">
             <option>Todas</option>
@@ -2954,7 +2952,7 @@
           </select>
         </div>
 
-        <div class="filter-field">
+        <div class="filter-field" hidden>
           <label for="tiempo-paralizado">Tiempo paralizado</label>
           <select id="tiempo-paralizado">
             <option value="todos">Todos</option>
@@ -2967,7 +2965,7 @@
           </select>
         </div>
 
-        <div class="filter-field">
+        <div class="filter-field" hidden>
           <label for="clasificacion-obras">Alertas</label>
           <select id="clasificacion-obras" aria-label="Alertas">
             <option value="todos">Todas</option>
@@ -2992,7 +2990,7 @@
         <div class="kpi-grid">
           <div class="value-box" style="border-left-color: var(--danger)">
             <p class="number" id="kpi-obras">—</p>
-            <p class="label">Obras paralizadas</p>
+            <p class="label">Obras analizadas por el modelo</p>
             <span class="sub" id="kpi-obras-sub">total de obras visibles</span>
           </div>
           <div class="value-box" style="border-left-color: var(--gfp-red)">
@@ -3032,13 +3030,11 @@
                   <button class="map-reset-btn" id="map-reset" type="button" title="Restablecer vista" aria-label="Restablecer vista">↺</button>
                 </div>
                 <div class="map-legend">
-                  <strong>Obras por costo actualizado</strong>
-                  <div class="legend-row"><span class="dot" style="background:#b91c1c"></span> &gt; 50 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#dc2626"></span> &gt; 20 - 50 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#f97316"></span> &gt; 5 - 20 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#a3e635"></span> &gt; 1 - 5 millones</div>
-                  <div class="legend-row"><span class="dot" style="background:#16a34a"></span> &lt;= 1 millón</div>
-                  <div class="legend-row" id="legend-no-cost" hidden><span class="dot" style="background:#64748b"></span> Sin costo disponible</div>
+                  <strong>Obras con probabilidad de paralización</strong>
+                  <div class="legend-row"><span class="dot" style="background:#16a34a"></span> Hasta 30%</div>
+                  <div class="legend-row"><span class="dot" style="background:#eab308"></span> Más de 30% a 50%</div>
+                  <div class="legend-row"><span class="dot" style="background:#f97316"></span> Más de 50% a 80%</div>
+                  <div class="legend-row"><span class="dot" style="background:#b91c1c"></span> Más de 80%</div>
                 </div>
                 <aside class="map-popup" id="map-popup" aria-live="polite">
                   <button class="map-popup-close" id="map-popup-close" type="button" aria-label="Cerrar información">x</button>
@@ -3068,7 +3064,7 @@
             </div>
           </section>
 
-          <section class="panelbox">
+          <section class="panelbox" hidden>
             <h3 class="section-title">Causas de paralización</h3>
             <div class="chart-bars" id="causes-chart"></div>
           </section>
@@ -3133,7 +3129,7 @@
         <div class="downloads key-documents">
           <article class="download-card">
             <h3>Metodología</h3>
-            <p>Documento metodológico del modelo de predicción de paralización de obras públicas.</p>
+            <p>Metodología del modelo predictivo de paralización de obras públicas: fuentes de información, construcción del modelo y evaluación de sus resultados.</p>
             <a class="btn secondary" href="metodologia_modelo_prediccion_20261127.pdf" download>Descargar</a>
           </article>
           <article class="download-card">
@@ -3314,7 +3310,7 @@
     </div>
   </dialog>
   <script src="assets/obras-data.js?v=exclusion-20261123"></script>
-  <script src="assets/obras-modelo-noviembre-2026.js?v=20261127-poblacion"></script>
+  <script src="assets/obras-modelo-noviembre-2026.js?v=20261127-probabilidad"></script>
   <script src="assets/indicadores.js?v=20261014"></script>
   <script src="assets/peru-shapes.js?v=20260910"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
@@ -3391,7 +3387,7 @@
     const originalWorkData = window.OBRAS_PARALIZADAS_DATA || {};
     const modelWorkData = window.OBRAS_MODELO_NOVIEMBRE_DATA || {};
     const workData = {...originalWorkData, ...modelWorkData};
-    let activeUniverse = "alertas";
+    let activeUniverse = "modelo";
     function matchesUniverse(work) {
       return activeUniverse === "modelo" ? work.universo === "modelo" : work.universo !== "modelo";
     }
@@ -3406,9 +3402,6 @@
     function updateUniversePresentation() {
       const model = activeUniverse === "modelo";
       document.querySelectorAll("[data-universe]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.universe === activeUniverse)));
-      document.getElementById("universe-context").textContent = model
-        ? "1.726 obras analizadas por el modelo · La clasificación predictiva no confirma una paralización."
-        : "1.120 obras del padrón de setiembre de 2026 · Datos y grupos de seguimiento conservados.";
       filterControls.clasificacion.closest(".filter-field").hidden = model;
       filterControls.tiempo.closest(".filter-field").hidden = model;
       filterControls.causa.closest(".filter-field").hidden = model;
@@ -3421,7 +3414,7 @@
         ? "Base del modelo: noviembre de 2026 · Seguimiento de obras públicas."
         : "Corte: Setiembre 2026 · 1.120 obras registradas para seguimiento.";
       document.querySelector('.peru-map').setAttribute('aria-label', model ? 'Mapa de obras analizadas por el modelo' : 'Mapa de obras públicas paralizadas');
-      document.getElementById('legend-no-cost').hidden = !model;
+      renderMapLegend();
     }
     function setUniverse(universe) {
       activeUniverse = universe === "modelo" ? "modelo" : "alertas";
@@ -3609,13 +3602,48 @@
       "rango-1": "#16a34a"
     };
 
-    function getMarkerStyle(cost) {
+    function getProbabilityBand(probability) {
+      if (!Number.isFinite(probability) || probability < 0 || probability > 1) return "sin-probabilidad";
+      if (probability <= 0.3) return "hasta-30";
+      if (probability <= 0.5) return "30-50";
+      if (probability <= 0.8) return "50-80";
+      return "mas-80";
+    }
+    const probabilityBands = [
+      ["hasta-30", "Hasta 30%", "#16a34a"],
+      ["30-50", "Más de 30% a 50%", "#eab308"],
+      ["50-80", "Más de 50% a 80%", "#f97316"],
+      ["mas-80", "Más de 80%", "#b91c1c"]
+    ];
+    const probabilityColors = Object.fromEntries(probabilityBands.map(([key,,color]) => [key,color]));
+    function renderMapLegend() {
+      const legend = document.querySelector('.map-legend');
+      const model = activeUniverse === "modelo";
+      const rows = model ? probabilityBands : [
+        ["rango-50-plus", "> 50 millones", costColors["rango-50-plus"]],
+        ["rango-20-50", "> 20 - 50 millones", costColors["rango-20-50"]],
+        ["rango-5-20", "> 5 - 20 millones", costColors["rango-5-20"]],
+        ["rango-1-5", "> 1 - 5 millones", costColors["rango-1-5"]],
+        ["rango-1", "≤ 1 millón", costColors["rango-1"]]
+      ];
+      const title = document.createElement('strong');
+      title.textContent = model ? 'Obras con probabilidad de paralización' : 'Obras por costo actualizado';
+      legend.replaceChildren(title);
+      rows.forEach(([key,label,color]) => {
+        const row = document.createElement('div');row.className = 'legend-row';row.dataset.band = key;
+        const dot = document.createElement('span');dot.className = 'dot';dot.style.backgroundColor = color;
+        row.append(dot,document.createTextNode(label));legend.append(row);
+      });
+    }
+    function getMarkerStyle(work) {
       const zoomDelta = Math.max(leafletMap.getZoom() - initialMapZoom, 0);
       const hasBorder = zoomDelta >= 3;
       return {
         renderer: markerRenderer,
         radius: zoomDelta > 0 ? 7 : 3.5,
-        fillColor: costColors[getCostClass(cost)],
+        fillColor: work.universo === "modelo"
+          ? (probabilityColors[getProbabilityBand(work.probabilidad_paralizacion)] || "#64748b")
+          : costColors[getCostClass(work.cost)],
         fillOpacity: 0.88,
         color: hasBorder ? "#ffffff" : "transparent",
         opacity: hasBorder ? 1 : 0,
@@ -3626,9 +3654,9 @@
 
     const markersByWork = Object.entries(workData).reduce((acc, [key, work]) => {
       if (!window.OBRAS_INDICADORES.hasCoordinates(work)) return acc;
-      const marker = L.circleMarker(work.latlng, getMarkerStyle(work.cost));
+      const marker = L.circleMarker(work.latlng, getMarkerStyle(work));
       marker.options.title = work.title;
-      marker.workCost = work.cost;
+      marker.work = work;
       marker.on("click", () => openMapPopup(key));
       acc[key] = marker;
       return acc;
@@ -3644,7 +3672,7 @@
 
     function updateMarkerZoomSize() {
       markerLayer.eachLayer((marker) => {
-        marker.setStyle(getMarkerStyle(marker.workCost));
+        marker.setStyle(getMarkerStyle(marker.work));
       });
     }
 
