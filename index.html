@@ -2780,12 +2780,13 @@
     .fen-welcome-image{display:block;width:100%;height:auto;border-radius:10px}
     .fen-welcome button{position:absolute;border:0;background:transparent;cursor:pointer;padding:0;color:transparent}
     .fen-welcome button:focus-visible{outline:3px solid #1474cc;outline-offset:3px;border-radius:6px}
-    #fen-welcome-close{top:9%;right:1.5%;width:6%;height:7%;min-width:32px;min-height:32px}
-    #fen-welcome-view{left:34.5%;top:83.7%;width:31.7%;height:10.8%;border-radius:10px}
+    #fen-welcome-close{top:2%;right:2%;width:6%;height:6%;min-width:24px;min-height:24px}
+    #fen-welcome-view{left:33.4%;top:87.4%;width:33.3%;height:8.4%;border-radius:10px}
 
     .model-notice{width:min(1040px,94vw,calc(88dvh * 1383 / 1137))}
-    #model-notice-close{top:1.5%;right:1.5%;width:5%;height:6%;min-width:32px;min-height:32px}
-    #model-notice-research{left:62%;top:86.5%;width:35.5%;height:9%;cursor:default}
+    #model-notice-close{top:2%;right:2%;width:6%;height:6%;min-width:24px;min-height:24px}
+    #model-notice-view{left:3.75%;top:86.9%;width:45.25%;height:7.7%;border-radius:10px}
+    #model-notice-research{left:51.2%;top:86.9%;width:45.1%;height:7.7%;border-radius:10px}
 
     .welcome-carousel{--stage-height:min(76dvh,calc(94vw * 946 / 1034),760px);padding:0;border:0;border-radius:10px;width:min(1000px,94vw);max-width:94vw;max-height:94dvh;background:#fff;overflow:hidden;box-shadow:0 20px 70px #0006}
     .welcome-carousel::backdrop{background:rgba(10,25,48,.65)}
@@ -2802,7 +2803,7 @@
     .welcome-controls button{min-width:40px;min-height:36px;padding:5px 10px;border:1px solid #ccd7e5;border-radius:6px;background:#fff;color:#153052;cursor:pointer;font-size:14px}
 
     /* Overlay arrows and compact dot navigation, sized to the active image. */
-    .welcome-carousel{--welcome-ratio:1383 / 1137;width:min(1000px,94vw,calc(88dvh * var(--welcome-ratio)));max-height:90dvh;background:transparent}
+    .welcome-carousel{--welcome-ratio:1;width:min(1000px,94vw,calc(88dvh * var(--welcome-ratio)));max-height:90dvh;background:transparent}
     .welcome-stage{height:auto;display:block}
     .welcome-slide,.welcome-model,.welcome-fen{width:100%}
     .welcome-slide img{border-radius:10px}
@@ -3126,7 +3127,7 @@
         <div class="report-section-head">
           <div>
             <span>Orientación técnica</span>
-            <h3>Cómo se identifican y analizan las obras paralizadas</h3>
+            <h3>Cómo se identifica el riesgo y el estado de paralización de las obras públicas paralizadas</h3>
             <p>Consulta los documentos que explican la metodología de trabajo, las fuentes utilizadas y el enfoque general del análisis.</p>
           </div>
         </div>
@@ -3292,13 +3293,14 @@
   <dialog id="welcome-carousel" class="welcome-carousel" aria-label="Avisos de GFP Subnacional" tabindex="-1">
     <div class="welcome-stage" aria-roledescription="carrusel" aria-label="Avisos destacados">
       <section class="welcome-slide welcome-model" data-slide="0" aria-label="1 de 2: Obras públicas paralizadas">
-    <img class="fen-welcome-image" src="assets/aviso-alertas-modelo.png" width="1383" height="1137" alt="Obras públicas paralizadas. Factores asociados a la paralización de obras. GFP Subnacional analiza, con modelos estadísticos y de aprendizaje automático, patrones vinculados a la paralización de obras públicas en el Perú.">
-    <p id="model-notice-description" hidden>Integra información pública de SUNAT, SEACE, CONOSCE, INFOBRAS, Invierte.pe, RENAMU y declaraciones juradas. Evalúa desempeño presupuestal, competencia en contrataciones, características de contratistas y atributos de funcionarios. Aplica regresión LASSO, Random Forest y XGBoost para distinguir obras paralizadas y en ejecución. Mide el aporte de los avances físico y financiero para fortalecer la priorización del seguimiento. Este análisis aporta evidencia para fortalecer el seguimiento preventivo de las inversiones públicas. Ver investigación aún no está disponible.</p>
+    <img class="fen-welcome-image" src="assets/aviso-modelo-predictivo-20261128.png" width="1254" height="1254" alt="¿Podemos anticipar la paralización de obras públicas en el Perú? Modelos de Machine Learning: Random Forest, XGBoost y Regresión Logística analizan variables presupuestales, contractuales y de gestión para identificar patrones tempranos de riesgo y fortalecer la supervisión preventiva. Metodología disponible para revisión y aportes: joaquin.rivadeneyra@gfpsubnacional.pe.">
+
     <button id="model-notice-close" type="button" aria-label="Cerrar información de alertas"></button>
-    <button id="model-notice-research" type="button" aria-label="Ver investigación (no disponible)" disabled></button>
+    <button id="model-notice-view" type="button" aria-label="Ver obras del modelo de predicción"></button>
+    <button id="model-notice-research" type="button" aria-label="Ver investigación: abrir metodología en una nueva pestaña"></button>
       </section>
       <section class="welcome-slide welcome-fen" data-slide="1" aria-label="2 de 2: Obras a reactivar ante El Niño" hidden>
-    <img class="fen-welcome-image" src="assets/aviso-reactivacion-fen.jpg" width="1034" height="946" alt="Presupuesto destinado: S/ 100 millones. Revisa aquí las obras que pueden reactivarse para prevenir las consecuencias del Fenómeno de El Niño.">
+    <img class="fen-welcome-image" src="assets/aviso-fen-20261128.png" width="1254" height="1254" alt="Presupuesto destinado: S/ 100 millones. Revisa aquí las obras que pueden reactivarse para prevenir las consecuencias del Fenómeno de El Niño.">
     <button id="fen-welcome-close" type="button" aria-label="Cerrar aviso"></button>
     <button id="fen-welcome-view" type="button" aria-label="Ver obras a reactivar Fenómeno El Niño"></button>
       </section>
@@ -4679,7 +4681,7 @@
     function showWelcomeSlide(index) {
       welcomeSlide = (index + welcomeSlides.length) % welcomeSlides.length;
       welcomeSlides.forEach((slide, i) => {slide.hidden = i !== welcomeSlide;});
-      welcomeCarousel.style.setProperty("--welcome-ratio", welcomeSlide === 0 ? "1383 / 1137" : "1034 / 946");
+      welcomeCarousel.style.setProperty("--welcome-ratio", "1");
       welcomeCarousel.querySelectorAll(".welcome-dot").forEach((dot, i) => dot.setAttribute("aria-current", String(i === welcomeSlide)));
     }
     function pauseWelcome() {welcomePaused = true; scheduleWelcome();}
@@ -4719,6 +4721,17 @@
       if (event.target !== welcomeCarousel && event.target !== welcomePause) pauseWelcome();
     });
     document.addEventListener("visibilitychange", scheduleWelcome);
+    document.getElementById("model-notice-view").addEventListener("click", () => {
+      closeWelcomeCarousel();
+      document.querySelector('[data-tab="dashboard"]').click();
+      setUniverse("modelo");
+      resetFilters();
+      peruMap.scrollIntoView({behavior:"smooth",block:"center"});
+    });
+    document.getElementById("model-notice-research").addEventListener("click", () => {
+      pauseWelcome();
+      window.open("metodologia_modelo_prediccion_20261127.pdf", "_blank", "noopener,noreferrer");
+    });
     document.getElementById("fen-welcome-view").addEventListener("click", () => {
       closeWelcomeCarousel();
       document.querySelector('[data-tab="dashboard"]').click();
