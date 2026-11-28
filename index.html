@@ -3133,8 +3133,8 @@
         <div class="downloads key-documents">
           <article class="download-card">
             <h3>Metodología</h3>
-            <p>Guía metodológica con fuentes de información, criterios de identificación y reglas de depuración para construir las alertas.</p>
-            <a class="btn secondary" href="metodologia_documento_final.pdf" download>Descargar</a>
+            <p>Documento metodológico del modelo de predicción de paralización de obras públicas.</p>
+            <a class="btn secondary" href="metodologia_modelo_prediccion_20261127.pdf" download>Descargar</a>
           </article>
           <article class="download-card">
             <h3>Documento de trabajo</h3>
@@ -3314,7 +3314,7 @@
     </div>
   </dialog>
   <script src="assets/obras-data.js?v=exclusion-20261123"></script>
-  <script src="assets/obras-modelo-noviembre-2026.js?v=20261127"></script>
+  <script src="assets/obras-modelo-noviembre-2026.js?v=20261127-poblacion"></script>
   <script src="assets/indicadores.js?v=20261014"></script>
   <script src="assets/peru-shapes.js?v=20260910"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
@@ -3411,10 +3411,12 @@
         : "1.120 obras del padrón de setiembre de 2026 · Datos y grupos de seguimiento conservados.";
       filterControls.clasificacion.closest(".filter-field").hidden = model;
       filterControls.tiempo.closest(".filter-field").hidden = model;
+      filterControls.causa.closest(".filter-field").hidden = model;
+      causesChart.closest(".panelbox").hidden = model;
       document.querySelector('label[for="clasificacion-obras"]').textContent = "Alertas";
-      document.querySelector('label[for="causa"]').textContent = model ? "Causal documentada" : "Causa principal";
+      document.querySelector('label[for="causa"]').textContent = "Causa principal";
       document.querySelector('#kpi-obras + .label').textContent = model ? "Obras analizadas por el modelo" : "Obras paralizadas";
-      document.querySelector('#causes-chart').previousElementSibling.textContent = model ? "Causales documentadas en el seguimiento" : "Causas de paralización";
+      document.querySelector('#causes-chart').previousElementSibling.textContent = "Causas de paralización";
       document.querySelector('#tab-dashboard .hero-blue p').textContent = model
         ? "Base del modelo: noviembre de 2026 · Seguimiento de obras públicas."
         : "Corte: Setiembre 2026 · 1.120 obras registradas para seguimiento.";
@@ -3683,7 +3685,7 @@
         && (selectedRegion === "Todos" || work.region === selectedRegion)
         && (selectedNivel === "Todos" || work.nivel === selectedNivel)
         && (selectedSector === "Todos" || work.sector === selectedSector)
-        && (selectedCausa === "Todas" || work.causa === selectedCausa)
+        && (work.universo === "modelo" || selectedCausa === "Todas" || work.causa === selectedCausa)
         && (selectedCosto === "todos" || selectedCosto === costClass)
         && (selectedTiempo === "todos" || selectedTiempo === paralysisBucket)
         && (filterControls.clasificacion.value === "todos" || (work.clasificaciones || []).includes(filterControls.clasificacion.value));
@@ -3757,6 +3759,10 @@
     }
 
     function populateCauseFilter() {
+      if (activeUniverse === "modelo") {
+        filterControls.causa.replaceChildren(new Option("Todas", "Todas"));
+        return;
+      }
       const counts = Object.values(workData).filter(matchesUniverse).reduce((acc, work) => {
         acc[work.causa] = (acc[work.causa] || 0) + 1;
         return acc;
@@ -3828,7 +3834,7 @@
       kpiEls.personas.title = people === null ? "Sin datos" : people.toLocaleString("es-PE");
       document.getElementById("kpi-saldo-sub").textContent = `Sin duplicar CUI · ${saldo.missing} inversiones sin saldo disponible`;
       document.getElementById("kpi-inversion-sub").textContent = investment.missing ? `Sin duplicar CUI · ${investment.missing} sin costo disponible` : "costo actualizado sin duplicar CUI";
-      document.getElementById("kpi-personas-sub").textContent = activeUniverse === "modelo" ? "No disponible en la base del modelo" : "Fuente: SSI";
+      document.getElementById("kpi-personas-sub").textContent = "Fuente: SSI";
       kpiEls.regionales.textContent = regional.toLocaleString("es-PE");
       kpiEls.regionalesSub.textContent = `${scoped} | GR: ${regionalGov.toLocaleString("es-PE")} | GL: ${localGov.toLocaleString("es-PE")}`;
     }
@@ -3839,6 +3845,7 @@
 
     function updateCauseChart(visibleWorks) {
       causesChart.replaceChildren();
+      if (activeUniverse === "modelo") return;
       if (!visibleWorks.length) {
         causesChart.textContent = "Sin obras para los filtros seleccionados.";
         return;
@@ -3863,7 +3870,6 @@
       const summary = document.createElement("p");
       summary.className = "cause-chart-summary";
       summary.textContent = `${visibleWorks.length.toLocaleString("es-PE")} obras · Porcentaje sobre las obras de los filtros activos. Pulsa una causal para filtrar el mapa.`;
-      if (activeUniverse === "modelo") summary.textContent += " Incluye antecedentes y restricciones documentadas; consulta su fecha en la ficha.";
       causesChart.append(summary);
       const bars = document.createElement("div");bars.className = "cause-columns";
       bars.style.setProperty("--cause-columns", rows.length);
