@@ -473,6 +473,10 @@
       margin: 5px 0;
       color: #344054;
     }
+    .map-legend.probability-legend{background:#fff;padding:11px 13px;font-size:13px;line-height:1.35;box-shadow:0 2px 8px #102b4820}
+    .probability-legend strong{display:block;margin-bottom:8px;color:#17365b;font-size:13px;line-height:1.35}
+    .probability-legend .legend-row{margin:6px 0;color:#243b53;font-weight:600;white-space:nowrap}
+    .probability-legend .dot{width:11px;height:11px;flex:0 0 11px}
 
     .map-popup {
       position: absolute;
@@ -3029,12 +3033,12 @@
                   <button class="map-fullscreen-btn" id="map-fullscreen" type="button" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
                   <button class="map-reset-btn" id="map-reset" type="button" title="Restablecer vista" aria-label="Restablecer vista">↺</button>
                 </div>
-                <div class="map-legend">
+                <div class="map-legend probability-legend">
                   <strong>Obras con probabilidad de paralización</strong>
-                  <div class="legend-row"><span class="dot" style="background:#16a34a"></span> Hasta 30%</div>
-                  <div class="legend-row"><span class="dot" style="background:#eab308"></span> Más de 30% a 50%</div>
-                  <div class="legend-row"><span class="dot" style="background:#f97316"></span> Más de 50% a 80%</div>
-                  <div class="legend-row"><span class="dot" style="background:#b91c1c"></span> Más de 80%</div>
+                  <div class="legend-row"><span class="dot" style="background:#5f8f7a"></span> ≤ 30%</div>
+                  <div class="legend-row"><span class="dot" style="background:#eab308"></span> &gt; 30% – 50%</div>
+                  <div class="legend-row"><span class="dot" style="background:#f97316"></span> &gt; 50% – 80%</div>
+                  <div class="legend-row"><span class="dot" style="background:#b91c1c"></span> &gt; 80%</div>
                 </div>
                 <aside class="map-popup" id="map-popup" aria-live="polite">
                   <button class="map-popup-close" id="map-popup-close" type="button" aria-label="Cerrar información">x</button>
@@ -3610,15 +3614,16 @@
       return "mas-80";
     }
     const probabilityBands = [
-      ["hasta-30", "Hasta 30%", "#16a34a"],
-      ["30-50", "Más de 30% a 50%", "#eab308"],
-      ["50-80", "Más de 50% a 80%", "#f97316"],
-      ["mas-80", "Más de 80%", "#b91c1c"]
+      ["hasta-30", "≤ 30%", "#5f8f7a"],
+      ["30-50", "> 30% – 50%", "#eab308"],
+      ["50-80", "> 50% – 80%", "#f97316"],
+      ["mas-80", "> 80%", "#b91c1c"]
     ];
     const probabilityColors = Object.fromEntries(probabilityBands.map(([key,,color]) => [key,color]));
     function renderMapLegend() {
       const legend = document.querySelector('.map-legend');
       const model = activeUniverse === "modelo";
+      legend.classList.toggle('probability-legend',model);
       const rows = model ? probabilityBands : [
         ["rango-50-plus", "> 50 millones", costColors["rango-50-plus"]],
         ["rango-20-50", "> 20 - 50 millones", costColors["rango-20-50"]],
@@ -3638,12 +3643,24 @@
     function getMarkerStyle(work) {
       const zoomDelta = Math.max(leafletMap.getZoom() - initialMapZoom, 0);
       const hasBorder = zoomDelta >= 3;
+      if (work.universo === "modelo") {
+        const band = getProbabilityBand(work.probabilidad_paralizacion);
+        const rank = Math.max(0, probabilityBands.findIndex(([key]) => key === band));
+        const zoomGrowth = Math.min(3.5, zoomDelta * 0.8);
+        return {
+          renderer: markerRenderer,
+          radius: 2.8 + rank * 0.65 + zoomGrowth,
+          fillColor: probabilityColors[band] || "#64748b",
+          fillOpacity: rank === 0 ? (zoomDelta >= 3 ? 0.75 : 0.5) : 0.9,
+          color: "#ffffff", opacity: rank > 0 || hasBorder ? 0.85 : 0,
+          weight: rank > 0 || hasBorder ? 0.8 : 0,
+          bubblingMouseEvents: false
+        };
+      }
       return {
         renderer: markerRenderer,
         radius: zoomDelta > 0 ? 7 : 3.5,
-        fillColor: work.universo === "modelo"
-          ? (probabilityColors[getProbabilityBand(work.probabilidad_paralizacion)] || "#64748b")
-          : costColors[getCostClass(work.cost)],
+        fillColor: costColors[getCostClass(work.cost)],
         fillOpacity: 0.88,
         color: hasBorder ? "#ffffff" : "transparent",
         opacity: hasBorder ? 1 : 0,
@@ -3664,7 +3681,9 @@
 
     function syncMarkerLayer(visibleWorkKeys) {
       markerLayer.clearLayers();
-      visibleWorkKeys.forEach((key) => {
+      const orderedKeys = [...visibleWorkKeys];
+      if (activeUniverse === "modelo") orderedKeys.sort((a,b) => workData[a].probabilidad_paralizacion - workData[b].probabilidad_paralizacion);
+      orderedKeys.forEach((key) => {
         if (markersByWork[key]) markerLayer.addLayer(markersByWork[key]);
       });
       if (!leafletMap.hasLayer(markerLayer)) markerLayer.addTo(leafletMap);
